@@ -1,5 +1,5 @@
 <template>
-  <div id="UpcomingGames" class="plain prime">
+  <div id="UpcomingGames" class="plain prime" v-if="games.length>0">
     <h2>Programme CabalVision</h2>
     <p v-if="games.length==0">Aucun match de programmé pour le moment.</p>
     <div v-for="day in games" :key="day.day" style="display:inline-flex;">
@@ -24,19 +24,8 @@
 
 export default {
   name: 'UpcomingGames',
-  props: {},
-  data() {
-    return {
-      games:{}
-    }
-  },
-  mounted () {
-    //Récupération de l'agenda en JSON
-    this.$http.get("http://bbbl.fr/backend/vue-routes.php?action=upcomingGames").then( result => {
-      this.games = result.data;
-    }, error => {
-      console.error(error);
-    });
+  props: {
+    games: Object
   }
 }
 </script>

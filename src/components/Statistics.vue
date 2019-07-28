@@ -3,7 +3,8 @@
     <div class="veil" v-show="modal == true" @click="modalView"></div>
     <div class="card plain seconde" :class="{ modal: modal == true }">
       <h3>{{statistics.type | talkingToTheGods()}}</h3>
-      <div class="scroll">
+      <div v-if="statistics.players.length > 0">
+        <div class="scroll">
         <table class="mainStats">
           <thead>
             <tr class="background">
@@ -19,8 +20,12 @@
           </tbody>
         </table>
       </div>
-      <div class="spacer"></div>
-      <div class="button" v-on:click="modalView">{{buttonText}}</div>
+        <div class="spacer"></div>
+        <div class="button" v-on:click="modalView">{{buttonText}}</div>
+      </div>
+      <div v-else>
+        <p>Aucun résultat pour le moment</p>
+      </div>
     </div>
   </div>
 </template>
@@ -61,6 +66,7 @@
     border:none;
   }
   .modal {
+    display: inline-block;
     position:fixed;
     margin: 0px 10vw;
     padding: 1vh 2vw 0px;

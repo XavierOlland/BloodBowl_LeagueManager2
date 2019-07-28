@@ -2,8 +2,8 @@
   <div id="HeaderNav">
       <div id="Intro" class="hd-100 x-center y-center">la Blood Bowl Baston League pr&eacute;sente</div>
       <nav class="navbar" ng-style="colours[0].border">
-        <div id="Logo" v-if="logo==true" class="logo" ng-click="goToPage('/')"></div>
-        <h1 class="navbar-brand inline text-cutter">{{ title }}</h1>
+        <div id="Logo" v-if="logo==true" class="logo" @click="$router.push('/')">x</div>
+        <h1 class="navbar-brand inline text-cutter">{{ title }} {{logo}}</h1>
         <ul class="nav navbar-nav inline collapse navbar-toggleable-md pull-xs-right" id="Menu">
           <li><a class="nav" href="Forum">Forum</a></li>
           <li class="d-sm-down"><a class="nav" href="steam://run/236690">Jouer</a></li>
@@ -19,9 +19,18 @@
 export default {
   name: 'HeaderNav',
   props: {
-    title: String,
-    logo: Boolean
+    title: String
   },
+  computed:{
+    logo() {
+      return this.$router.currentRoute.to!='Home'
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      this.logo = to.name == 'Home'? false:true;
+    }
+  }
 
 }
 </script>

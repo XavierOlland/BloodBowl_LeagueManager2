@@ -1,5 +1,6 @@
 <template>
   <div id="Landing" class="view container">
+    <Modal v-if="modal == true"/>
     <div class="row">
       <div class="col-xl-3 hidden-lg-down">
         <div class="image">
@@ -54,7 +55,7 @@
           <div class="spacer"></div>
           <router-link class="button" :to="{ name: 'Competition', params: { id: competition.id }}">La Compétition</router-link>
         </div>
-        <UpcomingGames/>
+        <UpcomingGames :games="upcomingGames"/>
       </div>
 
       <div class="col-lg-3 stick-right hidden-md-down" >
@@ -71,6 +72,7 @@ import UpcomingGames from '../components/UpcomingGames.vue'
 import CompetitionStanding from '../components/CompetitionStanding.vue'
 import Champion from '../components/Champion.vue'
 import Statistics from '../components/Statistics.vue'
+import Modal from '../components/Modal.vue'
 
 export default {
   name: 'Home',
@@ -81,24 +83,25 @@ export default {
     Statistics
   },
   props: {
-    msg: String,
+    msg: String
   },
   data(){
     return {
       admin: 0,
-      leagueStats: {
-      },
-      competitions: []
+      modal: false
     }
   },
-  mounted() {
-      this.$http.get("http://bbbl.fr/backend/vue-routes.php?action=boot").then( response => {
-        this.$data.leagueStats = response.data.stats;
-        this.$data.competitions = response.data.competitions;
-      }, error => {
-        console.error(error);
-      });
+  computed: {
+    competitions() {
+      return this.$store.state.competitions;
+    },
+    leagueStats() {
+      return this.$store.state.statistics;
+    },
+    upcomingGames() {
+      return this.$store.getters.upcomingGames;
     }
+  }
 }
 </script>
 

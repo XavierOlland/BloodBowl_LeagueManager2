@@ -42,7 +42,7 @@
       MatchPreview
     },
     props: {
-              dictionnary: Array
+      dictionnary: Array
     },
     data(){
       return {
@@ -53,7 +53,6 @@
         matchesToSave: [],
         saving: false,
         modal: false
-
       }
     },
     methods: {

@@ -7,9 +7,9 @@
     <hr>
     <h2 ng-style="colours[0].color">Cysterion</h2>
     <div class="spacer"></div>
-    <div class="button">
+    <!--div class="button">
       la compétition
-    </div>
+    </div-->
   </div>
 </template>
 
@@ -22,8 +22,6 @@ export default {
     return {
       champion:{}
     }
-  },
-  mounted () {
   }
 }
 </script>

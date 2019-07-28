@@ -14,11 +14,17 @@ const data = axios.get("http://bbbl.fr/backend/vue-routes.php?action=boot")
 
 export default new Vuex.Store({
   state: {
-    dictionnary: []
+    dictionnary: [],
+    competitions: [],
+    statistics: [],
+    calendar: {}
   },
   getters: {
     getTranslation: (state) => (name) => {
       return state.dictionnary.find(param => param.name == name ).translation;
+    },
+    upcomingGames: (state) => {
+      return state.calendar;
     }
   },
   mutations: {
@@ -27,18 +33,34 @@ export default new Vuex.Store({
     },
     setCompetitions(state,payload) {
       state.competitions = payload;
+    },
+    setStatistics(state,payload) {
+      state.statistics = payload;
+    },
+    setCalendar(state,payload) {
+      state.calendar = payload;
     }
   },
   actions: {
     boot(context){
-      axios.get("http://bbbl.fr/backend/vue-routes.php?action=boot")
+      axios.get(process.env.VUE_APP_BACKENDURL + "action=boot")
         .then(response => {
           context.commit('setDictionnary', response.data.parameters);
           context.commit('setCompetitions', response.data.competitions);
+          context.commit('setStatistics', response.data.stats);
         }, error => {
           console.error(error);
         });
-    }
+    },
+    upcomingGames(context){
+      axios.get(process.env.VUE_APP_BACKENDURL + "action=upcomingGames")
+        .then(response => {
+          const calendar = response.data? repsonse.data : {};
+          context.commit('setCalendar', calendar);
+        }, error => {
+          console.error(error);
+        });
+    },
 
   }
 })

@@ -2,24 +2,12 @@
   <div id="Modal" class="modal-backdrop">
     <div class="modal">
       <slot name="header">
-        <button
-                    type="button"
-                    class="btn-close"
-                    @click="close"
-                  >
-                    x
-                  </button>
-hfgdskljhsdfkglh
-            </slot>
-
-      <slot name="body">
+        <button type="button" class="btn-close" @click="close">x</button>
       </slot>
-
-      <slot name="footer">
-      </slot>
+      <slot name="body"></slot>
+      <slot name="footer"></slot>
     </div>
   </div>
-
 </template>
 
 <script>
