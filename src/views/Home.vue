@@ -1,18 +1,149 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="Landing" class="view container">
+    <div class="row">
+      <div class="col-xl-3 hidden-lg-down">
+        <div class="image">
+          <img src="../assets/league/Logo_M.png">
+        </div>
+
+        <div class="plain seconde">
+          <h3>La BBBL c'est</h3>
+          <ul class="hallOfFame list-unstyled">
+            <li><h3>{{leagueStats.coachs}}</h3> coachs actifs,</li>
+            <li><h3>{{leagueStats.matches}}</h3> matchs,</li>
+            <li><h3>{{leagueStats.TD}}</h3> touchdowns,</li>
+            <li><h3>{{leagueStats.casualties}}</h3> sorties</li>
+            <li>et <h3>{{leagueStats.death}}</h3> morts...</li>
+          </ul>
+          <p>La BBBL c'est du sang, de la violence, des indiens... Chaque jour que les dieux font, nous nous echarpons joyeusement sur les terrains.</p>
+          <p>Mais toi le visiteur, toi le coach, toi le paria, toi aussi tu peux venir cramponner dans nos rangs.</p>
+          <p>Il te suffit de t'inscrire sur notre forum et de remplir le formulaire 22X47B, ainsi que l'appendice 42 et verser les 51 pièces d'or nécessaires au gobelin comptable de permanence.</p>
+          <div class="spacer"></div>
+          <a class="button" href="Forum" v-if="admin!=1">
+            Découvrir
+          </a>
+          <a class="button" ng-click="goToPage('admin')" v-if="admin==1">
+            Administrer
+          </a>
+        </div>
+
+        <div class="plain seconde" ng-style="colours[1].border">
+          <h3>Légendaires</h3>
+          <p>Woody Roots Bush Bombers, Darkside Magic, Rats Fils Tauleurs... Ces équipes comme beaucoup d'autres ont marqué de leur empreinte la BBBL.<br/>
+          Tribunes vous offres aujourd'hui un accés illimité à l'Histoire de la ligue</p>
+          <div class="spacer"></div>
+          <div class="button" ng-click="goToPage('archives')">
+            les Archives
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-xl-6 col-lg-9">
+
+        <div class="col-sm quote">
+            <h1>"J'ai aimé cette ligue comme je n'ai jamais aimé aucune femme..."</h1>
+            <p>Coach Jahstrad, peu avant sa disparition</p>
+        </div>
+
+        <div class="w-100"></div>
+        <!-- Competitions -->
+        <div class="plain prime" v-for="competition in competitions" :key="competition.id">
+          <h2>{{competition.site_name}}</h2>
+          <CompetitionStanding :competition="competition.standing" :limit="5"/>
+          <div class="spacer"></div>
+          <router-link class="button" :to="{ name: 'Competition', params: { id: competition.id }}">La Compétition</router-link>
+        </div>
+        <UpcomingGames/>
+      </div>
+
+      <div class="col-lg-3 stick-right hidden-md-down" >
+          <Champion/>
+          <Statistics v-for="stat in leagueStats.playersStats" :key="stat.type" :statistics="stat" :limit="3" />
+      </div>
+
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import UpcomingGames from '../components/UpcomingGames.vue'
+import CompetitionStanding from '../components/CompetitionStanding.vue'
+import Champion from '../components/Champion.vue'
+import Statistics from '../components/Statistics.vue'
 
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
-    HelloWorld
-  }
+    UpcomingGames,
+    CompetitionStanding,
+    Champion,
+    Statistics
+  },
+  props: {
+    msg: String,
+  },
+  data(){
+    return {
+      admin: 0,
+      leagueStats: {
+      },
+      competitions: []
+    }
+  },
+  mounted() {
+      this.$http.get("http://bbbl.fr/backend/vue-routes.php?action=boot").then( response => {
+        this.$data.leagueStats = response.data.stats;
+        this.$data.competitions = response.data.competitions;
+      }, error => {
+        console.error(error);
+      });
+    }
 }
 </script>
+
+<style lang="scss" scoped>
+  .row > div {
+    padding:0;
+  }
+  .image {
+    position:relative;
+    margin:20px 0px;
+    text-align: center;}
+  .image > img {
+    width:100%;
+    height:auto;
+    margin: 0;
+  }
+  .quote {
+    padding: 40px 20px;
+  }
+  .quote h1 {
+    font-size: 60px;
+    font-family: 'Niconne', cursive;
+    color: #FFF;
+    text-shadow: 0 2px 4px #000;
+    }
+  .quote p, .quote p a {
+    font-size: 30px;
+    line-height: 30px;
+    font-family: 'Niconne', cursive;
+    text-align: right;
+    display:inherit;
+    color:#ccc;
+    text-shadow: 0 2px 2px #333;
+  }
+  .quote p a {
+    text-decoration: underline;
+  }
+  ul.hallOfFame {
+    font-family:'Muli';
+    font-weight: 700;
+    font-size: 1em;
+    line-height: 1.2;
+    margin:0 0 10px;
+    color: #ffffff;
+    text-indent: 10px;
+    text-transform: uppercase;
+  }
+</style>

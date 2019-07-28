@@ -1,29 +1,7 @@
-# test2
+# leaguemanager2
 
-## Project setup
-```
-npm install
-```
+Version 2.0.0 - Point Zero
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Moving to vue
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+More to say when everything is correctly set ;)
