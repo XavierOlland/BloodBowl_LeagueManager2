@@ -14,14 +14,6 @@ Settings.defaultLocale = 'fr'
 Vue.use(Datetime)*/
 
 Vue.config.productionTip = false
-Vue.prototype.$http = axios
-
-Vue.prototype.$http.get("http://bbbl.fr/backend/vue-routes.php?action=boot")
-  .then(response => {
-    Vue.dictionnary = Vue.prototype.dictionnary = response.data.parameters;
-  }, error => {
-    console.error(error);
-  });
 
 /**
  * Vue filter to get the literal name of game elements (Champions' names, injuries, etc)

@@ -41,12 +41,10 @@
       </div>
 
       <div class="col-xl-6 col-lg-9">
-
         <div class="col-sm quote">
             <h1>"J'ai aimé cette ligue comme je n'ai jamais aimé aucune femme..."</h1>
             <p>Coach Jahstrad, peu avant sa disparition</p>
         </div>
-
         <div class="w-100"></div>
         <!-- Competitions -->
         <div class="plain prime" v-for="competition in competitions" :key="competition.id">
@@ -80,7 +78,8 @@ export default {
     UpcomingGames,
     CompetitionStanding,
     Champion,
-    Statistics
+    Statistics,
+    Modal
   },
   props: {
     msg: String
@@ -112,32 +111,33 @@ export default {
   .image {
     position:relative;
     margin:20px 0px;
-    text-align: center;}
-  .image > img {
-    width:100%;
-    height:auto;
-    margin: 0;
+    text-align: center;
+    img {
+      width:100%;
+      height:auto;
+      margin: 0;
+    }
   }
   .quote {
     padding: 40px 20px;
-  }
-  .quote h1 {
-    font-size: 60px;
-    font-family: 'Niconne', cursive;
-    color: #FFF;
-    text-shadow: 0 2px 4px #000;
+    h1 {
+      font-size: 60px;
+      font-family: 'Niconne', cursive;
+      color: #FFF;
+      text-shadow: 0 2px 4px #000;
     }
-  .quote p, .quote p a {
-    font-size: 30px;
-    line-height: 30px;
-    font-family: 'Niconne', cursive;
-    text-align: right;
-    display:inherit;
-    color:#ccc;
-    text-shadow: 0 2px 2px #333;
-  }
-  .quote p a {
+    p, p a {
+      font-size: 30px;
+      line-height: 30px;
+      font-family: 'Niconne', cursive;
+      text-align: right;
+      display:inherit;
+      color:#ccc;
+      text-shadow: 0 2px 2px #333;
+    }
+    p a {
     text-decoration: underline;
+    }
   }
   ul.hallOfFame {
     font-family:'Muli';
