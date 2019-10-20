@@ -74,8 +74,7 @@
             $scope.finals.splice($scope.calendar.length);
             $scope.finals.reverse();
           };*/
-          //Si la saison est finie ou fait moins de 6 journées on affiche la totalité du calendrier
-
+          
           if (this.competition.format != 'ladder') {
             for (var i = 0; this.calendar.length > i; i++) {
               var matches = this.calendar[i].matchs;
