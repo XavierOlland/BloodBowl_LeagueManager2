@@ -98,7 +98,7 @@ export default {
       return this.$store.state.statistics;
     },
     upcomingGames() {
-      return this.$store.getters.upcomingGames;
+      return this.$store.state.calendar;
     }
   }
 }

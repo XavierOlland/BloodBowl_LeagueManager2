@@ -2,15 +2,13 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store/index.js'
-/*import dayjs from 'vue-dayjs'
-import 'dayjs/locale/fr'
-import Datetime from 'vue-datetime'
 
-import 'vue-datetime/dist/vue-datetime.css'
-import { Settings } from 'luxon'
+const moment = require('moment')
+require('moment/locale/fr')
 
-Settings.defaultLocale = 'fr'
-Vue.use(Datetime)*/
+Vue.use(require('vue-moment'), {
+	moment
+})
 
 Vue.config.productionTip = false
 
@@ -20,7 +18,7 @@ Vue.config.productionTip = false
  * @param {Object} dictionnary  The object containing the names
  */
 Vue.filter('talkingToTheGods', function(value) {
-  return store.getters.getTranslation(value);
+	return store.getters.getTranslation(value);
 })
 
 /**
@@ -29,21 +27,21 @@ Vue.filter('talkingToTheGods', function(value) {
  * @param {Number} decimals The number of decimal places.
  */
 Vue.filter('round', function(value, decimals) {
-  value = !value?0:value;
-  decimals = !decimals?0:decimals;
-  var roundedValue = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
-  return roundedValue;
+	value = !value ? 0 : value;
+	decimals = !decimals ? 0 : decimals;
+	var roundedValue = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
+	return roundedValue;
 });
 
 Vue.filter('dateTime', function(date) {
-  return 1
+	return 1
 });
 
 
 
 new Vue({
-    router,
-    store,
-    render: h => h(App)
-})
-.$mount('#app')
+		router,
+		store,
+		render: h => h(App)
+	})
+	.$mount('#app')
