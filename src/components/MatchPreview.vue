@@ -1,7 +1,7 @@
 <template>
   <div id="MatchPreview" @click="matchDetails" class="vs match x-center" :class="{ zelda: match.cyanide_id }">
     <div >
-      <p v-if="match.started != null">{{match.started}}</p>
+      <p v-if="match.started != null">{{match.started | moment("D MMM HH:mm")}}</p>
     </div>
     <div>
       <img :src="require('../assets/logos/Logo_' + match.logo_1 + '.png')">
@@ -15,33 +15,33 @@
 </template>
 
 <script>
+  const moment = require('moment')
 
-
-export default {
-  name: 'MatchPreview',
-  props: {
-    currentDay: Number,
-    match: Object,
-    round: Number
-  },
-  data() {
-    return{
-      datetime: null
-    }
-  },
-  methods: {
-    matchDetails() {
-      if (this.match.cyanide_id) {
-        this.$router.push({ name: 'Match', params: { id:this.match.id } })
+  export default {
+    name: 'MatchPreview',
+    props: {
+      currentDay: Number,
+      match: Object,
+      round: Number
+    },
+    data() {
+      return{
+        datetime: null
       }
-      /*else if (($rootScope.coach_cyanide_id == match.coach_id_1 || $rootScope.coach_cyanide_id == match.coach_id_2) && match.started == null) {
-          //Set date
-          //else bet functions
-      }*/
+    },
+    methods: {
+      matchDetails() {
+        if (this.match.cyanide_id) {
+          this.$router.push({ name: 'Match', params: { id:this.match.id } })
+        }
+        /*else if (($rootScope.coach_cyanide_id == match.coach_id_1 || $rootScope.coach_cyanide_id == match.coach_id_2) && match.started == null) {
+            //Set date
+            //else bet functions
+        }*/
+      }
     }
-  }
 
-}
+  }
 </script>
 
 <style lang="scss" scoped>
