@@ -110,7 +110,7 @@
 
 <style lang="scss" scoped>
   .vs {
-    padding: 0;
+    padding: 0.2em;
   }
   .card-columns {
     column-count: 2;
@@ -121,10 +121,10 @@
     }
   }
   .current {
-    background: var(--focus-bg);
+    background: $focus-bg;
   }
   .current h3 {
-    color: var(--focus-contrast);
+    color: $focus-color;
   }
   .card-columns .card {
     width: calc(100% - 20px);

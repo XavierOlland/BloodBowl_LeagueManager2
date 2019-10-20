@@ -55,7 +55,7 @@
     width:100%;
     font-family: 'Muli';
     font-size: 20px;
-    color: #FFF;
+    color: $prime-text;
     line-height: 24px !important;
     font-weight: 400;
     vertical-align: middle;
@@ -65,15 +65,11 @@
     border-radius: 5px;
     border:1px solid transparent;}
   .vs:hover {
-    background: #000000;
-    border: 1px solid var(--prime-color);
+    background: $prime-bg;
+    border: 1px solid $prime-color;
   }
   p {
     margin-bottom: 0.5em;
-    color: #EEE;
-  }
-  .current .vs:hover {
-    background: var(--prime-color);
-    border: 1px solid #444;
+    color: $prime-text;
   }
 </style>
