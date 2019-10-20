@@ -17,7 +17,7 @@
       </div>
       <div class="col-lg-5">
         <div v-for="day in calendar" :key="day.round" v-show="day.round <= displayDay || displayDay==0" class="plain prime" :class="{ current: day.round == currentDay}">
-          <div v-if="day.round == currentDay && displayDay != 0" class="topright zelda" v-on:click="fullCalendar()">Calendrier complet</div>
+          <div v-if="day.round == currentDay && displayDay != 0" class="topright zelda" @click="fullCalendar()">Calendrier complet</div>
           <h3>Journée {{day.round}}</h3>
           <div v-for="match in day.matchs" :key="match.id" :title="match.name_1 + ' VS ' + match.name_2" class="vs d-inline-flex col-lg-6 col-xl-4">
             <MatchPreview :match="match" :round="day.round" />
@@ -50,7 +50,8 @@
         admin: 0,
         matchesToSave: [],
         saving: false,
-        modal: false
+        modal: false,
+        displayDay: 0
       }
     },
     computed:{
@@ -62,9 +63,6 @@
       },
       currentDay(){
         return this.calendar[0].currentDay
-      },
-      displayDay(){
-        return (this.calendar.length < 6 || !this.currentDay) ? 0 : this.currentDay
       }
     },
     methods: {
@@ -105,6 +103,7 @@
     },
     mounted() {
       this.$store.dispatch('competition/fetchCompetition',this.$route.params.id);
+      this.displayDay = (this.calendar.length < 6 || !this.currentDay) ? 0 : this.currentDay;
     }
   }
 </script>
