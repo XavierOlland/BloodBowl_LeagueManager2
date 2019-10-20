@@ -51,6 +51,7 @@
         matchesToSave: [],
         saving: false,
         modal: false,
+        currentDay: 0,
         displayDay: 0
       }
     },
@@ -66,28 +67,6 @@
       }
     },
     methods: {
-      competitionCalendar() {
-        this.$http.post('http://bbbl.fr/backend/vue-routes.php?action=competitionCalendar', [this.$route.params.id ], { headers: { "content-type": "application/x-www-form-urlencoded" } }).then( response => {
-
-          /*if (competition.competition_mode == 'Coupe') {
-            $scope.finals = $rootScope.finalsTemplate;
-            $scope.finals.splice($scope.calendar.length);
-            $scope.finals.reverse();
-          };*/
-          
-          if (this.competition.format != 'ladder') {
-            for (var i = 0; this.calendar.length > i; i++) {
-              var matches = this.calendar[i].matchs;
-              for (var j = 0; matches.length > j; j++) {
-                if (matches[j].cyanide_id == null) {
-                  this.matchesToSave.push(matches[j].contest_id)
-                }
-              }
-            }
-          }
-          this.saving = false;
-        });
-      },
       competitionUpdate() {
         this.saving = true;
         var params = [window.Cyanide_Key, window.Cyanide_League, this.competition.game_name, this.competition.id, this.matchesToSave, this.competition.format, this.currentDay];
@@ -101,8 +80,13 @@
       }
     },
     mounted() {
-      this.$store.dispatch('competition/fetchCompetition',this.$route.params.id);
-      this.displayDay = (this.calendar.length < 6 || !this.currentDay) ? 0 : this.currentDay;
+      this.$store.dispatch('competition/fetchCompetition',this.$route.params.id)
+    },
+    watch: {
+      calendar: function (val) {
+        this.currentDay = this.calendar[0].currentDay;
+        this.displayDay = (this.calendar.length < 6 || !this.currentDay) ? 0 : this.currentDay;
+      }
     }
   }
 </script>
