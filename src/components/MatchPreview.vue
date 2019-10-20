@@ -24,11 +24,6 @@
       match: Object,
       round: Number
     },
-    data() {
-      return{
-        datetime: null
-      }
-    },
     methods: {
       matchDetails() {
         if (this.match.cyanide_id) {
