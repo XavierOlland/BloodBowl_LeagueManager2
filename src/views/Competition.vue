@@ -5,7 +5,7 @@
       <div class="col-lg-7">
         <div class="plain prime">
           <h2>Classement</h2>
-          <CompetitionStanding :competition="competition.standing" :details="true" :limit="10"/>
+          <CompetitionStanding :competition="competition.standing" :details="true" :limit="100"/>
           <div class="spacer"></div>
           <div class="button" @click="competitionUpdate">
             Mettre à jour
@@ -39,7 +39,8 @@
     components: {
       CompetitionStanding,
       Statistics,
-      MatchPreview
+      MatchPreview,
+      Modal
     },
     props: {
       dictionnary: Array
@@ -47,38 +48,35 @@
     data(){
       return {
         admin: 0,
-        competition: {},
-        calendar: [],
-        displayDay: 0,
         matchesToSave: [],
         saving: false,
         modal: false
       }
     },
-    methods: {
-      competitionFetch() {
-        this.$http.post('http://bbbl.fr/backend/vue-routes.php?action=competition', { id: this.$route.params.id }, { headers: { "content-type": "application/x-www-form-urlencoded" } }).then( response => {
-          this.competition = response.data;
-          if (this.competition.format == 'Sponsors') {
-            //$scope.sponsorsCalendarUpdate(competition)
-          } else {
-            this.competitionCalendar();
-          }
-        }, error => {
-          console.error(error);
-        });
+    computed:{
+      competition(){
+        return this.$store.state.competition.competition;
       },
+      calendar(){
+        return this.$store.state.competition.calendar;
+      },
+      currentDay(){
+        return this.calendar[0].currentDay
+      },
+      displayDay(){
+        return (this.calendar.length < 6 || !this.currentDay) ? 0 : this.currentDay
+      }
+    },
+    methods: {
       competitionCalendar() {
         this.$http.post('http://bbbl.fr/backend/vue-routes.php?action=competitionCalendar', [this.$route.params.id ], { headers: { "content-type": "application/x-www-form-urlencoded" } }).then( response => {
-          this.calendar = response.data.slice().reverse();
+
           /*if (competition.competition_mode == 'Coupe') {
             $scope.finals = $rootScope.finalsTemplate;
             $scope.finals.splice($scope.calendar.length);
             $scope.finals.reverse();
           };*/
           //Si la saison est finie ou fait moins de 6 journées on affiche la totalité du calendrier
-          this.currentDay = this.calendar[0].currentDay;
-          this.displayDay = (this.calendar.length < 6 || !this.currentDay) ? 0 : this.currentDay
 
           if (this.competition.format != 'ladder') {
             for (var i = 0; this.calendar.length > i; i++) {
@@ -98,7 +96,7 @@
         var params = [window.Cyanide_Key, window.Cyanide_League, this.competition.game_name, this.competition.id, this.matchesToSave, this.competition.format, this.currentDay];
         this.$http.post('http://bbbl.fr/backend/vue-routes.php?action=competitionUpdate', params)
           .then(response => {
-            competitionFetch();
+
         });
       },
       fullCalendar() {
@@ -106,7 +104,7 @@
       }
     },
     mounted() {
-      this.competitionFetch();
+      this.$store.dispatch('competition/fetchCompetition',this.$route.params.id);
     }
   }
 </script>

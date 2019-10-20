@@ -27,13 +27,13 @@ export default {
   props: {
     title: String
   },
-  computed:{
-    logo() {
-      return this.$router.currentRoute.name!='Home'
+  data(){
+    return{
+      logo: this.$router.currentRoute.name!='Home'
     }
   },
   watch: {
-    '$route' (to, from) {
+    '$route' (to) {
       this.logo = to.name == 'Home'? false:true;
     }
   }

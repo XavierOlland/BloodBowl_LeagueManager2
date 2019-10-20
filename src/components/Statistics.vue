@@ -13,7 +13,7 @@
             </tr>
           </thead>
           <tbody class="noselect">
-            <tr class="playerDetails" v-for="player in statistics.players.slice(0,limit)" :key="player.player">
+            <tr class="playerDetails" v-for="player in statistics.players.slice(0,max)" :key="player.player">
               <td class="text-left text-cutter">{{player.name}}</td>
               <td class="text-center" >{{player.stat0}}</td>
             </tr>
@@ -40,7 +40,8 @@
     data() {
       return {
         modal:false,
-        buttonText: "Plus de stats"
+        buttonText: "Plus de stats",
+        max:this.limit
       }
     },
     computed: {
@@ -49,7 +50,7 @@
     methods: {
       modalView() {
         this.modal = !this.modal;
-        this.limit = (this.limit == 3) ? 100 : 3;
+        this.max = (this.max == 3) ? 100 : 3;
         this.buttonText = (this.buttonText == "Fermer") ? "Plus de stats" : "Fermer";
       }
     }

@@ -1,18 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import competition from './modules/competition.js'
 
 Vue.use(Vuex)
 
-const data = axios.get("http://bbbl.fr/backend/vue-routes.php?action=boot")
-  .then(response => {
-    return response.data;
-  }, error => {
-    console.error(error);
-    return []
-  });
-
 export default new Vuex.Store({
+  modules: {
+    competition
+  },
   state: {
     dictionnary: [],
     competitions: [],
@@ -42,7 +38,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    boot(context){
+    async boot(context){
       axios.get(process.env.VUE_APP_BACKENDURL + "action=boot")
         .then(response => {
           context.commit('setDictionnary', response.data.parameters);
@@ -55,7 +51,7 @@ export default new Vuex.Store({
     upcomingGames(context){
       axios.get(process.env.VUE_APP_BACKENDURL + "action=upcomingGames")
         .then(response => {
-          const calendar = response.data? repsonse.data : {};
+          const calendar = response.data? response.data : {};
           context.commit('setCalendar', calendar);
         }, error => {
           console.error(error);
