@@ -53,7 +53,7 @@
           <CompetitionStanding :competition="competition.standing" :limit="5"/>
           <div class="spacer"></div>
           <router-link  :to="{ name: 'Competition', params: { id: competition.id }}">
-            <ButtonPrime class='test'/>
+            <Button/>
             La Compétition
           </router-link>
         </div>
@@ -76,7 +76,7 @@ import Champion from '../components/Champion.vue'
 import Statistics from '../components/Statistics.vue'
 import Modal from '../components/Modal.vue'
 
-import ButtonPrime from '../assets/elements/Button_Prime.svg';
+import Button from '../assets/elements/Button.svg';
 
 export default {
   name: 'Home',
@@ -86,7 +86,7 @@ export default {
     Champion,
     Statistics,
     Modal,
-    ButtonPrime
+    Button
   },
   props: {
     msg: String
@@ -166,7 +166,5 @@ export default {
     height: 100px;
     display: inline-block;
   }
-  .gerard {
-    stop-color: #B00
-  }
+
 </style>

@@ -122,6 +122,25 @@ nav > ul > li > a:visited { text-decoration: none; color: #FFFFFF;}
   background: url('~@/assets/elements/Button_TopRight.png');
 }
 
+/* SVG */
+.prime {
+  .start {
+    stop-color: $prime-bg;
+  }
+  .stop {
+    stop-color: $prime-color;
+  }
+}
+.seconde {
+  .start {
+    stop-color: $seconde-bg;
+  }
+  .stop {
+    stop-color: $seconde-color;
+  }
+}
+
+
 /* BODY */
 
 .plain {
