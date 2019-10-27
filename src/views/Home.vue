@@ -23,17 +23,17 @@
           <a class="button" href="Forum" v-if="admin!=1">
             Découvrir
           </a>
-          <a class="button" ng-click="goToPage('admin')" v-if="admin==1">
+          <a class="button" @click="goToPage('admin')" v-if="admin==1">
             Administrer
           </a>
         </div>
 
-        <div class="plain seconde" ng-style="colours[1].border">
+        <div class="plain seconde">
           <h3>Légendaires</h3>
           <p>Woody Roots Bush Bombers, Darkside Magic, Rats Fils Tauleurs... Ces équipes comme beaucoup d'autres ont marqué de leur empreinte la BBBL.<br/>
           Tribunes vous offres aujourd'hui un accés illimité à l'Histoire de la ligue</p>
           <div class="spacer"></div>
-          <div class="button" ng-click="goToPage('archives')">
+          <div class="button" @click="goToPage('archives')">
             les Archives
           </div>
         </div>
