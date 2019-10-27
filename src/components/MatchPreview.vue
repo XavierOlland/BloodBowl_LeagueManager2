@@ -28,6 +28,7 @@
       matchDetails() {
         if (this.match.cyanide_id) {
           this.$router.push({ name: 'Match', params: { id:this.match.id } })
+          //this.$router.go('/match/'+ this.match.id)
         }
         /*else if (($rootScope.coach_cyanide_id == match.coach_id_1 || $rootScope.coach_cyanide_id == match.coach_id_2) && match.started == null) {
             //Set date
