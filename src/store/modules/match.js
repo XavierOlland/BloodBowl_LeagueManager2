@@ -1,7 +1,6 @@
 import axios from 'axios'
 const instance = axios.create({
 	baseURL: 'http://bbbl.fr/backend/',
-	timeout: 1000,
 	headers: {
 		'content-type': 'application/x-www-form-urlencoded'
 	}
@@ -29,8 +28,8 @@ const actions = {
 				var match = JSON.parse(response.data.json)
 					.match;
 				context.commit('setMatch', match);
-				delete response.json;
-				context.commit('setMetadata', response)
+				delete response.data.json;
+				context.commit('setMetadata', response.data)
 			}, error => {
 				console.error(error);
 			});

@@ -1,7 +1,6 @@
 import axios from 'axios'
 const instance = axios.create({
 	baseURL: 'http://bbbl.fr/backend/',
-	timeout: 1000,
 	headers: {
 		'content-type': 'application/x-www-form-urlencoded'
 	}

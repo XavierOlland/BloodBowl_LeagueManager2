@@ -1,20 +1,66 @@
 <template>
-  <div id="Match" class="view container">
-    <div class="col-md-3"></div>
-    <div class="col-md-6" @click="previousPage()">
-      <div class="plain header seconde text-center stadium zelda">
-        <h4>{{match.leaguename}}</h4>
-        <h3>{{match.competitionname}}</h3>
+  <div id="Match" class="view container" v-if="!isFetching">
+    <div class="row adapt">
+      <div class="col-md-3"></div>
+      <div class="col-md-6" @click="previousPage()">
+        <div class="plain header seconde text-center stadium zelda">
+          <h4>{{match.leaguename}}</h4>
+          <h3>{{match.competitionname}}</h3>
+        </div>
+      </div>
+      <div class="col-md-1"></div>
+      <div class="col-md-1 topright" :class="{tab : admin==1}">
+        <div class="label" @click="matchReset()" v-if="admin==1">Reset</div>
+      </div>
+      <div class="col-md-1 topright" :class="{tab : coach_id==metadata.coach_id_1 || coach_id==metadata.coach_id_2 || admin==1}">
+        <a href="" v-if="coach_id==match.coach_id_1 || coach_id==metadata.coach_id_2 || admin==1">
+          <div class="label">Poster</div>
+        </a>
       </div>
     </div>
-    <div class="col-md-1"></div>
-    <div class="col-md-1 topright" :class="{tab : admin==1}">
-      <div class="label" @click="matchReset()" v-if="admin==1">Reset</div>
-    </div>
-    <div class="col-md-1 topright" :class="{tab : coach_id==match.coach_id_1 || coach_id==match.coach_id_2 || admin==1}">
-      <a href="" v-if="coach_id==match.coach_id_1 || coach_id==match.coach_id_2 || admin==1">
-        <div class="label">Poster</div>
-      </a>
+    <div class="row adapt">
+      <div class="col-md-6">
+        <div id="HelmetLeft" class="helmet1">
+          <svg class="helmet_svg" viewBox="0 0 0 0"></svg>
+          <div class="helmet_png helmet-18"></div>
+          <div class="helmet-logo"></div>
+        </div>
+        <div class="plain prime content noselect text-right" :style="{'border-color': metadata.team_1_color_1}">
+          <h2 class="zelda" :style="{color: metadata.team_1_color_1}" @click="">{{match.teams[0].teamname}}</h2>
+          <div class="scoreBoard">
+            <div class="teamBoard">
+              <h3>coaché par <span :style="{color: metadata.team_1_color_1}">{{match.coaches[0].coachname}}</span></h3>
+              <h3>TV <span :style="{color: metadata.team_1_color_1}">{{match.teams[0].value}}</span></h3>
+              <h3>
+                <div v-for="i in match.teams[0].popularitybeforematch" class="star" :style="{color: metadata.team_1_color_1}">&#9733;</div>
+                <span v-if="match.teams[0].popularitygain"> + <div class="star">&#9733;</div></span>
+              </h3>
+            </div>
+            <div class="score" :style="{color: metadata.team_1_color_1}">{{match.teams[0].score}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div id="HelmetRight" class="helmet1">
+          <svg class="helmet_svg" viewBox="0 0 0 0"></svg>
+          <div class="helmet_png helmet-18"></div>
+          <div class="helmet-logo"></div>
+        </div>
+        <div class="plain prime content noselect text-left" :style="{'border-color': metadata.team_2_color_1}">
+          <h2 class="zelda" :style="{color: metadata.team_2_color_1}" @click="">{{match.teams[1].teamname}}</h2>
+          <div class="scoreBoard">
+            <div class="score" :style="{color: metadata.team_2_color_1}">{{match.teams[1].score}}</div>
+            <div class="teamBoard">
+              <h3>coaché par <span :style="{color: metadata.team_2_color_1}">{{match.coaches[1].coachname}}</span></h3>
+              <h3>TV <span :style="{color: metadata.team_2_color_1}">{{match.teams[1].value}}</span></h3>
+              <h3>
+                <div v-for="i in match.teams[1].popularitybeforematch" class="star" :style="{color: metadata.team_2_color_1}">&#9733;</div>
+                <span v-if="match.teams[1].popularitygain"> + <div class="star">&#9733;</div></span>
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -29,6 +75,7 @@
     },
     data(){
       return {
+        isFetching: true,
         admin: 0,
         coach_id: 1
       }
@@ -44,11 +91,60 @@
     mounted() {
       this.$store.dispatch('match/fetchMatch',this.$route.params.id)
     },
+    watch: {
+      match: function() {
+        this.isFetching = this.match.length>0? true : false;
+      }
+    }
   }
 </script>
 
 <style lang="scss" scoped>
- .poukram {
-   z-index: 1;
- }
+  h3 {
+    color: $prime-text !important;
+  }
+  .scoreBoard {
+    display: inline-flex;
+    .score {
+      align-self: flex-end;
+      padding: 0 20px;
+      font-family: 'Akashi';
+      font-size: 120px;
+      text-shadow: rgb(255, 255, 255) -2px -2px, rgb(255, 255, 255) 2px 2px, rgb(255, 255, 255) 2px -2px, rgb(255, 255, 255) -2px 2px;
+    }
+  }
+
+  .stats > li > span {
+    font-family: "Muli"
+  }
+  .teamBoard {
+    text-shadow: 0 2px 5px #000000;
+  }
+  .teamBoard h3 {
+    font-family: "Muli";
+  }
+  .teamBoard h3 > span {
+    font-family: 'Akashi';
+  }
+
+  .spHeight {
+    float: initial;
+    display: inline-block;
+    vertical-align: top;
+  }
+  #Reader img, #Reader p {
+    margin-right: 10px;
+  }
+  .stadium h3, .stadium h4 {
+    text-shadow: 0 2px 5px #000000;
+  }
+
+  .star {
+    font-size: 30px;
+    line-height: 30px;
+    display: inline-block;
+    -ms-transform: rotate(-10deg);
+    -webkit-transform: rotate(-10deg);
+    transform: rotate(-10deg); }
+
 </style>
