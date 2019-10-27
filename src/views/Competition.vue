@@ -69,11 +69,8 @@
     methods: {
       competitionUpdate() {
         this.saving = true;
-        var params = [window.Cyanide_Key, window.Cyanide_League, this.competition.game_name, this.competition.id, this.matchesToSave, this.competition.format, this.currentDay];
-        this.$http.post('http://bbbl.fr/backend/vue-routes.php?action=competitionUpdate', params)
-          .then(response => {
-
-        });
+        var params = [this.competition.game_name, this.competition.id,];
+        this.$store.dispatch('competition/updateCompetition',params)
       },
       fullCalendar() {
         this.displayDay = 0;

@@ -1,4 +1,12 @@
 import axios from 'axios'
+const instance = axios.create({
+	baseURL: 'http://bbbl.fr/backend/',
+	timeout: 1000,
+	headers: {
+		'content-type': 'application/x-www-form-urlencoded'
+	}
+});
+const route = 'vue-routes.php?action='
 
 const state = {
 	competition: {},
@@ -17,12 +25,9 @@ const mutations = {
 
 const actions = {
 	fetchCompetition(context, id) {
-		axios.post('http://bbbl.fr/backend/vue-routes.php?action=competition', {
+		console.log(instance);
+		instance.post(route + 'competition', {
 				id: id
-			}, {
-				headers: {
-					"content-type": "application/x-www-form-urlencoded"
-				}
 			})
 			.then(response => {
 				context.commit('setCompetition', response.data);
@@ -31,12 +36,17 @@ const actions = {
 				console.error(error);
 			});
 	},
+	updateCompetition(context, params) {
+		instance.post(route + 'competitionUpdate', params)
+			.then(response => {
+				context.commit('setCompetition', response.data);
+				context.dispatch('fetchCalendar', id);
+			}, error => {
+				console.error(error);
+			});
+	},
 	fetchCalendar(context, id) {
-		axios.post('http://bbbl.fr/backend/vue-routes.php?action=competitionCalendar', [id], {
-				headers: {
-					"content-type": "application/x-www-form-urlencoded"
-				}
-			})
+		instance.post(route + 'competitionCalendar', [id])
 			.then(response => {
 				context.commit('setCalendar', response.data.slice()
 					.reverse());
