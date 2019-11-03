@@ -19,29 +19,41 @@
       <li>Expulsions : <span :style="{color: colours[0]}">{{stats.sustainedexpulsions}} </span></li>
     </ul>
     <div class="spacer"></div>
-    <div class="button" @click="displayTeam(0,2)">
+    <div class="button" @click="displayRoster">
 
       <div class="label">Effectif</div>
     </div>
+    <PlayersStats :colours="colours" :roster="stats.roster" :modal="modal" @clicked="displayRoster"/>
   </div>
 </template>
 
 <script>
+  import PlayersStats from './PlayersStats.vue'
 
   export default {
     name: 'TeamStats',
+    components: {
+      PlayersStats
+    },
     props: {
       colours: Array,
       stats: Object
     },
+    data() {
+      return {
+        modal: false
+      }
+    },
     methods: {
-
+      displayRoster: function(){
+        this.modal = !this.modal;
+      }
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  .stats > li > span {
+  .stats {
     font-family: "Muli"
   }
 </style>
