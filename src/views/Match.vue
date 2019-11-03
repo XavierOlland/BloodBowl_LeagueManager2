@@ -62,16 +62,36 @@
         </div>
       </div>
     </div>
+    <div class="row adapt">
+      <div class="col-md-4">
+        <MatchTeamStats :colours="[metadata.team_1_color_1]" :stats="match.teams[0]"/>
+      </div>
+      <div class="col-md-4">
+        <div class="plain seconde text-center stadium">
+          <h3>{{match.started| moment("D MMM HH")}}H</h3><br />
+          <h4>Stade</h4>
+          <h3>{{metadata.stadium}}</h3><br />
+          <h4>Arbitre</h4>
+          <h3>M. Squig</h3><br />
+          <h4>Supporters</h4>
+          <h3>{{match.teams[0].nbsupporters+match.teams[1].nbsupporters}}</h3><br />
+        </div>
+      </div>
+      <div class="col-md-4">
+        <MatchTeamStats :colours="[metadata.team_2_color_1]" :stats="match.teams[1]"/>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+  const moment = require('moment')
+  import MatchTeamStats from '../components/match/TeamStats.vue';
 
   export default {
     name: 'Match',
     components: {
-    },
-    props: {
+      MatchTeamStats
     },
     data(){
       return {
@@ -100,9 +120,6 @@
 </script>
 
 <style lang="scss" scoped>
-  h3 {
-    color: $prime-text !important;
-  }
   .scoreBoard {
     display: inline-flex;
     .score {
@@ -113,38 +130,22 @@
       text-shadow: rgb(255, 255, 255) -2px -2px, rgb(255, 255, 255) 2px 2px, rgb(255, 255, 255) 2px -2px, rgb(255, 255, 255) -2px 2px;
     }
   }
-
-  .stats > li > span {
-    font-family: "Muli"
-  }
   .teamBoard {
     text-shadow: 0 2px 5px #000000;
+    h3 {
+      color: $prime-text;
+      font-family: "Muli";
+      span {
+        font-family: 'Akashi';
+      }
+    }
   }
-  .teamBoard h3 {
-    font-family: "Muli";
+  .stadium {
+    h3,h4 {
+      text-shadow: 0 2px 5px #000000;
+    }
+    h3 {
+      color: $prime-color;
+    }
   }
-  .teamBoard h3 > span {
-    font-family: 'Akashi';
-  }
-
-  .spHeight {
-    float: initial;
-    display: inline-block;
-    vertical-align: top;
-  }
-  #Reader img, #Reader p {
-    margin-right: 10px;
-  }
-  .stadium h3, .stadium h4 {
-    text-shadow: 0 2px 5px #000000;
-  }
-
-  .star {
-    font-size: 30px;
-    line-height: 30px;
-    display: inline-block;
-    -ms-transform: rotate(-10deg);
-    -webkit-transform: rotate(-10deg);
-    transform: rotate(-10deg); }
-
 </style>
