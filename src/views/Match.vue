@@ -64,7 +64,7 @@
     </div>
     <div class="row adapt">
       <div class="col-md-4">
-        <MatchTeamStats :colours="[metadata.team_1_color_1]" :stats="match.teams[0]"/>
+        <MatchTeamStats :colours="[metadata.team_1_color_1]" :team="match.teams[0]"/>
       </div>
       <div class="col-md-4">
         <div class="plain seconde text-center stadium">
@@ -78,7 +78,7 @@
         </div>
       </div>
       <div class="col-md-4">
-        <MatchTeamStats :colours="[metadata.team_2_color_1]" :stats="match.teams[1]"/>
+        <MatchTeamStats :colours="[metadata.team_2_color_1]" :team="match.teams[1]"/>
       </div>
     </div>
   </div>
@@ -91,7 +91,7 @@
   export default {
     name: 'Match',
     components: {
-      MatchTeamStats
+      MatchTeamStats,
     },
     data(){
       return {
