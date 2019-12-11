@@ -1,7 +1,7 @@
 <template>
   <div id="PlayersStats">
     <div class="veil" v-show="modal == true" @click="close"></div>
-    <div class="card plain seconde modal" v-show="modal == true">
+    <div class="card plain seconde modal"  :style="{'border-color': colours[0]}" v-show="modal == true">
       <h3 :style="{color: colours[0]}">Effectif</h3>
         <table>
           <thead>

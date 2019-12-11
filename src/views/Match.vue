@@ -144,8 +144,6 @@
     h3,h4 {
       text-shadow: 0 2px 5px #000000;
     }
-    h3 {
-      color: $prime-color;
-    }
+  
   }
 </style>
