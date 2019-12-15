@@ -20,13 +20,9 @@
           <p>Mais toi le visiteur, toi le coach, toi le paria, toi aussi tu peux venir cramponner dans nos rangs.</p>
           <p>Il te suffit de t'inscrire sur notre forum et de remplir le formulaire 22X47B, ainsi que l'appendice 42 et verser les 51 pièces d'or nécessaires au gobelin comptable de permanence.</p>
           <div class="spacer"></div>
-          <a class="button" href="Forum" v-if="admin!=1">
 
-            Découvrir
-          </a>
-          <a class="button" @click="goToPage('admin')" v-if="admin==1">
-            Administrer
-          </a>
+          <Button v-if="admin==1" :id="'Seconde'" :text="'les Archives'" @click="$router.push('admin')"/>
+          <Button v-else :id="'Seconde'" :text="'Découvrir'" @click="goToForum()"/>
         </div>
 
         <div class="plain seconde">
@@ -34,9 +30,7 @@
           <p>Woody Roots Bush Bombers, Darkside Magic, Rats Fils Tauleurs... Ces équipes comme beaucoup d'autres ont marqué de leur empreinte la BBBL.<br/>
           Tribunes vous offres aujourd'hui un accés illimité à l'Histoire de la ligue</p>
           <div class="spacer"></div>
-          <div class="button" @click="goToPage('archives')">
-            les Archives
-          </div>
+          <Button :id="'Seconde'" :text="'les Archives'" @clicked="$router.push('archives')"/>
         </div>
 
       </div>
@@ -52,10 +46,7 @@
           <h2>{{competition.site_name}}</h2>
           <CompetitionStanding :competition="competition.standing" :limit="5"/>
           <div class="spacer"></div>
-          <router-link  :to="{ name: 'Competition', params: { id: competition.id }}">
-            <Button/>
-            La Compétition
-          </router-link>
+            <Button :id="'Prime'" :text="'La Compétition'" @clicked="$router.push({ name: 'Competition', params: { id: competition.id }})" />
         </div>
         <UpcomingGames :games="upcomingGames"/>
       </div>
@@ -76,7 +67,8 @@ import Champion from '../components/Champion.vue'
 import Statistics from '../components/Statistics.vue'
 import Modal from '../components/Modal.vue'
 
-import Button from '../assets/elements/Button.svg';
+//import Button from '../assets/elements/Button.svg';
+import Button from '../components/ui/Button.vue';
 
 export default {
   name: 'Home',
@@ -111,6 +103,15 @@ export default {
     },
     upcomingGames() {
       return this.$store.state.calendar;
+    }
+  },
+  methods: {
+    goToPage(page){
+      console.log(page);
+      this.$router.push(page);
+    },
+    goToForum(){
+      window.location.href = 'forum'
     }
   }
 }
@@ -161,10 +162,4 @@ export default {
     text-indent: 10px;
     text-transform: uppercase;
   }
-  .test {
-    width:100px;
-    height: 100px;
-    display: inline-block;
-  }
-
 </style>
