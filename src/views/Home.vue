@@ -21,6 +21,7 @@
           <p>Il te suffit de t'inscrire sur notre forum et de remplir le formulaire 22X47B, ainsi que l'appendice 42 et verser les 51 pièces d'or nécessaires au gobelin comptable de permanence.</p>
           <div class="spacer"></div>
           <a class="button" href="Forum" v-if="admin!=1">
+
             Découvrir
           </a>
           <a class="button" @click="goToPage('admin')" v-if="admin==1">
@@ -51,7 +52,10 @@
           <h2>{{competition.site_name}}</h2>
           <CompetitionStanding :competition="competition.standing" :limit="5"/>
           <div class="spacer"></div>
-          <router-link class="button" :to="{ name: 'Competition', params: { id: competition.id }}">La Compétition</router-link>
+          <router-link  :to="{ name: 'Competition', params: { id: competition.id }}">
+            <Button/>
+            La Compétition
+          </router-link>
         </div>
         <UpcomingGames :games="upcomingGames"/>
       </div>
@@ -72,6 +76,8 @@ import Champion from '../components/Champion.vue'
 import Statistics from '../components/Statistics.vue'
 import Modal from '../components/Modal.vue'
 
+import Button from '../assets/elements/Button.svg';
+
 export default {
   name: 'Home',
   components: {
@@ -79,7 +85,8 @@ export default {
     CompetitionStanding,
     Champion,
     Statistics,
-    Modal
+    Modal,
+    Button
   },
   props: {
     msg: String
@@ -87,7 +94,12 @@ export default {
   data(){
     return {
       admin: 0,
-      modal: false
+      modal: false,
+      colours: [
+        {
+          hexa: '#B00'
+        }
+      ]
     }
   },
   computed: {
@@ -149,4 +161,10 @@ export default {
     text-indent: 10px;
     text-transform: uppercase;
   }
+  .test {
+    width:100px;
+    height: 100px;
+    display: inline-block;
+  }
+
 </style>
