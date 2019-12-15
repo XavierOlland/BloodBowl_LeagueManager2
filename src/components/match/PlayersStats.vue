@@ -49,16 +49,21 @@
               </tr>
           </tbody>
         </table>
-        <div class="spacer"></div>
-        <div class="button" @click="close">{{buttonText}}</div>
+        <Button :id="id+'_Seconde'" :text="buttonText" :color="colours[0]" @clicked="close" />
       </div>
   </div>
 </template>
 
 <script>
+  import Button from '../ui/Button.vue';
+
   export default {
     name: 'PlayersStats',
+    components: {
+      Button
+    },
     props: {
+      id: String,
       colours: Array,
       roster: Array,
       modal: Boolean

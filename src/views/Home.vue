@@ -19,8 +19,6 @@
           <p>La BBBL c'est du sang, de la violence, des indiens... Chaque jour que les dieux font, nous nous echarpons joyeusement sur les terrains.</p>
           <p>Mais toi le visiteur, toi le coach, toi le paria, toi aussi tu peux venir cramponner dans nos rangs.</p>
           <p>Il te suffit de t'inscrire sur notre forum et de remplir le formulaire 22X47B, ainsi que l'appendice 42 et verser les 51 pièces d'or nécessaires au gobelin comptable de permanence.</p>
-          <div class="spacer"></div>
-
           <Button v-if="admin==1" :id="'Seconde'" :text="'les Archives'" @click="$router.push('admin')"/>
           <Button v-else :id="'Seconde'" :text="'Découvrir'" @click="goToForum()"/>
         </div>
@@ -29,7 +27,6 @@
           <h3>Légendaires</h3>
           <p>Woody Roots Bush Bombers, Darkside Magic, Rats Fils Tauleurs... Ces équipes comme beaucoup d'autres ont marqué de leur empreinte la BBBL.<br/>
           Tribunes vous offres aujourd'hui un accés illimité à l'Histoire de la ligue</p>
-          <div class="spacer"></div>
           <Button :id="'Seconde'" :text="'les Archives'" @clicked="$router.push('archives')"/>
         </div>
 
@@ -45,15 +42,14 @@
         <div class="plain prime" v-for="competition in competitions" :key="competition.id">
           <h2>{{competition.site_name}}</h2>
           <CompetitionStanding :competition="competition.standing" :limit="5"/>
-          <div class="spacer"></div>
-            <Button :id="'Prime'" :text="'La Compétition'" @clicked="$router.push({ name: 'Competition', params: { id: competition.id }})" />
+          <Button :id="'Prime'" :text="'La Compétition'" @clicked="$router.push({ name: 'Competition', params: { id: competition.id }})" />
         </div>
         <UpcomingGames :games="upcomingGames"/>
       </div>
 
       <div class="col-lg-3 stick-right hidden-md-down" >
-          <Champion/>
-          <Statistics v-for="stat in leagueStats.playersStats" :key="stat.type" :statistics="stat" :limit="3" />
+        <Champion/>
+        <Statistics v-for="stat in leagueStats.playersStats" :key="stat.type" :statistics="stat" :limit="3" />
       </div>
 
     </div>
@@ -66,8 +62,6 @@ import CompetitionStanding from '../components/CompetitionStanding.vue'
 import Champion from '../components/Champion.vue'
 import Statistics from '../components/Statistics.vue'
 import Modal from '../components/Modal.vue'
-
-//import Button from '../assets/elements/Button.svg';
 import Button from '../components/ui/Button.vue';
 
 export default {

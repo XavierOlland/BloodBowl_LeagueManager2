@@ -6,10 +6,8 @@
         <div class="plain prime">
           <h2>Classement</h2>
           <CompetitionStanding :competition="competition.standing" :details="true" :limit="100"/>
-          <div class="spacer"></div>
-          <div class="button" @click="competitionUpdate">
-            Mettre à jour
-          </div>
+          <Button :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
+
         </div>
         <div class="card-columns">
           <Statistics  v-for="stat in competition.playersStats" :key="stat.type" :statistics="stat" :limit="3" :dictionnary="dictionnary"/>
@@ -33,6 +31,7 @@
   import Statistics from '../components/Statistics.vue'
   import MatchPreview from '../components/MatchPreview.vue'
   import Modal from '../components/Modal.vue'
+  import Button from '../components/ui/Button.vue';
 
   export default {
     name: 'Competition',
@@ -40,7 +39,7 @@
       CompetitionStanding,
       Statistics,
       MatchPreview,
-      Modal
+      Button
     },
     props: {
       dictionnary: Array

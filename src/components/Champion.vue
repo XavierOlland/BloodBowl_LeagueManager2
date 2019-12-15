@@ -6,7 +6,6 @@
     <h1 class="zelda">Les Busards du Blizzard</h1>
     <hr>
     <h2 ng-style="colours[0].color">Cysterion</h2>
-    <div class="spacer"></div>
     <!--div class="button">
       la compétition
     </div-->

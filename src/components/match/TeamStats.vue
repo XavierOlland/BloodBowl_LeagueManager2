@@ -18,22 +18,20 @@
       <li>Offrande au public : <span :style="{color: colours[0]}">{{team.inflictedpushouts}} </span></li>
       <li>Expulsions : <span :style="{color: colours[0]}">{{team.sustainedexpulsions}} </span></li>
     </ul>
-    <div class="spacer"></div>
-    <div class="button" @click="displayRoster">
-
-      <div class="label">Effectif</div>
-    </div>
-    <PlayersStats :colours="colours" :roster="team.roster" :modal="modal" @clicked="displayRoster"/>
+    <Button :id="team.idteamlisting" :text="'Effectif'" :color="colours[0]" @clicked="displayRoster" />
+    <PlayersStats :id="team.idteamlisting" :colours="colours" :roster="team.roster" :modal="modal" @clicked="displayRoster"/>
   </div>
 </template>
 
 <script>
   import PlayersStats from './PlayersStats.vue'
+  import Button from '../ui/Button.vue';
 
   export default {
     name: 'TeamStats',
     components: {
-      PlayersStats
+      PlayersStats,
+      Button
     },
     props: {
       colours: Array,
@@ -46,6 +44,7 @@
     },
     methods: {
       displayRoster: function(){
+        console.log('test');
         this.modal = !this.modal;
       }
     }
@@ -55,10 +54,6 @@
 <style lang="scss" scoped>
   .stats {
     font-family: "Muli"
-  }
-  .logo_BG {
-    position: absolute;
-    z-index: -1;
   }
   .info {
     position:relative;
