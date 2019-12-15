@@ -5,23 +5,22 @@
       <h3>{{statistics.type | talkingToTheGods()}}</h3>
       <div v-if="statistics.players.length > 0">
         <div class="scroll">
-        <table class="mainStats">
-          <thead>
-            <tr class="background">
-              <th class="text-left">Joueur</th>
-              <th class="text-center" >{{statistics.stats[0] | talkingToTheGods()}}</th>
-            </tr>
-          </thead>
-          <tbody class="noselect">
-            <tr class="playerDetails" v-for="player in statistics.players.slice(0,max)" :key="player.player">
-              <td class="text-left text-cutter">{{player.name}}</td>
-              <td class="text-center" >{{player.stat0}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-        <div class="spacer"></div>
-        <div class="button" @click="modalView">{{buttonText}}</div>
+          <table class="mainStats">
+            <thead>
+              <tr class="background">
+                <th class="text-left">Joueur</th>
+                <th class="text-center" >{{statistics.stats[0] | talkingToTheGods()}}</th>
+              </tr>
+            </thead>
+            <tbody class="noselect">
+              <tr class="playerDetails" v-for="player in statistics.players.slice(0,max)" :key="player.player">
+                <td class="text-left text-cutter">{{player.name}}</td>
+                <td class="text-center" >{{player.stat0}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <Button :id="'Stats'" :text="buttonText" @clicked="modalView" />
       </div>
       <div v-else>
         <p>Aucun résultat pour le moment</p>
@@ -31,8 +30,13 @@
 </template>
 
 <script>
+  import Button from '../components/ui/Button.vue';
+
   export default {
     name: 'Statistics',
+    components:{
+      Button
+    },
     props: {
       statistics: Object,
       limit: Number
