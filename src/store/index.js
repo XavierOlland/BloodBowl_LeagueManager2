@@ -2,13 +2,15 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import competition from './modules/competition.js'
+import match from './modules/match.js'
 const moment = require('moment')
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
 	modules: {
-		competition
+		competition,
+		match
 	},
 	state: {
 		dictionnary: [],

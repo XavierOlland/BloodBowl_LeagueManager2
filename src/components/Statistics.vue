@@ -21,7 +21,7 @@
         </table>
       </div>
         <div class="spacer"></div>
-        <div class="button" v-on:click="modalView">{{buttonText}}</div>
+        <div class="button" @click="modalView">{{buttonText}}</div>
       </div>
       <div v-else>
         <p>Aucun résultat pour le moment</p>
@@ -66,35 +66,4 @@
   thead tr {
     border:none;
   }
-  .modal {
-    display: inline-block;
-    position:fixed;
-    margin: 0px 10vw;
-    padding: 1vh 2vw 0px;
-    width: 80vw;
-    max-width: 80vw;
-    max-height: calc(100vh - 150px);
-    top: 100px;
-    left: 0;
-    z-index: 5;
-  }
-  .veil {
-        position: fixed;
-        left:0;
-        background: rgba(0,0,0,0.9);
-        margin: 0 -0.9375rem;
-        width: 100%;
-        height: calc(100vh - 68px);
-        top: 68px;
-        z-index: 4;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-  }
-  .modal .scroll {
-    height:60vh;
-    overflow-x: auto;
-  }
-
 </style>

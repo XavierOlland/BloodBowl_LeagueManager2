@@ -80,7 +80,7 @@
       this.$store.dispatch('competition/fetchCompetition',this.$route.params.id)
     },
     watch: {
-      calendar: function (val) {
+      calendar: function() {
         this.currentDay = this.calendar[0].currentDay;
         this.displayDay = (this.calendar.length < 6 || !this.currentDay) ? 0 : this.currentDay;
       }
