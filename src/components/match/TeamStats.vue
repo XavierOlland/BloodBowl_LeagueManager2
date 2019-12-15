@@ -1,7 +1,8 @@
 <template>
   <div id="TeamStats" class="plain prime text-center" :style="{'border-color': colours[0]}">
-    <h3 :style="{color: colours[0]}">Statistiques</h3>
-    <ul class="stats list-unstyled">
+    <img :src="require('../../assets/logos/Logo_'+team.teamlogo+'.png')" class="background">
+    <h3 :style="{color: colours[0]}" class="info">Statistiques</h3>
+    <ul class="stats list-unstyled info">
       <li>Possession : <span :style="{color: colours[0]}">{{team.possessionball}} %</span></li>
       <li>Occupation de son terrain : <span :style="{color: colours[0]}">{{team.occupationown}} %</span></li>
       <li>Occupation du terrain adverse : <span :style="{color: colours[0]}">{{team.occupationtheir}} %</span></li>
@@ -58,5 +59,17 @@
   .logo_BG {
     position: absolute;
     z-index: -1;
+  }
+  .info {
+    position:relative;
+    z-index: 1;
+  }
+  .background {
+    position: absolute;
+    top: 20%;
+    left: 30%;
+    width: 40%;
+    height: auto;
+    opacity: 0.15;
   }
 </style>
