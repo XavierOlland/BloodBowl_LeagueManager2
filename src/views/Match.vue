@@ -20,11 +20,7 @@
     </div>
     <div class="row adapt">
       <div class="col-md-6">
-        <div id="HelmetLeft" class="helmet1">
-          <svg class="helmet_svg" viewBox="0 0 0 0"></svg>
-          <div class="helmet_png helmet-18"></div>
-          <div class="helmet-logo"></div>
-        </div>
+        <Helmet class="helmet left" :race="match.teams[0].idraces" :logo="match.teams[0].teamlogo" :colours="[metadata.team_1_color_1,metadata.team_1_color_2]" />
         <div class="plain prime content noselect text-right" :style="{'border-color': metadata.team_1_color_1}">
           <h2 class="zelda" :style="{color: metadata.team_1_color_1}" @click="">{{match.teams[0].teamname}}</h2>
           <div class="scoreBoard">
@@ -41,11 +37,7 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div id="HelmetRight" class="helmet1">
-          <svg class="helmet_svg" viewBox="0 0 0 0"></svg>
-          <div class="helmet_png helmet-18"></div>
-          <div class="helmet-logo"></div>
-        </div>
+        <Helmet class="helmet right" :race="match.teams[1].idraces" :logo="match.teams[1].teamlogo" :colours="[metadata.team_2_color_1,metadata.team_2_color_2]" />
         <div class="plain prime content noselect text-left" :style="{'border-color': metadata.team_2_color_1}">
           <h2 class="zelda" :style="{color: metadata.team_2_color_1}" @click="">{{match.teams[1].teamname}}</h2>
           <div class="scoreBoard">
@@ -87,11 +79,13 @@
 <script>
   const moment = require('moment')
   import MatchTeamStats from '../components/match/TeamStats.vue';
+  import Helmet from '../components/ui/Helmet.vue';
 
   export default {
     name: 'Match',
     components: {
       MatchTeamStats,
+      Helmet
     },
     data(){
       return {
@@ -102,6 +96,8 @@
     },
     computed:{
       match(){
+        console.log(this.$store.state.match); // eslint-disable-line no-console
+
         return this.$store.state.match.match;
       },
       metadata(){
@@ -144,6 +140,14 @@
     h3,h4 {
       text-shadow: 0 2px 5px #000000;
     }
-  
+  }
+  .helmet {
+    position: absolute; bottom:0; z-index:2; width:300px; height:300px;
+  }
+  .left {
+    transform: rotateY(180deg);
+  }
+  .right {
+    right:0;
   }
 </style>
