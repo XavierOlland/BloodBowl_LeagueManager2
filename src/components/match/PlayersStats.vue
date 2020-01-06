@@ -80,9 +80,6 @@
       close: function(){
         this.$emit('clicked')
       }
-    },
-    mounted(){
-      console.log(this.modal)
     }
   }
 </script>

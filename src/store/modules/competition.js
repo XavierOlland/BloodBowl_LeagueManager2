@@ -24,7 +24,6 @@ const mutations = {
 
 const actions = {
 	fetchCompetition(context, id) {
-		console.log(instance);
 		instance.post(route + 'competition', {
 				id: id
 			})
@@ -32,16 +31,16 @@ const actions = {
 				context.commit('setCompetition', response.data);
 				context.dispatch('fetchCalendar', id);
 			}, error => {
-				console.error(error);
+				console.error(error); // eslint-disable-line no-console
 			});
 	},
 	updateCompetition(context, params) {
 		instance.post(route + 'competitionUpdate', params)
 			.then(response => {
 				context.commit('setCompetition', response.data);
-				context.dispatch('fetchCalendar', id);
+				//context.dispatch('fetchCalendar', id);
 			}, error => {
-				console.error(error);
+				console.error(error); // eslint-disable-line no-console
 			});
 	},
 	fetchCalendar(context, id) {

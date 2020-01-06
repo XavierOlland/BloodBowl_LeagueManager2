@@ -101,7 +101,6 @@ export default {
   },
   methods: {
     goToPage(page){
-      console.log(page);
       this.$router.push(page);
     },
     goToForum(){

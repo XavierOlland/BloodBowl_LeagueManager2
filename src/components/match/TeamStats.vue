@@ -44,7 +44,6 @@
     },
     methods: {
       displayRoster: function(){
-        console.log('test');
         this.modal = !this.modal;
       }
     }
