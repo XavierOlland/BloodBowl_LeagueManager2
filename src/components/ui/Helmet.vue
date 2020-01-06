@@ -1,6 +1,7 @@
 <template>
   <div id="Helmet">
-    <img class="foreground" v-if="race in [1,2,3,4,5,7,8,9,10,12,15,17,18,24]" :src="require('../../assets/helmets/helmet_'+race+'.png')"/>
+    {{testRace()}}
+    <img class="foreground" v-if="[1,2,3,4,5,7,8,9,10,12,15,17,18,24].includes(this.race)" :src="require('../../assets/helmets/helmet_'+race+'.png')"/>
     <img class="foreground" v-else :src="require('../../assets/helmets/helmet_0.png')"/>
     <img :class="['logo',raceLogo]" :src="require('../../assets/logos/Logo_'+logo+'.png')"/>
 

@@ -25,7 +25,7 @@
           <h2 class="zelda" :style="{color: metadata.team_1_color_1}" @click="">{{match.teams[0].teamname}}</h2>
           <div class="scoreBoard">
             <div class="teamBoard">
-              <h3>coaché par <span :style="{color: metadata.team_1_color_1}">{{match.coaches[0].coachname}}</span></h3>
+              <h3>{{match.teams[0].idraces}} coaché par <span :style="{color: metadata.team_1_color_1}">{{match.coaches[0].coachname}}</span></h3>
               <h3>TV <span :style="{color: metadata.team_1_color_1}">{{match.teams[0].value}}</span></h3>
               <h3>
                 <div v-for="i in match.teams[0].popularitybeforematch" class="star" :style="{color: metadata.team_1_color_1}">&#9733;</div>
@@ -96,8 +96,6 @@
     },
     computed:{
       match(){
-        console.log(this.$store.state.match); // eslint-disable-line no-console
-
         return this.$store.state.match.match;
       },
       metadata(){
