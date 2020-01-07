@@ -25,6 +25,11 @@ export default new Router({
 			path: '/match/:id',
 			name: 'Match',
 			component: Match
+		},
+		{
+			path: '/team/:id',
+			name: 'Team',
+			component: Team
 		}
 	]
 })

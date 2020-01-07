@@ -4,7 +4,7 @@ import axios from 'axios'
 import competition from './modules/Competition.js'
 import match from './modules/Match.js'
 import team from './modules/Team.js'
-const moment = require('moment')
+//const moment = require('moment')
 
 Vue.use(Vuex)
 

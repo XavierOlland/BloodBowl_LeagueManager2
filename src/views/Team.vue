@@ -5,10 +5,7 @@
       <div class="col-lg-7">
         <div class="plain prime">
           <h2>Effectif</h2>
-          <Button :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
-        </div>
-        <div class="card-columns">
-          <Statistics  v-for="stat in competition.playersStats" :key="stat.type" :statistics="stat" :limit="3" :dictionnary="dictionnary"/>
+          <Button :id="'Maj'" :text="'Mettre à jour'" />
         </div>
       </div>
       <div class="col-lg-5">
@@ -33,7 +30,6 @@
     },
     data(){
       return {
-
       }
     },
     computed:{

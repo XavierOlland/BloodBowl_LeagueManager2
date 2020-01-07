@@ -18,12 +18,13 @@ const mutations = {
 }
 
 const actions = {
-	fetchMatch(context, id) {
+	fetchTeam(context, id) {
 		instance.post(route + 'team', [id])
 			.then(response => {
+				console.log(response) // eslint-disable-line no-console
 				var team = JSON.parse(response.data.json)
 					.team;
-				context.commit('setTeam', match);
+				context.commit('setTeam', team);
 			}, error => {
 				console.error(error); // eslint-disable-line no-console
 			});

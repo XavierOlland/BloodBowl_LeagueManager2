@@ -5,7 +5,7 @@
       <div class="col-lg-7">
         <div class="plain prime">
           <h2>Classement</h2>
-          <CompetitionStanding :competition="competition.standing" :details="true" :limit="100"/>
+          <CompetitionStanding :competition="competition.standing" :details="true" :limit="100" :teamAccess="true"/>
           <Button :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
 
         </div>
@@ -39,6 +39,7 @@
       CompetitionStanding,
       Statistics,
       MatchPreview,
+      Modal,
       Button
     },
     props: {
@@ -50,7 +51,6 @@
         matchesToSave: [],
         saving: false,
         modal: false,
-        currentDay: 0,
         displayDay: 0
       }
     },

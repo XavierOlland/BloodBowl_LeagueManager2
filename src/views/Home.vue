@@ -41,7 +41,7 @@
         <!-- Competitions -->
         <div class="plain prime" v-for="competition in competitions" :key="competition.id">
           <h2>{{competition.site_name}}</h2>
-          <CompetitionStanding :competition="competition.standing" :limit="5"/>
+          <CompetitionStanding :competition="competition.standing" :limit="5" :teamAccess="false"/>
           <Button :id="'Prime'" :text="'La Compétition'" @clicked="$router.push({ name: 'Competition', params: { id: competition.id }})" />
         </div>
         <UpcomingGames :games="upcomingGames"/>
