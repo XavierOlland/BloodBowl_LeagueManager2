@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Competition from './views/Competition.vue'
 import Match from './views/Match.vue'
+import Team from './views/Team.vue'
 
 Vue.use(Router)
 
