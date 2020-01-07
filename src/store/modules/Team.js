@@ -13,7 +13,7 @@ const state = {
 
 const mutations = {
 	setTeam(state, payload) {
-		state.match = payload;
+		state.team = payload;
 	}
 }
 
@@ -21,9 +21,7 @@ const actions = {
 	fetchTeam(context, id) {
 		instance.post(route + 'team', [id])
 			.then(response => {
-				console.log(response) // eslint-disable-line no-console
-				var team = JSON.parse(response.data.json)
-					.team;
+				var team = response.data;
 				context.commit('setTeam', team);
 			}, error => {
 				console.error(error); // eslint-disable-line no-console
