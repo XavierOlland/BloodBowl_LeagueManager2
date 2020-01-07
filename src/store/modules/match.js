@@ -31,7 +31,7 @@ const actions = {
 				delete response.data.json;
 				context.commit('setMetadata', response.data)
 			}, error => {
-				console.error(error);
+				console.error(error); // eslint-disable-line no-console
 			});
 	}
 }

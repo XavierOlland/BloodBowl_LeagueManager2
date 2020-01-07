@@ -33,15 +33,11 @@ Vue.filter('round', function(value, decimals) {
 	return roundedValue;
 });
 
-Vue.filter('dateTime', function(date) {
-	return 1
-});
-
-
 
 new Vue({
 		router,
 		store,
+		moment,
 		render: h => h(App)
 	})
 	.$mount('#app')
