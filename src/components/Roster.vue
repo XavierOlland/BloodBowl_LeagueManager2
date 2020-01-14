@@ -25,7 +25,7 @@
       </tr>
       </thead>
       <tbody  class="table-hover noselect">
-        <tr v-for="player in roster" :key="player.id" v-show="player.dead==0 && player.fired==0" :style="{'border-color': colours[0]}">
+        <tr v-for="player in roster" :key="player.id" v-show="(player.dead+player.fired)==0 || formerPlayers==true" :style="{'border-color': colours[0]}">
           <td class="text-left text-cutter">
             <span class="playerStatus" v-if="player.casualties.length>2"><img src="../assets/icons/injured.png"> </span>
             <span class="playerStatus" v-if="player.dead==1"><img src="../assets/icons/dead.png"> </span>
@@ -36,7 +36,7 @@
           <td class="text-center" v-if="!showStats">{{JSON.parse(player.attributes).st}}</td>
           <td class="text-center" v-if="!showStats">{{JSON.parse(player.attributes).ag}}</td>
           <td class="text-center" v-if="!showStats">{{JSON.parse(player.attributes).av}}</td>
-          <td class="text-center" v-if="!showStats">{{player.level}}</td>
+          <td class="text-center" v-if="!showStats">{{player.fired}}</td>
           <td class="text-center" v-if="!showStats">{{player.xp}}</td>
           <td class="text-center" v-if="showStats">{{player.stats.mvp}}</td>
           <td class="text-center" v-if="showStats">{{player.stats.inflictedpasses}}</td>
@@ -61,7 +61,8 @@
     props: {
       colours: Array,
       roster: Array,
-      showStats: Boolean
+      showStats: Boolean,
+      formerPlayers: Boolean
     }
   }
 </script>

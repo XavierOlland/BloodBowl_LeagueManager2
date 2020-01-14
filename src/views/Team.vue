@@ -5,8 +5,9 @@
       <div class="col-lg-7">
         <div class="plain prime" :style="{'border-color': team.color_1}">
           <h2>Effectif</h2>
-          <Roster :roster="team.players" :colours="[team.color_1,team.color_2]" :showStats="stats" />
+          <Roster :roster="team.players" :colours="[team.color_1,team.color_2]" :formerPlayers="formerPlayers" :showStats="stats" />
           <Button :id="'Stats'" :text="'Statistiques'" :color="team.color_1" @clicked="toggleStats"/>
+          <Button :id="'FormerPlayers'" :level="'secondary'" :text="'Anciens'" :color="team.color_1" @clicked="toggleFormerPlayers"/>
         </div>
       </div>
       <div class="col-lg-5">
@@ -35,7 +36,8 @@
     data(){
       return {
         modal: false,
-        stats: false
+        stats: false,
+        formerPlayers: false
       }
     },
     computed:{
@@ -46,6 +48,9 @@
     methods: {
       toggleStats: function() {
         this.stats = !this.stats;
+      },
+      toggleFormerPlayers: function() {
+        this.formerPlayers = !this.formerPlayers;
       }
     },
     mounted() {
