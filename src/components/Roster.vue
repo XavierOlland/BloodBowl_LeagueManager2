@@ -25,7 +25,7 @@
       </tr>
       </thead>
       <tbody  class="table-hover noselect">
-        <tr v-for="player in roster" :key="player.id" v-show="(player.dead+player.fired)==0 || formerPlayers==true" :style="{'border-color': colours[0]}">
+        <tr v-for="player in roster" :key="player.id" v-show="(player.dead+player.fired)==0 || formerPlayers==true" :class="{former: (player.dead+player.fired)!=0 }" :style="{'border-color': colours[0]}">
           <td class="text-left text-cutter">
             <span class="playerStatus" v-if="player.casualties.length>2"><img src="../assets/icons/injured.png"> </span>
             <span class="playerStatus" v-if="player.dead==1"><img src="../assets/icons/dead.png"> </span>
@@ -75,6 +75,9 @@
   }
   thead tr {
     border:none;
+  }
+  .former {
+    background: linear-gradient(to right, rgba(50,50,50,0.85), rgba(50,50,50,0.65), rgba(50,50,50,0.1));
   }
   .playerStatus {
     img{
