@@ -7,7 +7,7 @@
           <h2>Effectif</h2>
           <Roster :roster="team.players" :colours="[team.color_1,team.color_2]" :formerPlayers="formerPlayers" :showStats="stats" />
           <Button :id="'Stats'" :text="'Statistiques'" :color="team.color_1" @clicked="toggleStats"/>
-          <Button :id="'FormerPlayers'" :level="'secondary'" :text="'Anciens'" :color="team.color_1" @clicked="toggleFormerPlayers"/>
+          <Button :id="'FormerPlayers'" :level="'secondary'" :text="formerPlayersText" :color="team.color_1" @clicked="toggleFormerPlayers"/>
         </div>
       </div>
       <div class="col-lg-5">
@@ -37,7 +37,8 @@
       return {
         modal: false,
         stats: false,
-        formerPlayers: false
+        formerPlayers: false,
+        formerPlayersText: '+ Anciens'
       }
     },
     computed:{
@@ -51,6 +52,12 @@
       },
       toggleFormerPlayers: function() {
         this.formerPlayers = !this.formerPlayers;
+        if(this.formerPlayers == true){
+          this.formerPlayersText = '- Anciens';
+        }
+        else {
+          this.formerPlayersText = '+ Anciens';
+        }
       }
     },
     mounted() {
