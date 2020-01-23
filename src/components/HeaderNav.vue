@@ -3,7 +3,7 @@
       <div id="Intro" class="hd-100 x-center y-center">la Blood Bowl Baston League pr&eacute;sente</div>
       <nav class="navbar" ng-style="colours[0].border">
         <div id="Logo" v-if="logo==true" class="logo" @click="$router.push('/')"></div>
-        <h1 class="navbar-brand inline text-cutter">{{ title }} {{logo}}</h1>
+        <h1 class="navbar-brand inline text-cutter">{{ title }}</h1>
         <ul class="nav navbar-nav inline collapse navbar-toggleable-md pull-xs-right" id="Menu">
           <li>
             <a class="nav" href="Forum">Forum</a>

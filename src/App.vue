@@ -31,13 +31,15 @@ export default {
   font-family: 'Muli';
   font-size: 1em;
   line-height: 1;
-  background:url('~@/assets/elements/autumn/background.jpg') !important;
+  background-image:url('~@/assets/elements/autumn/background.jpg');
   background-position: bottom;
   background-size: cover;
   overflow: hidden;
 }
 @media all and (orientation:portrait) {
-  #app { background-size: auto 100%;}
+  #app {
+    background-size: auto 100%;
+  }
 }
 div {
   box-sizing: border-box;
