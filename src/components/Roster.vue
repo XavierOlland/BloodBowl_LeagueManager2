@@ -28,7 +28,7 @@
         <tr v-for="player in roster" :key="player.id" v-show="(player.dead+player.fired)==0 || formerPlayers==true" :class="{former: (player.dead+player.fired)!=0 }" :style="{'border-color': colours[0]}">
           <td class="text-left text-cutter">
             <span class="playerStatus" v-if="player.casualties.length>2"><img src="../assets/icons/injured.png"> </span>
-            <span class="playerStatus" v-if="player.dead==1"><img src="../assets/icons/dead.png"> </span>
+            <span class="playerStatus" v-if="player.dead>0"><img src="../assets/icons/dead.png"> </span>
             <span>{{player.name}}</span>
           </td>
           <td class="text-left text-cutter">{{player.position | talkingToTheGods()}}</td>
