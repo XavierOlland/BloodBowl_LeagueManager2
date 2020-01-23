@@ -1,16 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import competition from './modules/competition.js'
-import match from './modules/match.js'
-const moment = require('moment')
+import competition from './modules/Competition.js'
+import match from './modules/Match.js'
+import team from './modules/Team.js'
+//const moment = require('moment')
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
 	modules: {
 		competition,
-		match
+		match,
+		team
 	},
 	state: {
 		dictionnary: [],
@@ -47,7 +49,7 @@ export default new Vuex.Store({
 					context.commit('setStatistics', response.data.stats);
 					context.dispatch('upcomingGames')
 				}, error => {
-					console.error(error);
+					console.error(error); // eslint-disable-line no-console
 				});
 		},
 		async upcomingGames(context) {
@@ -56,7 +58,7 @@ export default new Vuex.Store({
 					const calendar = response.data ? response.data : {};
 					context.commit('setCalendar', calendar);
 				}, error => {
-					console.error(error);
+					console.error(error); // eslint-disable-line no-console
 				});
 		},
 

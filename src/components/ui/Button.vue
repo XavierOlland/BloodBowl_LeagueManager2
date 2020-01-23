@@ -1,5 +1,5 @@
 <template>
-  <div id="Button" @click="clicked()">
+  <div class="button" :class="{secondary: level=='secondary' }" @click="clicked()">
     <svg width="200px" height="30px" viewBox="0 0 200 30" version="1.1">
       <defs>
         <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" :id="id">
@@ -23,7 +23,8 @@ export default {
     id: String,
     text: String,
     color: String,
-    action: Function
+    action: Function,
+    level: String
   },
   methods: {
     clicked(){
@@ -34,13 +35,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  #Button {
+  .button {
     position:absolute;
-    right:0; bottom:0;
-    height:30px; width:200px;
+    right: 0; bottom: 0;
+    height: 30px; width: 200px;
     line-height: 29px;
     text-align: center;
     cursor: pointer;
+  }
+  .secondary {
+    right: 154px !important;
+    opacity: 0.75;
   }
   .label {
     color: #ffffff;
@@ -50,7 +55,7 @@ export default {
     font-style: italic;
     text-transform: capitalize;
     text-align: right;
-    text-indent: 40px
+    text-indent: 50px
   }
   .prime {
     .start {

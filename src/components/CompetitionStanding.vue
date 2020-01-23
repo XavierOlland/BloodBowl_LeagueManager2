@@ -17,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(team, index) in competition.slice(0,limit)" :key="team.id" :class="'standing-' + index">
+        <tr v-for="(team, index) in competition.slice(0,limit)" :key="team.id" :class="'standing-' + index" @click="goToTeam(team.cyanide_id)">
           <td>{{index+1}}</td>
           <td class="text-left"><img :src="require('../assets/logos/Logo_'+team.logo+'.png')"> {{team.name}}</td>
           <td class="text-left d-none d-sm-table-cell" >{{team.coach}}</td>
@@ -41,7 +41,15 @@
     props: {
       competition: Array,
       details: Boolean,
-      limit: Number
+      limit: Number,
+      teamAccess: Boolean
+    },
+    methods: {
+      goToTeam(id){
+        if(this.teamAccess == true){
+          this.$router.push({ name: 'Team', params: { id: id }})
+        }
+      }
     }
   }
 </script>
