@@ -2,7 +2,7 @@
   <div id="Roster">
     <table>
       <thead>
-      <tr :style="{background: colours[0]}">
+      <tr :style="'background:' + colours[0]">
         <th class="text-left">Joueur</th>
         <th class="text-left">Position</th>
         <th class="attributes text-center" v-if="!showStats">MA</th>
@@ -36,7 +36,7 @@
           <td class="text-center" v-if="!showStats">{{JSON.parse(player.attributes).st}}</td>
           <td class="text-center" v-if="!showStats">{{JSON.parse(player.attributes).ag}}</td>
           <td class="text-center" v-if="!showStats">{{JSON.parse(player.attributes).av}}</td>
-          <td class="text-center" v-if="!showStats">{{player.fired}}</td>
+          <td class="text-center" v-if="!showStats">{{player.level}}</td>
           <td class="text-center" v-if="!showStats">{{player.xp}}</td>
           <td class="text-center" v-if="showStats">{{player.stats.mvp}}</td>
           <td class="text-center" v-if="showStats">{{player.stats.inflictedpasses}}</td>
@@ -68,6 +68,7 @@
 </script>
 
 <style lang="scss" scoped>
+
   tr {
     height:28px;
     font-size:14px;
@@ -75,6 +76,7 @@
   }
   thead tr {
     border:none;
+
   }
   .former {
     background: linear-gradient(to right, rgba(50,50,50,0.85), rgba(50,50,50,0.65), rgba(50,50,50,0.1));
