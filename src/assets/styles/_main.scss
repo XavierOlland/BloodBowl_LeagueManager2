@@ -170,18 +170,18 @@ nav > ul > li > a:visited { text-decoration: none; color: #FFFFFF;}
 /* DISPLAY*/
 
 .veil {
-      position: fixed;
-      left:0;
-      background: rgba(0,0,0,0.9);
-      margin: 0 -0.9375rem;
-      width: 100%;
-      height: calc(100vh - 68px);
-      top: 68px;
-      z-index: 4;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+  position: fixed;
+  left:0;
+  background: rgba(0,0,0,0.9);
+  margin: 0 -0.9375rem;
+  width: 100%;
+  height: calc(100vh - 68px);
+  top: 68px;
+  z-index: 4;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal {
