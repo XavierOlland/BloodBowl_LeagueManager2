@@ -28,7 +28,7 @@
         <tr v-for="player in roster" :key="player.id"
         v-show="(player.dead+player.fired)==0 || formerPlayers==true"
         :class="[{former: (player.dead+player.fired)!=0 }, 'zelda']" :style="{'border-color': colours[0]}"
-        @click="showPlayer(player,true)">
+        @click="displayPlayer(player,true)">
           <td class="text-left text-cutter">
             <span class="playerStatus" v-if="player.casualties.length>2"><img src="../assets/icons/injured.png"> </span>
             <span class="playerStatus" v-if="player.dead>0"><img src="../assets/icons/dead.png"> </span>
@@ -55,7 +55,7 @@
         </tr>
       </tbody>
     </table>
-    <Player :player="modalPlayer" />
+    <Player :player="modalPlayer" :colours="colours" @clicked="displayPlayer({})"/>
   </div>
 </template>
 
@@ -79,7 +79,7 @@
       }
     },
     methods: {
-      showPlayer(player) {
+      displayPlayer(player) {
         this.modalPlayer = player;
       }
     }

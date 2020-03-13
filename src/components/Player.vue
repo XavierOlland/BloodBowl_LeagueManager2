@@ -1,39 +1,52 @@
 <template>
-  <div id="Player">
-    <div class="veil" v-show="modal == true" @click="modalView">
-      <div class="plain seconde" :class="{ modal: modal == true }">
-        <div id="fame"  class="teamBoard">
-          <h4  class="star" >&#9733;</h4>
-          <h4 class="noselect">{{player.xp}} XP</h4>
-
-        </div>
-        <h1>{{player.name}}</h1>
-        <!--h2><span>{{player.position | talkingToTheGods()}}</span></h2-->
-        <br>
+  <div id="Player" v-if="modal">
+    <div class="veil" @click="modalView">
+      <div class="plain seconde" :class="{ modal: modal == true }"  :style="{'border-color': colours[1]}">
         <div class="row">
-          <div id="playerPhoto" class="col-xs-6 col-md-3">
-            <img class="cover" src="resources/img/Cover_Glass.png">
-            <!--img class="player" src="resources/players/{{modal.player.position}}.jpg"-->
+          <div id="playerPhoto" class="photo col-xs-6 col-md-3">
+            <img class="cover" src="../assets/elements/Cover_Glass.png">
+            <img :src="require('../assets/players/'+player.position+'.jpg')" />
           </div>
-          <div class="col-xs-6 col-md-3">
-            <h3>MV {{ player.attributes.ma }}</h3>
-            <h3>FO {{ player.attributes.st }}</h3>
-            <h3>AG {{ player.attributes.ag }}</h3>
-            <h3>AR {{ player.attributes.av }}</h3>
-          </div>
-          <div class="col-xs-6 col-md-3">
-            <h3>Compétences</h3>
-            <p v-if="player.skills.length==0">Nada! Peau de zob! Ce joueur est un noob!</p>
-            <ul>
-             <!--li v-for="skill in player.skills" :key="skill">{{ skill | talkingToTheGods() }}</li>
-            </ul>
-          </div>
-          <div class="col-xs-6 col-md-3">
-            <h3>Blessures</h3>
-            <p v-if="player.casualties.length==0">Aucune... C'est d'un triste...</p>
-            <ul>
-              <li v-for="casualty in player.casualties" :key="casualty">{{ casualty | talkingToTheGods() }}</li-->
-            </ul>
+          <div class="col-xs-6 col-md-9">
+            <div class="row">
+              <div class="col-xs-12 col-md-12">
+
+              <h1 :style="{'color':colours[1]}">{{player.name}}</h1>
+              <h2>{{ player.position | talkingToTheGods() }}</h2>
+              <br/>
+              <div class="level">
+                <h3 :style="{'color':colours[1]}" v-for="n in player.level" :key="n" class="star" >&#9733;</h3>
+                <h3 :style="{'color':colours[1]}" class="noselect">{{player.xp}} XP</h3>
+              </div>
+
+            </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-3 col-md-2">
+                <h3 :style="{'color':colours[1]}">MV <span>{{ JSON.parse(player.attributes).ma }}</span></h3>
+                <h3 :style="{'color':colours[1]}">FO <span>{{ JSON.parse(player.attributes).st }}</span></h3>
+                <h3 :style="{'color':colours[1]}">AG <span>{{ JSON.parse(player.attributes).ag }}</span></h3>
+                <h3 :style="{'color':colours[1]}">AR <span>{{ JSON.parse(player.attributes).av }}</span></h3>
+              </div>
+              <div class="col-xs-5 col-md-5">
+                <h3 :style="{'color':colours[1]}">Compétences</h3>
+                <p v-if="JSON.parse(player.skills).length==0">Nada! Peau de zob! Ce joueur est un noob!</p>
+                <ul>
+                  <li v-for="skill in JSON.parse(player.skills)" :key="skill">
+                    {{ skill | talkingToTheGods() }}
+                  </li>
+                </ul>
+              </div>
+              <div class="col-xs-4 col-md-5">
+                <h3 :style="{'color':colours[1]}">Blessures</h3>
+                <p v-if="JSON.parse(player.casualties).length==0">Aucune... C'est d'un triste...</p>
+                <ul>
+                  <li v-for="casualty in JSON.parse(player.casualties)" :key="casualty">
+                    {{ casualty | talkingToTheGods() }}
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -46,18 +59,17 @@
   export default {
     name: 'Player',
     props: {
-      player: Object
+      player: Object,
+      colours: Array,
     },
     data() {
       return {
         modal: false
       }
     },
-    computed: {
-    },
     methods: {
       modalView() {
-        this.modal = !this.modal;
+        this.$emit('clicked')
       }
     },
     watch: {
@@ -69,7 +81,28 @@
 </script>
 
 <style lang="scss" scoped>
-  .somethingOrNothingShows {
-
+  h3 {
+    span {
+      color: $prime-text;
+    }
+  }
+  .level {
+    position: absolute;
+    right:0;
+    top:0;
+    padding: 1vh 2vw;
+  }
+  .photo {
+    padding:0;
+    img {
+      max-width: 200px;
+      width: 80%;
+      height: auto;
+    }
+    .cover{
+      position: absolute;
+      height:100%;
+      z-index: 2;
+    }
   }
 </style>
