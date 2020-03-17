@@ -86,11 +86,18 @@
       color: $prime-text;
     }
   }
+  #Player{
+  .row {
+    div {
+      padding:0;
+    }
+  }}
   .level {
     position: absolute;
     right:0;
     top:0;
     padding: 1vh 2vw;
+    text-align: right !important;
   }
   .photo {
     padding:0;
