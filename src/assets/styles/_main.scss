@@ -186,13 +186,12 @@ nav > ul > li > a:visited { text-decoration: none; color: #FFFFFF;}
 
 .modal {
   display: inline-block;
-  position:fixed;
+  position: relative;
   margin: 0px 10vw;
-  padding: 1vh 2vw 0px;
+  padding: 1vh 2vw;
   width: 80vw;
   max-width: 80vw;
   max-height: calc(100vh - 150px);
-  top: 100px;
   left: 0;
   z-index: 5;
   .scroll {

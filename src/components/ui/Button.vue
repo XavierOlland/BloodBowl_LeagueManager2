@@ -9,7 +9,9 @@
       </defs>
       <g stroke="none" stroke-width="0" fill="none" fill-rule="evenodd">
         <path d="M56.331588,0 L200,0 L200,30 L-2.83591688e-14,30 C28.165794,15 28.165794,0 56.331588,0 Z" :fill="'url(#'+id+')'"></path>
-        <text class="label" fill="#fff"><tspan x="50" y="22">{{text}}</tspan></text>
+        <text class="label" fill="#fff" x="50" y="22">
+            {{text}}
+        </text>
       </g>
     </svg>
   </div>

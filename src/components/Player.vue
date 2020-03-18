@@ -49,6 +49,7 @@
             </div>
           </div>
         </div>
+        <Button :id="'ClosePlayer'" :text="'Fermer'" :color="colours[1]" @clicked="modalView" />
       </div>
     </div>
   </div>
@@ -56,8 +57,13 @@
 
 <script>
 
+  import Button from '../components/ui/Button.vue';
+
   export default {
     name: 'Player',
+    components:{
+      Button
+    },
     props: {
       player: Object,
       colours: Array,
@@ -86,12 +92,18 @@
       color: $prime-text;
     }
   }
-  #Player{
-  .row {
-    div {
-      padding:0;
+  #Player {
+    .veil {
+      .plain {
+        height: auto;
+              }
     }
-  }}
+    .row {
+      div {
+        padding:0;
+      }
+    }
+  }
   .level {
     position: absolute;
     right:0;
@@ -100,7 +112,7 @@
     text-align: right !important;
   }
   .photo {
-    padding:0;
+    margin: 1vh 0;
     img {
       max-width: 200px;
       width: 80%;
