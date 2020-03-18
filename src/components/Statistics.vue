@@ -70,4 +70,8 @@
   thead tr {
     border:none;
   }
+  .modal {
+    position: fixed;
+    top: 100px
+  }
 </style>

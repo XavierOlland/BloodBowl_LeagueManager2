@@ -25,7 +25,10 @@
       </tr>
       </thead>
       <tbody  class="table-hover noselect">
-        <tr v-for="player in roster" :key="player.id" v-show="(player.dead+player.fired)==0 || formerPlayers==true" :class="{former: (player.dead+player.fired)!=0 }" :style="{'border-color': colours[0]}">
+        <tr v-for="player in roster" :key="player.id"
+        v-show="(player.dead+player.fired)==0 || formerPlayers==true"
+        :class="[{former: (player.dead+player.fired)!=0 }, 'zelda']" :style="{'border-color': colours[0]}"
+        @click="displayPlayer(player,true)">
           <td class="text-left text-cutter">
             <span class="playerStatus" v-if="player.casualties.length>2"><img src="../assets/icons/injured.png"> </span>
             <span class="playerStatus" v-if="player.dead>0"><img src="../assets/icons/dead.png"> </span>
@@ -52,17 +55,33 @@
         </tr>
       </tbody>
     </table>
+    <Player :player="modalPlayer" :colours="colours" @clicked="displayPlayer({})"/>
   </div>
 </template>
 
 <script>
+  import Player from '../components/Player.vue';
+
   export default {
     name: 'Roster',
+    components: {
+      Player
+    },
     props: {
       colours: Array,
       roster: Array,
       showStats: Boolean,
       formerPlayers: Boolean
+    },
+    data() {
+      return {
+        modalPlayer: {}
+      }
+    },
+    methods: {
+      displayPlayer(player) {
+        this.modalPlayer = player;
+      }
     }
   }
 </script>
