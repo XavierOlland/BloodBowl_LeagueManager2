@@ -27,7 +27,7 @@
           <h3>Légendaires</h3>
           <p>Woody Roots Bush Bombers, Darkside Magic, Rats Fils Tauleurs... Ces équipes comme beaucoup d'autres ont marqué de leur empreinte la BBBL.<br/>
           Tribunes vous offres aujourd'hui un accés illimité à l'Histoire de la ligue</p>
-          <Button :id="'Seconde'" :text="'les Archives'" @clicked="$router.push('archives')"/>
+          <Button :id="'Seconde'" :text="'les Archives'" @clicked="$router.push('Archives')"/>
         </div>
 
       </div>
