@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import archives from './modules/Archives.js'
 import competition from './modules/Competition.js'
 import match from './modules/Match.js'
 import team from './modules/Team.js'
@@ -10,12 +11,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
 	modules: {
+		archives,
 		competition,
 		match,
 		team
 	},
 	state: {
 		dictionnary: [],
+		archives: [],
 		competitions: [],
 		statistics: [],
 		calendar: {}
