@@ -1,6 +1,7 @@
 <template>
   <div id="Champion" class="plain prime">
     <Helmet class="helmet" :race="race" :logo="logo" :colours="colours" />
+    <img class="logo" :src="require('../assets/logos/Logo_'+logo+'.png')"/>
     <div class="spacer">
       <h3 v-if="mode!='list'">CHAMPION</h3>
       <h3>{{competition.name}}</h3>
@@ -56,7 +57,7 @@
     }
     .helmet {
       position: absolute;
-      right:-75px;
+      right:-60px;
       top:-50px;
       z-index:0;
       width:200px;
@@ -74,5 +75,15 @@
     }
     .button {
       z-index:5
+    }
+    .logo {
+      position: absolute;
+      z-index:2;
+      height: auto;
+      width: 25%;
+      bottom: 5%;
+      left: 5%;
+      transform: rotate(-10deg);
+      opacity: 0.3
     }
 </style>

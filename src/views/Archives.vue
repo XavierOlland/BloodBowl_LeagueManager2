@@ -1,23 +1,23 @@
 <template>
   <div id="Archives" class="view container" >
     <div class="row">
-      <div class="col-lg-3 hidden-md-down scroll">
+      <div class="col-3 hidden-md-down scroll">
         <div class="plain seconde searchBox">
           asd
         </div>
       </div>
-      <div class="col-lg-9 scroll">
-        <div class="col-sm-6 col-xl-4" v-for="archive in archives" :key="archive.id">
-          <Champion v-if="archive.champion==1 && archive.standing[0]"
-            :mode="'list'"
-            :competition="{id:archive.id,name:archive.season}"
-            :coach="archive.standing[0].coach"
-            :team="archive.standing[0].name"
-            :race="Number(archive.standing[0].race)"
-            :logo="archive.standing[0].logo"
-            :colours="[archive.standing[0].color_1,archive.standing[0].color_2]"
-          />
-        </div>
+      <div class="col-9 scroll d-flex flex-wrap">
+          <div class="col-4" v-for="archive in champions" :key="archive.id">
+            <Champion
+              :mode="'list'"
+              :competition="{id:archive.id,name:archive.season}"
+              :coach="archive.standing[0].coach"
+              :team="archive.standing[0].name"
+              :race="Number(archive.standing[0].race)"
+              :logo="archive.standing[0].logo"
+              :colours="[archive.standing[0].color_1,archive.standing[0].color_2]"
+            />
+          </div>
 
       </div>
     </div>
@@ -27,7 +27,6 @@
 <script>
 
   import Champion from '../components/Champion.vue'
-
 
   export default {
     name: 'Archives',
@@ -45,6 +44,11 @@
     computed:{
       archives(){
         return this.$store.state.archives.archives;
+      },
+      champions(){
+        var champions = this.$store.state.archives.archives.filter(archive => archive.champion == 1);
+        console.log(champions) // eslint-disable-line no-console
+        return champions
       }
     },
     methods: {
@@ -63,6 +67,12 @@
 </script>
 
 <style lang="scss" scoped>
-  .something {}
-
+  .my-flex {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+  }
+  .test {
+    flex:auto;
+  }
 </style>
