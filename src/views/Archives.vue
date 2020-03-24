@@ -1,16 +1,17 @@
 <template>
   <div id="Archives" class="view container" >
     <div class="row">
-      <div class="col-3 hidden-md-down scroll">
-        <div class="plain seconde searchBox">
+      <div class="col-3 scroll">
+        <div class="plain seconde searchBox scroll">
+          <h2>Archives publiques</h2>
           <div class="searchFilter">
-            <input class="search" type="text" v-model="searchQuery" placeholder="Search" />
-            <div class="searchAction icon-clear" v-if="searchQuery" @click="clearSearch"/>
+            <input class="search" type="text" v-model="searchQuery" placeholder="Cherchez une équipe, un coach, etc" />
+            <div class="searchAction" v-if="searchQuery" @click="clearSearch"/>
           </div>
-          <CompetitionsList :data="searchList"/>
+          <CompetitionsList :data="searchList" class="searchResults"/>
         </div>
       </div>
-      <div class="col-9 scroll d-flex flex-wrap">
+      <div class="col-9 scroll d-flex flex-wrap align-content-start">
           <div class="col-4" v-for="archive in champions" :key="archive.id">
             <Champion
               :mode="'list'"
@@ -86,12 +87,41 @@
 </script>
 
 <style lang="scss" scoped>
-  .my-flex {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
+  h2 {
+    color: $seconde-color;
   }
-  .test {
-    flex:auto;
+  .searchBox {
+    padding-bottom: 30px;
   }
+  .searchFilter {
+    position: relative;
+    margin: 1em 0;
+    input {
+      border:none;
+      width: 100%;
+      height: 2em;
+      padding: 0.15em;
+      border-radius: 3px;
+      background-color: #ffffff;
+      color: #000;
+    }
+    .searchAction {
+      position: absolute;
+      right: 1%;
+      top: 10%;
+      height: 80%;
+      width: 8%;
+      z-index: 2;
+      background-color: #ccc;
+    }
+  }
+  .searchResults {
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-top: solid 1px #373737;
+    border-bottom: solid 1px #373737;
+    padding-right:  20px;
+    height: calc(100vh - 243px);
+  }
+
 </style>

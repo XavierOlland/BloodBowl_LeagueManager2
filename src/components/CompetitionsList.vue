@@ -2,7 +2,7 @@
   <div id="CompetitionsList">
     <div class="list">
           <div v-for="(value,key) in list" :key="key">
-            <div class="year"><h3>{{value[0].year}}</h3><hr/></div>
+              <div class="year"><hr/><h3>{{value[0].year}}</h3><hr/></div>
             <router-link tag="div" v-for="item in value" :key="item.id" :class="['entry', {'title':item.champion==1}]"  :to="{ name: 'Competition', params: { id: item.id }}">
               <span v-if="item.champion==1">&#9733; </span>
               {{item.season}} - {{item.site_name}}
@@ -66,19 +66,29 @@ export default {
     }
     hr {
       flex-grow:1;
-      border-bottom: solid 1px $seconde-color;
-      margin: 1em;
+      border-bottom: solid 2px $seconde-color;
+      margin: 1.2em;
     }
   }
   .entry {
+    line-height: 1.25em;
     color: $prime-text;
-    text-indent: 1.25em;
+    margin-left: 1.25em;
+    cursor:pointer;
+    &:hover {
+      color: $seconde-color;
+    }
   }
   .title {
     text-indent: 0;
     font-weight: bold;
-    //margin: 0.2em 0;
-    //font-size: 1.1em
+    margin: 0.2em 0;
+    font-size: 1.1em
+  }
+  .disclaimer {
+    margin:1em;
+    color: $prime-text;
+    font-style: italic;
   }
 
 </style>
