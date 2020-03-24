@@ -3,7 +3,11 @@
     <div class="row">
       <div class="col-3 hidden-md-down scroll">
         <div class="plain seconde searchBox">
-          asd
+          <div class="searchFilter">
+            <input class="search" type="text" v-model="searchQuery" placeholder="Search" />
+            <div class="searchAction icon-clear" v-if="searchQuery" @click="clearSearch"/>
+          </div>
+          <CompetitionsList :data="searchList"/>
         </div>
       </div>
       <div class="col-9 scroll d-flex flex-wrap">
@@ -27,11 +31,13 @@
 <script>
 
   import Champion from '../components/Champion.vue'
+  import CompetitionsList from '../components/CompetitionsList.vue'
 
   export default {
     name: 'Archives',
     components: {
-      Champion
+      Champion,
+      CompetitionsList
     },
     props: {
       dictionnary: Array
@@ -39,20 +45,33 @@
     data(){
       return {
         isFetching: true,
+        searchQuery: ''
       }
     },
     computed:{
       archives(){
         return this.$store.state.archives.archives;
       },
+      searchList() {
+        if(this.searchQuery){
+          var query = this.searchQuery.toLowerCase();
+          return this.$store.state.archives.archives.filter( archive =>{
+            return  JSON.stringify(archive.standing).toLowerCase().includes(query)
+          })
+        }
+        else {
+          return this.$store.state.archives.archives
+        }
+      },
       champions(){
         var champions = this.$store.state.archives.archives.filter(archive => archive.champion == 1);
-        console.log(champions) // eslint-disable-line no-console
         return champions
       }
     },
     methods: {
-
+      clearSearch: function(){
+        this.searchQuery = ''
+      }
     },
     mounted() {
       this.$store.dispatch('archives/fetchArchives')
