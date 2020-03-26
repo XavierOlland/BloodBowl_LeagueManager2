@@ -16,7 +16,8 @@
       <div class="col-lg-5">
         <div v-for="day in calendar" :key="day.round" v-show="day.round <= displayDay || displayDay==0" class="plain prime" :class="{ current: day.round == currentDay}">
           <div v-if="day.round == currentDay && displayDay != 0" class="topright zelda" @click="fullCalendar()">Calendrier complet</div>
-          <h3>Journée {{day.round}}</h3>
+          <h3 v-if="competition.format!='single_elimination'">Journée {{day.round}}</h3>
+          <h3 v-else>{{rounds[day.round-1]}} </h3>
           <div v-for="match in day.matchs" :key="match.id" :title="match.name_1 + ' VS ' + match.name_2" class="vs d-inline-flex col-lg-6 col-xl-4">
             <MatchPreview :match="match" :round="day.round" />
           </div>
@@ -51,7 +52,8 @@
         matchesToSave: [],
         saving: false,
         modal: false,
-        displayDay: 0
+        displayDay: 0,
+        singleEliminationRounds: ['32emes de finales', '16emes de finales', '8emes de finales', 'Quart de finales', 'Demi-Finales', 'Finale']
       }
     },
     computed:{
@@ -59,24 +61,31 @@
         return this.$store.state.competition.competition;
       },
       calendar(){
+        const cal = this.$store.state.competition.calendar;
+        this.competition.game=='BB1'? cal.reverse() : cal;
         return this.$store.state.competition.calendar;
       },
       currentDay(){
-        return this.calendar[0].currentDay
+        return this.calendar[0].currentDay;
+      },
+      rounds(){
+        const rounds = this.singleEliminationRounds.slice(6 - this.calendar.length);
+        this.competition.game=='BB1'? rounds.reverse() : rounds;
+        return rounds;
       }
     },
     methods: {
       competitionUpdate() {
         this.saving = true;
         var params = [this.competition.game_name, this.competition.id,];
-        this.$store.dispatch('competition/updateCompetition',params)
+        this.$store.dispatch('competition/updateCompetition',params);
       },
       fullCalendar() {
         this.displayDay = 0;
       }
     },
     mounted() {
-      this.$store.dispatch('competition/fetchCompetition',this.$route.params.id)
+      this.$store.dispatch('competition/fetchCompetition',this.$route.params.id);
     },
     watch: {
       calendar: function() {
