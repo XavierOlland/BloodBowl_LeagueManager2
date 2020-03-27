@@ -31,7 +31,7 @@ export default {
   font-family: 'Muli';
   font-size: 1em;
   line-height: 1;
-  background-image:url('~@/assets/elements/autumn/background.jpg');
+  background-image:url('~@/assets/elements/spring/background.jpg');
   background-position: bottom;
   background-size: cover;
   overflow: hidden;

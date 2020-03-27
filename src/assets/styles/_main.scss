@@ -1,9 +1,9 @@
 
-$prime-color: #FF8217;
+$prime-color: #008822;
 $prime-bg: rgba(0, 0, 0, 0.95);
-$seconde-color: #AC483B;
+$seconde-color: #289256;
 $seconde-bg: rgba(68, 68, 68, 0.9);
-$focus-bg: rgba(255, 130, 23, 0.9);
+$focus-bg: rgba(0, 136, 34, 0.9);
 $focus-color: #EEE;
 
 $prime-text:#EEE;
@@ -83,15 +83,6 @@ li > h3 { display:inline; }
 .vdatetime-popup__actions__button,.vdatetime-time-picker__item--selected {
   color: $prime-color !important;
 }
-
-/* HEADER */
-#Intro { position:relative; width:100vw; height:18px; background:transparent; font-size: 12px;box-sizing: border-box; line-height: 18px;text-align:center; font-family:'Muli'; color:#FFF; font-weight:600; z-index:2;}
-#Logo { position:fixed; top:0px; left:0; margin:0 10px; height: 90px; width: 120px; cursor: pointer; background: url('~@/assets/league/Logo_S.png') no-repeat; background-position: center 2px; background-size:contain; z-index:100;}
-/* Navbar */
-.navbar { color:#ffffff;  height:50px; margin:0; padding: 0 0 0 170px; border-radius: 0; background: url('~@/assets/elements/navbar.jpg'); border-bottom: 3px solid #FF8217;}
-
-.navbar-brand { padding:0; margin:0; font-size: 36px; max-width:calc(100vw - 160px); }
-
 
 .collapse.in { width: 100vw; background: #000000; padding: 5px 5px 5px 110px;}
 nav > ul > li { font-family: "Akashi" !important; height: 50px; margin: 0 0 0 -5px; display: inline-block; cursor: pointer; line-height:50px; }
