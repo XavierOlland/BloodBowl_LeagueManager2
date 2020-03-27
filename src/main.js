@@ -2,12 +2,17 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store/index.js'
+import VueLodash from 'vue-lodash'
+import lodash from 'lodash'
 
 const moment = require('moment')
 require('moment/locale/fr')
 
 Vue.use(require('vue-moment'), {
 	moment
+})
+Vue.use(VueLodash, {
+	lodash: lodash
 })
 
 Vue.config.productionTip = false
