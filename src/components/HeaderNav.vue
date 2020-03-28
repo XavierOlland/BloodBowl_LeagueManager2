@@ -32,7 +32,7 @@ export default {
   },
   methods:{
     checkLogo(route) {
-      return route=='Home' && window.innerWidth>576? false:true;
+      return route=='Home' && window.innerWidth>1024? false:true;
     }
   },
   watch: {

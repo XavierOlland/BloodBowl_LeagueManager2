@@ -18,7 +18,7 @@
       <li>Offrande au public : <span :style="{color: colours[0]}">{{team.inflictedpushouts}} </span></li>
       <li>Expulsions : <span :style="{color: colours[0]}">{{team.sustainedexpulsions}} </span></li>
     </ul>
-    <Button :id="team.idteamlisting" :text="'Effectif'" :color="colours[0]" @clicked="displayRoster" />
+    <Button class="d-none d-md-block" :id="team.idteamlisting" :text="'Effectif'" :color="colours[0]" @clicked="displayRoster" />
     <PlayersStats :id="team.idteamlisting" :colours="colours" :roster="team.roster" :modal="modal" @clicked="displayRoster"/>
   </div>
 </template>

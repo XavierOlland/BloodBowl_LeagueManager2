@@ -10,7 +10,7 @@
 
         </div>
         <div class="card-columns">
-          <Statistics  v-for="stat in competition.playersStats" :key="stat.type" :statistics="stat" :limit="3" :dictionnary="dictionnary"/>
+          <Statistics class="d-none d-sm-block" v-for="stat in competition.playersStats" :key="stat.type" :statistics="stat" :limit="3" :dictionnary="dictionnary"/>
         </div>
       </div>
       <div class="col-lg-5">

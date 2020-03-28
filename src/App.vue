@@ -24,7 +24,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height:100%;
-  padding-top:68px;
+  padding-top:65px;
   font-family: 'Muli';
   font-size: 1em;
   line-height: 1;

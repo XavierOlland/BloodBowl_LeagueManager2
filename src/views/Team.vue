@@ -2,7 +2,7 @@
   <div id="Team" class="view container" v-if="!isFetching">
     <Modal v-if="modal == true"/>
     <div class="row">
-      <div class="col-lg-7">
+      <div class="col-lg-12 col-xl-7">
         <Helmet class="helmet" :race="team.param_id_race" :logo="team.logo" :colours="[team.color_1,team.color_2]" />
         <div class="plain seconde teamboard" :style="{'border-color': team.color_2}">
           <h1 :style="{'color':team.color_2}">{{team.name}}</h1>
@@ -30,11 +30,11 @@
         <div class="plain prime" :style="{'border-color': team.color_1}">
           <h2>Effectif</h2>
           <Roster :roster="team.players" :colours="[team.color_1,team.color_2]" :formerPlayers="formerPlayers" :showStats="stats" />
-          <Button :id="'Stats'" :text="'Statistiques'" :color="team.color_1" @clicked="toggleStats"/>
-          <Button :id="'FormerPlayers'" :level="'secondary'" :text="formerPlayersText" :color="team.color_1" @clicked="toggleFormerPlayers"/>
+          <Button class="d-none d-md-block" :id="'Stats'" :text="'Statistiques'" :color="team.color_1" @clicked="toggleStats"/>
+          <Button class="d-none d-md-block" :id="'FormerPlayers'" :level="'secondary'" :text="formerPlayersText" :color="team.color_1" @clicked="toggleFormerPlayers"/>
         </div>
       </div>
-      <div class="col-lg-5">
+      <div class="col-lg-12 col-xl-5">
         <div class="plain photo" v-if="team.id>268" :style="{'border-color': team.color_1}">
           <img class="cover" src="../assets/elements/Cover_Glass.png">
           <img :src="require('../assets/teams/photo'+team.id+'.jpg')" />
@@ -100,7 +100,12 @@
 
 <style lang="scss" scoped>
   .helmet {
-    position: absolute; right:-1vw; top:0; z-index:2; width:300px; height:300px;
+    position: absolute;
+    right:-1vw;
+    top:0;
+    z-index:2;
+    width:300px;
+    height:300px;
   }
   .teamboard {
     padding-bottom: 10px;
@@ -121,6 +126,11 @@
     .cover{
       position: absolute;
       z-index: 2;
+    }
+  }
+  @media (max-width: 576px) {
+    .helmet {
+      position: relative;
     }
   }
 </style>
