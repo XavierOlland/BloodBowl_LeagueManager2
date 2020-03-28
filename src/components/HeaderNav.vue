@@ -1,8 +1,10 @@
 <template>
   <div id="HeaderNav">
       <nav class="d-flex justify-content-between">
-        <img :class="['logo',{'hidden':logo==false}]" src="~@/assets/league/Logo_S.png" @click="$router.push('/')"/>
-        <h1 class="title inline text-cutter">{{ title }}</h1>
+        <div class="d-flex">
+          <img :class="['logo',{'hidden':logo==false}]" src="~@/assets/league/Logo_S.png" @click="$router.push('/')"/>
+          <h1 class="title inline text-cutter">{{ title }}</h1>
+        </div>
         <ul class="d-flex">
           <li>
             <a href="Forum">Forum</a>
@@ -52,7 +54,7 @@ export default {
   }
   .logo {
     height: 80px;
-    margin-top: -15px;
+    margin: -15px 10px 0 0;
     cursor: pointer;
   }
 
