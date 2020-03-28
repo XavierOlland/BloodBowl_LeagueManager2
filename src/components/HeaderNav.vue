@@ -67,7 +67,7 @@ export default {
   }
 
   nav {
-    color:#ffffff;
+    color: $prime-text;
     height:50px;
     margin:0;
     padding: 0 0 0 170px;
@@ -84,17 +84,13 @@ export default {
       li {
         font-family: "Akashi" !important;
         height: 50px;
-        //margin: 0 0 0 -5px;
         display: inline-block;
         cursor: pointer;
-        //line-height:50px;
-        //background: #FF0
         &:hover {
           border-bottom: 3px solid $prime-text;
-          background: radial-gradient(at bottom, rgba(255,255,255,0.5) 0%, rgba(0,0,0,0) 5%);
           a {
             text-decoration: none;
-            color: #CCCCCC;
+            color: $seconde-text;
           }
         }
         a {
