@@ -1,8 +1,8 @@
 <template>
   <div id="HeaderNav">
       <nav class="d-flex justify-content-between">
-        <div id="Logo" v-if="logo==true" class="logo d-none d-sm-block" @click="$router.push('/')"></div>
-        <h1 class="title inline text-cutter">{{ header }}</h1>
+        <img :class="['logo',{'hidden':logo==false}]" src="~@/assets/league/Logo_S.png" @click="$router.push('/')"/>
+        <h1 class="title inline text-cutter">{{ title }}</h1>
         <ul class="d-flex">
           <li>
             <a href="Forum">Forum</a>
@@ -22,22 +22,20 @@
 
 export default {
   name: 'HeaderNav',
-  props: {
-    title: String
-  },
   data(){
-    return{
-      logo: this.$router.currentRoute.name!='Home'
+    return {
+      title: window.innerWidth<576 ? "BBBL": "Blood Bowl Baston League",
+      logo: this.checkLogo(this.$router.currentRoute.name)
     }
   },
-  computed: {
-    header(){
-      return window.innerWidth<576 ? "BBBL": this.title
+  methods:{
+    checkLogo(route) {
+      return route=='Home' && window.innerWidth>576? false:true;
     }
   },
   watch: {
     '$route' (to) {
-      this.logo = to.name == 'Home'? false:true;
+      this.logo = this.checkLogo(to.name);
     }
   }
 
@@ -52,25 +50,17 @@ export default {
     margin-top:15px;
     z-index:1000;
   }
-  #Logo {
-    position:fixed;
-    top:0px;
-    left:0;
-    margin:0 10px;
-    height: 90px;
-    width: 120px;
+  .logo {
+    height: 80px;
+    margin-top: -15px;
     cursor: pointer;
-    background: url('~@/assets/league/Logo_S.png') no-repeat;
-    background-position: center 2px;
-    background-size:contain;
-    z-index:100;
   }
 
   nav {
     color: $prime-text;
     height:50px;
     margin:0;
-    padding: 0 0 0 170px;
+    padding: 0 0 0 50px;
     border-radius: 0;
     background: url('~@/assets/elements/navbar.jpg');
     border-bottom: 3px solid $prime-color;
@@ -106,9 +96,14 @@ export default {
 
     }
   }
+  //Mobile
   @media (max-width: 576px) {
     nav {
-      padding:0 20px 0 25px;
+      padding:0 20px 0 10px;
+    }
+    .logo {
+      height: 70px;
+      margin-top: -10px;
     }
   }
 

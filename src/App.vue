@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <HeaderNav title="Blood Bowl Baston League"/>
+    <HeaderNav/>
     <router-view/>
   </div>
 </template>
@@ -10,14 +10,11 @@ import HeaderNav from './components/HeaderNav.vue'
 
 export default {
   name: 'app',
-  props:{
-    logo: Boolean
-  },
   components: {
     HeaderNav
   },
   mounted(){
-     this.$store.dispatch('boot')
+     this.$store.dispatch('boot');
   }
 }
 </script>

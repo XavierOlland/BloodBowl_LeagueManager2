@@ -219,7 +219,9 @@ li > h3 { display:inline; }
 .down {
   -webkit-transform: scaleY(-1);
   transform: scaleY(-1);}
-
+.hidden {
+  opacity: 0;
+}
 
 /*Tables*/
 .plain table { width: 100%; color:$prime-text;  text-align: center; }
