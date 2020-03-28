@@ -1,21 +1,19 @@
 <template>
   <div id="HeaderNav">
-      <div id="Intro" class="hd-100 x-center y-center">la Blood Bowl Baston League pr&eacute;sente</div>
-      <nav class="navbar" ng-style="colours[0].border">
-        <div id="Logo" v-if="logo==true" class="logo" @click="$router.push('/')"></div>
-        <h1 class="title inline text-cutter">{{ title }}</h1>
-        <ul class="nav navbar-nav inline collapse navbar-toggleable-md pull-xs-right" id="Menu">
+      <nav class="d-flex justify-content-between">
+        <div id="Logo" v-if="logo==true" class="logo d-none d-sm-block" @click="$router.push('/')"></div>
+        <h1 class="title inline text-cutter">{{ header }}</h1>
+        <ul class="d-flex">
           <li>
-            <a class="nav" href="Forum">Forum</a>
+            <a href="Forum">Forum</a>
           </li>
-          <li class="d-sm-down">
-            <a class="nav" href="steam://run/236690">Jouer</a>
+          <li  class="d-none d-sm-block">
+            <a href="steam://run/236690">Jouer</a>
           </li>
-          <li class="d-sm-down">
-            <a class="nav" href="https://discordapp.com/channels/159656062125998080/159656062125998080" target="_blank">Discord</a>
+          <li class="d-none d-sm-block">
+            <a  href="https://discordapp.com/channels/159656062125998080/159656062125998080" target="_blank">Discord</a>
           </li>
         </ul>
-        <div class="navbar-toggler d-lg-none pull-right zelda" type="button" data-toggle="collapse" data-target="#Menu">&#9776;</div>
       </nav>
   </div>
 </template>
@@ -32,6 +30,11 @@ export default {
       logo: this.$router.currentRoute.name!='Home'
     }
   },
+  computed: {
+    header(){
+      return window.innerWidth<576 ? "BBBL": this.title
+    }
+  },
   watch: {
     '$route' (to) {
       this.logo = to.name == 'Home'? false:true;
@@ -45,21 +48,9 @@ export default {
   #HeaderNav {
     position:fixed;
     top:0;
-    z-index:1000;
-  }
-  #Intro {
-    position:relative;
     width:100vw;
-    height:18px;
-    background:transparent;
-    font-size: 12px;
-    box-sizing: border-box;
-    line-height: 18px;
-    text-align:center;
-    font-family:'Muli';
-    color:#FFF;
-    font-weight:600;
-    z-index:2;
+    margin-top:15px;
+    z-index:1000;
   }
   #Logo {
     position:fixed;
@@ -72,9 +63,10 @@ export default {
     background: url('~@/assets/league/Logo_S.png') no-repeat;
     background-position: center 2px;
     background-size:contain;
-    z-index:100;}
+    z-index:100;
+  }
 
-  .navbar {
+  nav {
     color:#ffffff;
     height:50px;
     margin:0;
@@ -82,12 +74,46 @@ export default {
     border-radius: 0;
     background: url('~@/assets/elements/navbar.jpg');
     border-bottom: 3px solid $prime-color;
-
     .title {
       padding:0;
       margin:0;
       font-size: 36px;
-      max-width:calc(100vw - 160px);
+      display:inline-block;
+    }
+    ul {
+      li {
+        font-family: "Akashi" !important;
+        height: 50px;
+        //margin: 0 0 0 -5px;
+        display: inline-block;
+        cursor: pointer;
+        //line-height:50px;
+        //background: #FF0
+        &:hover {
+          border-bottom: 3px solid $prime-text;
+          background: radial-gradient(at bottom, rgba(255,255,255,0.5) 0%, rgba(0,0,0,0) 5%);
+          a {
+            text-decoration: none;
+            color: #CCCCCC;
+          }
+        }
+        a {
+          text-decoration: none;
+          color: $prime-text;
+          line-height: 50px;
+          font-weight: 400;
+          display:block;
+          width:100%;
+          padding: 0 1vh !important;
+        }
+      }
+
     }
   }
+  @media (max-width: 576px) {
+    nav {
+      padding:0 20px 0 25px;
+    }
+  }
+
 </style>

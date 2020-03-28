@@ -7,18 +7,13 @@ $focus-bg: rgba(0, 136, 34, 0.9);
 $focus-color: #EEE;
 
 $prime-text:#EEE;
-
+$shadow: rgba(0, 0, 0, 0.90);
+$link-contrast: #000;
 $error-85: rgba(212, 0, 0, 0.85);
 
 /* Text styles */
 @import url('https://fonts.googleapis.com/css?family=Muli:400,400i,600,700,700i');
 @import url('https://fonts.googleapis.com/css?family=Niconne');
-
-@media (min-width: 62em) {
-  .navbar-toggleable-md {
-    display: block !important;
-  }
-}
 
 .view {
   overflow-y:auto;
@@ -33,7 +28,7 @@ $error-85: rgba(212, 0, 0, 0.85);
 }
 
 a { font-weight: 500; cursor: pointer; }
-a:hover.button { text-decoration: none; color: #000; }
+a:hover.button { text-decoration: none; color: $link-contrast; }
 h1 { font-family: 'Akashi';  font-size: 40px; line-height: 50px; color: #ffffff; }
 h2, h2 a { font-family: 'Akashi' !important; font-size: 30px; line-height: 1; margin:0 0 10px; color: #ffffff; }
 h3 { font-family: 'Akashi';  font-size: 24px; line-height: 1; margin:8px 0; color: #ffffff; }
@@ -48,7 +43,7 @@ h5 { font-weight:700; text-decoration: underline; margin:5px; text-align: center
 h6 { font-weight:700; }
 p, .vdatetime-input { font-size: 14px; line-height: 18px; text-align: justify; color:#cccccc; display:inline-block; }
 .plain form { font-family:'Muli'; font-size: 14px; line-height: 18px; text-align: justify; color:#cccccc; display:inline-block; }
-input, select { color:#000000;}
+input, select { color: $link-contrast;}
 
 table { font-family:'Muli'; font-size: 14px; line-height: 18px; }
 th {text-transform: uppercase;}
@@ -59,14 +54,14 @@ li > h3 { display:inline; }
   border: none;
   background: transparent;
   text-align: center;
-  color: #EEE;
+  color: $prime-text;
 }
 
 .vdatetime-overlay {
   position: fixed;
   top: 68px;
   left:0;
-  background: rgba(0,0,0,0.9);
+  background: $shadow;
   margin: 0 -0.9375rem;
   width: 100%;
   height: calc(100vh - 68px);
@@ -84,14 +79,7 @@ li > h3 { display:inline; }
   color: $prime-color !important;
 }
 
-.collapse.in { width: 100vw; background: #000000; padding: 5px 5px 5px 110px;}
-nav > ul > li { font-family: "Akashi" !important; height: 50px; margin: 0 0 0 -5px; display: inline-block; cursor: pointer; line-height:50px; }
-nav > ul > li:hover { background: linear-gradient(to left, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 5%);}
-nav > ul > li:active { background: transparent; box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);}
-nav > ul > li > a { text-decoration: none; color: #FFFFFF; line-height:50px; font-weight: 400;  font-family: "Akashi"; display:block; height:100%; width:100%; padding: 0 10px !important; }
-nav > ul > li:hover > a { text-decoration: none; color: #CCCCCC;}
-nav > ul > li > a:active { text-decoration: none; color: #D30000;}
-nav > ul > li > a:visited { text-decoration: none; color: #FFFFFF;}
+
 
 .topright {
   top: 0px;
@@ -118,7 +106,7 @@ nav > ul > li > a:visited { text-decoration: none; color: #FFFFFF;}
   border-radius: 0 0 5px 5px;
   border-bottom: 2px solid;
   border-color:inherit;
-  box-shadow: 0px 5px 10px rgba(0,0,0,0.9);
+  box-shadow: 0px 5px 10px $shadow;
 }
 
 
@@ -164,7 +152,7 @@ nav > ul > li > a:visited { text-decoration: none; color: #FFFFFF;}
 .veil {
   position: fixed;
   left:0;
-  background: rgba(0,0,0,0.9);
+  background: $shadow;
   margin: 0 -0.9375rem;
   width: 100%;
   height: calc(100vh - 68px);
@@ -225,7 +213,7 @@ nav > ul > li > a:visited { text-decoration: none; color: #FFFFFF;}
   height: 0;
   border-left: 5px solid transparent  !important;
   border-right: 5px solid transparent !important;
-  border-bottom: 5px solid #FFFFFF;
+  border-bottom: 5px solid $prime-text;
 }
 .down {
   -webkit-transform: scaleY(-1);
@@ -233,9 +221,9 @@ nav > ul > li > a:visited { text-decoration: none; color: #FFFFFF;}
 
 
 /*Tables*/
-.plain table { width: 100%; color:#FFFFFF;  text-align: center; }
+.plain table { width: 100%; color:$prime-text;  text-align: center; }
 .td-left { text-align: left; padding-left: 10px; text-align: center; }
-tbody.table-hover tr:hover { background-color:transparent; background: #000000; }
+tbody.table-hover tr:hover { background-color:transparent; background: $link-contrast; }
 
 
 /*Admin*/
