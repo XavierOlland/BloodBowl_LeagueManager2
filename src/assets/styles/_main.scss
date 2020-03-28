@@ -177,7 +177,7 @@ li > h3 { display:inline; }
   left: 0;
   z-index: 5;
   .scroll {
-    height:60vh;
+    height:calc(80vh - 170px);
     overflow-x: auto;
   }
   h3 {
