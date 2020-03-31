@@ -49,7 +49,7 @@
             </tr>
           </tbody>
         </table>
-        <Button :id="id+'_Seconde'" :text="buttonText" :color="colours[0]" @clicked="close" />
+        <Button :id="id+'_Seconde'" :text="buttonText" :color="colours[0]" @click="close" />
       </div>
     </div>
   </div>

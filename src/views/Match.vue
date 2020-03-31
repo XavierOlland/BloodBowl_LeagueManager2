@@ -3,7 +3,7 @@
     <div class="row adapt">
       <div class="col-md-3"></div>
       <div class="col-md-6" @click="previousPage()">
-        <div class="plain header seconde text-center stadium zelda">
+        <div class="plain header seconde text-center stadium zelda" :style="{ background: `url(${stadiumImage}) center center`, backgroundSize: 'cover'}">
           <h4>{{match.leaguename}}</h4>
           <h3>{{match.competitionname}}</h3>
         </div>
@@ -59,7 +59,7 @@
         <MatchTeamStats :colours="[metadata.team_1_color_1]" :team="match.teams[0]"/>
       </div>
       <div class="col-md-4 d-none d-md-block">
-        <div class="plain seconde text-center stadium">
+        <div class="plain seconde text-center stadium" :style="{ background: `url(${stadiumImage}) center center`, backgroundSize: 'cover'}">
           <h3>{{match.started| moment("D MMM HH")}}H</h3><br />
           <h4>Stade</h4>
           <h3>{{metadata.stadium}}</h3><br />
@@ -95,15 +95,17 @@
       }
     },
     computed:{
-      match(){
+      match() {
         return this.$store.state.match.match;
       },
-      metadata(){
+      metadata() {
         return this.$store.state.match.metadata;
       },
+      stadiumImage() {
+        return require('../assets/stadiums/'+ this.match.stadium + '.png')
+      }
     },
     mounted() {
-      console.log(this.$store.state.match) // eslint-disable-line no-console
       this.$store.dispatch('match/fetchMatch',this.$route.params.id)
     },
     watch: {
