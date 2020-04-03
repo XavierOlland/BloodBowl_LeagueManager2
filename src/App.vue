@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <HeaderNav title="Blood Bowl Baston League"/>
+    <HeaderNav/>
     <router-view/>
   </div>
 </template>
@@ -10,14 +10,11 @@ import HeaderNav from './components/HeaderNav.vue'
 
 export default {
   name: 'app',
-  props:{
-    logo: Boolean
-  },
   components: {
     HeaderNav
   },
   mounted(){
-     this.$store.dispatch('boot')
+     this.$store.dispatch('boot');
   }
 }
 </script>
@@ -27,11 +24,11 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height:100%;
-  padding-top:68px;
+  padding-top:65px;
   font-family: 'Muli';
   font-size: 1em;
   line-height: 1;
-  background-image:url('~@/assets/elements/autumn/background.jpg');
+  background-image:url('~@/assets/elements/spring/background.jpg');
   background-position: bottom;
   background-size: cover;
   overflow: hidden;

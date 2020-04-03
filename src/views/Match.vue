@@ -3,7 +3,7 @@
     <div class="row adapt">
       <div class="col-md-3"></div>
       <div class="col-md-6" @click="previousPage()">
-        <div class="plain header seconde text-center stadium zelda">
+        <div class="plain header seconde text-center stadium zelda" :style="{ background: `url(${stadiumImage}) center center`, backgroundSize: 'cover'}">
           <h4>{{match.leaguename}}</h4>
           <h3>{{match.competitionname}}</h3>
         </div>
@@ -22,10 +22,10 @@
       <div class="col-md-6">
         <Helmet class="helmet left" :race="match.teams[0].idraces" :logo="match.teams[0].teamlogo" :colours="[metadata.team_1_color_1,metadata.team_1_color_2]" />
         <div class="plain prime content noselect text-right" :style="{'border-color': metadata.team_1_color_1}">
-          <h2 class="zelda" :style="{color: metadata.team_1_color_1}" @click="">{{match.teams[0].teamname}}</h2>
+          <h2 class="zelda" :style="{color: metadata.team_1_color_1}" @click="$router.push({ name: 'Team', params: { id: match.teams[0].idteamlisting }})">{{match.teams[0].teamname}}</h2>
           <div class="scoreBoard">
             <div class="teamBoard">
-              <h3>{{match.teams[0].idraces}} coaché par <span :style="{color: metadata.team_1_color_1}">{{match.coaches[0].coachname}}</span></h3>
+              <h3>coaché par <span :style="{color: metadata.team_1_color_1}">{{match.coaches[0].coachname}}</span></h3>
               <h3>TV <span :style="{color: metadata.team_1_color_1}">{{match.teams[0].value}}</span></h3>
               <h3>
                 <div v-for="i in match.teams[0].popularitybeforematch" class="star" :style="{color: metadata.team_1_color_1}">&#9733;</div>
@@ -39,7 +39,7 @@
       <div class="col-md-6">
         <Helmet class="helmet right" :race="match.teams[1].idraces" :logo="match.teams[1].teamlogo" :colours="[metadata.team_2_color_1,metadata.team_2_color_2]" />
         <div class="plain prime content noselect text-left" :style="{'border-color': metadata.team_2_color_1}">
-          <h2 class="zelda" :style="{color: metadata.team_2_color_1}" @click="">{{match.teams[1].teamname}}</h2>
+          <h2 class="zelda" :style="{color: metadata.team_2_color_1}" @click="$router.push({ name: 'Team', params: { id: match.teams[1].idteamlisting }})">{{match.teams[1].teamname}}</h2>
           <div class="scoreBoard">
             <div class="score" :style="{color: metadata.team_2_color_1}">{{match.teams[1].score}}</div>
             <div class="teamBoard">
@@ -58,8 +58,8 @@
       <div class="col-md-4">
         <MatchTeamStats :colours="[metadata.team_1_color_1]" :team="match.teams[0]"/>
       </div>
-      <div class="col-md-4">
-        <div class="plain seconde text-center stadium">
+      <div class="col-md-4 d-none d-md-block">
+        <div class="plain seconde text-center stadium" :style="{ background: `url(${stadiumImage}) center center`, backgroundSize: 'cover'}">
           <h3>{{match.started| moment("D MMM HH")}}H</h3><br />
           <h4>Stade</h4>
           <h3>{{metadata.stadium}}</h3><br />
@@ -95,12 +95,15 @@
       }
     },
     computed:{
-      match(){
+      match() {
         return this.$store.state.match.match;
       },
-      metadata(){
+      metadata() {
         return this.$store.state.match.metadata;
       },
+      stadiumImage() {
+        return require('../assets/stadiums/'+ this.match.stadium + '.png')
+      }
     },
     mounted() {
       this.$store.dispatch('match/fetchMatch',this.$route.params.id)
@@ -121,11 +124,11 @@
       padding: 0 20px;
       font-family: 'Akashi';
       font-size: 120px;
-      text-shadow: rgb(255, 255, 255) -2px -2px, rgb(255, 255, 255) 2px 2px, rgb(255, 255, 255) 2px -2px, rgb(255, 255, 255) -2px 2px;
+      text-shadow: $prime-text -2px -2px, $prime-text 2px 2px, $prime-text 2px -2px, $prime-text -2px 2px;
     }
   }
   .teamBoard {
-    text-shadow: 0 2px 5px #000000;
+    text-shadow: 0 2px 5px $shadow;
     h3 {
       color: $prime-text;
       font-family: "Muli";
@@ -136,16 +139,33 @@
   }
   .stadium {
     h3,h4 {
-      text-shadow: 0 2px 5px #000000;
+      text-shadow: 0 2px 5px $shadow;
     }
   }
   .helmet {
-    position: absolute; bottom:0; z-index:2; width:300px; height:300px;
+    position: absolute;
+    bottom:0;
+    width:300px;
+    height:300px;
+    z-index:2;
   }
   .left {
     transform: rotateY(180deg);
   }
   .right {
     right:0;
+  }
+  @media (max-width: 1439px) {
+    .helmet {
+      bottom:-35px;
+      width:250px;
+      height:250px;
+    }
+  }
+  @media (max-width: 1200px) {
+    .helmet {
+      width:175px;
+      height:175px;
+    }
   }
 </style>

@@ -5,23 +5,23 @@
       <tr :style="'background:' + colours[0]">
         <th class="text-left">Joueur</th>
         <th class="text-left">Position</th>
-        <th class="attributes text-center" v-if="!showStats">MA</th>
-        <th class="attributes text-center" v-if="!showStats">FO</th>
-        <th class="attributes text-center" v-if="!showStats">AG</th>
-        <th class="attributes text-center" v-if="!showStats">AV</th>
-        <th class="attributes text-center" v-if="!showStats">Niv</th>
-        <th class="attributes text-center" v-if="!showStats">XP</th>
-        <th class="attributes text-center" v-if="showStats" title="Joueur du match">JDM</th>
-        <th class="attributes text-center" v-if="showStats" title="Passes">Pa</th>
-        <th class="attributes text-center" v-if="showStats" title="Réceptions">Réc</th>
-        <th class="attributes text-center" v-if="showStats" title="Interceptions">Int</th>
-        <th class="attributes text-center" v-if="showStats" title="TouchDown">TD</th>
-        <th class="attributes text-center" v-if="showStats" title="Mort">Mort</th>
-        <th class="attributes text-center" v-if="showStats" title="Sorties">Sor</th>
-        <th class="attributes text-center" v-if="showStats" title="KO">KO</th>
-        <th class="attributes text-center" v-if="showStats" title="Blocage">Bl</th>
-        <th class="attributes text-center" v-if="showStats" title="Yards en passe">YP</th>
-        <th class="attributes text-center" v-if="showStats" title="Yards en course">YC</th>
+        <th class="text-center" v-if="!showStats">MA</th>
+        <th class="text-center" v-if="!showStats">FO</th>
+        <th class="text-center" v-if="!showStats">AG</th>
+        <th class="text-center" v-if="!showStats">AV</th>
+        <th class="text-center d-none d-md-table-cell" v-if="!showStats">Niv</th>
+        <th class="text-center d-none d-md-table-cell" v-if="!showStats">XP</th>
+        <th class="text-center" v-if="showStats" title="Joueur du match">JDM</th>
+        <th class="text-center" v-if="showStats" title="Passes">Pa</th>
+        <th class="text-center" v-if="showStats" title="Réceptions">Réc</th>
+        <th class="text-center" v-if="showStats" title="Interceptions">Int</th>
+        <th class="text-center" v-if="showStats" title="TouchDown">TD</th>
+        <th class="text-center" v-if="showStats" title="Mort">Mort</th>
+        <th class="text-center" v-if="showStats" title="Sorties">Sor</th>
+        <th class="text-center" v-if="showStats" title="KO">KO</th>
+        <th class="text-center" v-if="showStats" title="Blocage">Bl</th>
+        <th class="text-center" v-if="showStats" title="Yards en passe">YP</th>
+        <th class="text-center" v-if="showStats" title="Yards en course">YC</th>
       </tr>
       </thead>
       <tbody  class="table-hover noselect">
@@ -35,12 +35,12 @@
             <span>{{player.name}}</span>
           </td>
           <td class="text-left text-cutter">{{player.position | talkingToTheGods()}}</td>
-          <td class="text-center" v-if="!showStats">{{JSON.parse(player.attributes).ma}}</td>
+          <td class="text-center text-cutter" v-if="!showStats">{{JSON.parse(player.attributes).ma}}</td>
           <td class="text-center" v-if="!showStats">{{JSON.parse(player.attributes).st}}</td>
           <td class="text-center" v-if="!showStats">{{JSON.parse(player.attributes).ag}}</td>
           <td class="text-center" v-if="!showStats">{{JSON.parse(player.attributes).av}}</td>
-          <td class="text-center" v-if="!showStats">{{player.level}}</td>
-          <td class="text-center" v-if="!showStats">{{player.xp}}</td>
+          <td class="text-center d-none d-md-table-cell" v-if="!showStats">{{player.level}}</td>
+          <td class="text-center d-none d-md-table-cell" v-if="!showStats">{{player.xp}}</td>
           <td class="text-center" v-if="showStats">{{player.stats.mvp}}</td>
           <td class="text-center" v-if="showStats">{{player.stats.inflictedpasses}}</td>
           <td class="text-center" v-if="showStats">{{player.stats.inflictedcatches}}</td>

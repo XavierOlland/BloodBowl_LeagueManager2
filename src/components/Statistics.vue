@@ -1,31 +1,31 @@
 <template>
   <div id="Statistics">
     <div class="veil" v-show="modal == true" @click="modalView"></div>
-    <div class="card plain seconde" :class="{ modal: modal == true }">
-      <h3>{{statistics.type | talkingToTheGods()}}</h3>
-      <div v-if="statistics.players.length > 0">
-        <div class="scroll">
-          <table class="mainStats">
-            <thead>
-              <tr class="background">
-                <th class="text-left">Joueur</th>
-                <th class="text-center" >{{statistics.stats[0] | talkingToTheGods()}}</th>
-              </tr>
-            </thead>
-            <tbody class="noselect">
-              <tr class="playerDetails" v-for="player in statistics.players.slice(0,max)" :key="player.player">
-                <td class="text-left text-cutter">{{player.name}}</td>
-                <td class="text-center" >{{player.stat0}}</td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="card plain seconde" :class="{ modal: modal == true }">
+        <h3>{{statistics.type | talkingToTheGods()}}</h3>
+        <div v-if="statistics.players.length > 0">
+          <div class="scroll">
+            <table class="mainStats">
+              <thead>
+                <tr class="background">
+                  <th class="text-left">Joueur</th>
+                  <th class="text-center" >{{statistics.stats[0] | talkingToTheGods()}}</th>
+                </tr>
+              </thead>
+              <tbody class="noselect">
+                <tr class="playerDetails" v-for="player in statistics.players.slice(0,max)" :key="player.player">
+                  <td class="text-left text-cutter">{{player.name}}</td>
+                  <td class="text-center" >{{player.stat0}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <Button :id="'Stats'" :text="buttonText" @clicked="modalView" />
         </div>
-        <Button :id="'Stats'" :text="buttonText" @clicked="modalView" />
+        <div v-else>
+          <p>Aucun résultat pour le moment</p>
+        </div>
       </div>
-      <div v-else>
-        <p>Aucun résultat pour le moment</p>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -72,6 +72,8 @@
   }
   .modal {
     position: fixed;
-    top: 100px
+    top: 65px;
+    left: 0;
+    margin: 10vh 10vw;
   }
 </style>

@@ -2,7 +2,7 @@
   <div id="Landing" class="view container">
     <Modal v-if="modal == true"/>
     <div class="row">
-      <div class="col-xl-3 hidden-lg-down">
+      <div class="col-lg-3 d-none d-sm-block">
         <div class="image">
           <img src="../assets/league/Logo_M.png">
         </div>
@@ -47,8 +47,16 @@
         <UpcomingGames :games="upcomingGames"/>
       </div>
 
-      <div class="col-lg-3 stick-right hidden-md-down" >
-        <Champion/>
+      <div class="col-xl-3 stick-right d-none d-xl-block" >
+        <Champion
+        :mode="'list'"
+        :competition="{id:305,name:'archive.season'}"
+        :coach="'coach'"
+        :team="'name'"
+        :race="Number(18)"
+        :logo="'asd'"
+        :colours="['#0F0','#F00']"
+        />
         <Statistics v-for="stat in leagueStats.playersStats" :key="stat.type" :statistics="stat" :limit="3" />
       </div>
 
@@ -125,21 +133,22 @@ export default {
     }
   }
   .quote {
-    padding: 40px 20px;
+    padding: 20px;
     h1 {
-      font-size: 60px;
+      font-size: 4em;
+      line-height: 1em;
       font-family: 'Niconne', cursive;
-      color: #FFF;
-      text-shadow: 0 2px 4px #000;
+      color: $prime-text;
+      text-shadow: 0 0.04em 0.07em $shadow;
     }
     p, p a {
-      font-size: 30px;
-      line-height: 30px;
+      font-size: 2em;
+      line-height: 1em;
       font-family: 'Niconne', cursive;
       text-align: right;
       display:inherit;
-      color:#ccc;
-      text-shadow: 0 2px 2px #333;
+      color:$seconde-text;
+      text-shadow: 0 0.04em 0.04em $shadow;
     }
     p a {
     text-decoration: underline;
@@ -151,8 +160,15 @@ export default {
     font-size: 1em;
     line-height: 1.2;
     margin:0 0 10px;
-    color: #ffffff;
+    color: $prime-text;
     text-indent: 10px;
     text-transform: uppercase;
+  }
+  @media (max-width: 576px) {
+    .quote {
+      h1 {
+        font-size: 2.75em
+      }
+    }
   }
 </style>

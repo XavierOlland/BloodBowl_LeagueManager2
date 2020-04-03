@@ -3,7 +3,7 @@
     <div class="veil" @click="modalView">
       <div class="plain seconde" :class="{ modal: modal == true }"  :style="{'border-color': colours[1]}">
         <div class="row">
-          <div id="playerPhoto" class="photo col-xs-6 col-md-3">
+          <div id="playerPhoto" class="photo col-md-3 d-none d-md-block">
             <img :src="require('../assets/players/'+player.position+'.jpg')" />
           </div>
           <div class="col-xs-6 col-md-9">
@@ -11,15 +11,15 @@
               <div class="col-xs-12 col-md-12">
                 <h1 :style="{'color':colours[1]}">{{player.name}}</h1>
                 <h2>{{ player.position | talkingToTheGods() }}</h2>
-                <br/>
                 <div class="level">
                   <h3 :style="{'color':colours[1]}" v-for="n in player.level" :key="n" class="star" >&#9733;</h3>
-                  <h3 :style="{'color':colours[1]}" class="noselect">{{player.xp}} XP</h3>
+                  <h3 :style="{'color':colours[1]}" class="noselect"> {{player.xp}} XP</h3>
                 </div>
+                <br/>
               </div>
             </div>
             <div class="row">
-              <div class="col-xs-3 col-md-2">
+              <div class="col-xs-3 col-md-2 attributes">
                 <h3 :style="{'color':colours[1]}">MV <span>{{ JSON.parse(player.attributes).ma }}</span></h3>
                 <h3 :style="{'color':colours[1]}">FO <span>{{ JSON.parse(player.attributes).st }}</span></h3>
                 <h3 :style="{'color':colours[1]}">AG <span>{{ JSON.parse(player.attributes).ag }}</span></h3>
@@ -114,6 +114,23 @@
       max-width: 200px;
       width: 80%;
       height: auto;
+    }
+  }
+  @media (max-width: 576px) {
+    .level {
+      position: relative;
+      text-align: left !important;
+      h3 {
+        display: inline;
+      }
+    }
+    .attributes{
+      h3 {
+        display:inline;
+      }
+      span {
+        margin-right: 10px;
+      }
     }
   }
 </style>
