@@ -89,20 +89,19 @@ li > h3 { display:inline; }
 
 
 
-.topright {
-  top: 0px;
-  right: 0px;
+.tab {
+  cursor:pointer;
   width: 200px;
   height: 30px;
   padding: 0 5px 0 25px;
   line-height: 30px;
-  color: #444;
-  font-family: "Muli";
-  font-size: 14px;
+  color: $link-contrast;
   text-align: center;
   vertical-align: middle;
-  position: absolute;
-  background: url('~@/assets/elements/Button_TopRight.png');
+  background: url('~@/assets/elements/Tab.png');
+}
+.tab + .tab {
+  background: url('~@/assets/elements/TabN.png');
 }
 
 /* BODY */

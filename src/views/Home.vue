@@ -105,6 +105,9 @@ export default {
     },
     upcomingGames() {
       return this.$store.state.calendar;
+    },
+    user() {
+      return this.$store.state.user
     }
   },
   methods: {

@@ -8,14 +8,13 @@
           <h3>{{match.competitionname}}</h3>
         </div>
       </div>
-      <div class="col-md-1"></div>
-      <div class="col-md-1 topright" :class="{tab : admin==1}">
-        <div class="label" @click="matchReset()" v-if="admin==1">Reset</div>
-      </div>
-      <div class="col-md-1 topright" :class="{tab : coach_id==metadata.coach_id_1 || coach_id==metadata.coach_id_2 || admin==1}">
-        <a href="" v-if="coach_id==match.coach_id_1 || coach_id==metadata.coach_id_2 || admin==1">
-          <div class="label">Poster</div>
-        </a>
+      <div class="col-md-3 d-flex flex-row">
+        <div v-if="admin==1" class="topright tab align-self-start">
+          <div class="label" @click="matchReset()" >Reset</div>
+        </div>
+        <div v-if="match.competition_active!=1 && (user.coach.coach_id==metadata.coach_id_1 || user.coach.coach_id==metadata.coach_id_2 || admin==1)" class="topright align-self-start" :class="{tab : user.coach.coach_id==metadata.coach_id_1 || user.coach.coach_id==metadata.coach_id_2 || admin==1}">
+          <div class="label" @click="postToForum()">Poster</div>
+        </div>
       </div>
     </div>
     <div class="row adapt">
@@ -90,11 +89,73 @@
     data(){
       return {
         isFetching: true,
-        admin: 0,
-        coach_id: 1
+        admin: window.admin,
+        coach_id: 1,
+        forums: [
+	{
+		"id":"316",
+		"rounds" : [
+			{
+				"id":1,
+				"forum":591
+			},
+			{
+				"id":2,
+				"forum":592
+			},
+			{
+				"id":3,
+				"forum":593
+			},
+			{
+				"id":4,
+				"forum":594
+			},
+			{
+				"id":5,
+				"forum":595
+			},
+			{
+				"id":6,
+				"forum":596
+			},
+			{
+				"id":7,
+				"forum":597
+			},
+			{
+				"id":8,
+				"forum":598
+			},
+			{
+				"id":9,
+				"forum":599
+			},
+			{
+				"id":10,
+				"forum":600
+			},
+			{
+				"id":11,
+				"forum":601
+			},
+			{
+				"id":12,
+				"forum":602
+			},
+			{
+				"id":13,
+				"forum":603
+			}
+		]
+	}
+]
       }
     },
     computed:{
+      user() {
+        return this.$store.state.user;
+      },
       match() {
         return this.$store.state.match.match;
       },
@@ -107,6 +168,11 @@
     },
     mounted() {
       this.$store.dispatch('match/fetchMatch',this.$route.params.id)
+    },
+    methods:{
+      postToForum(){
+        window.open("http://bbbl.fr/Forum/posting.php?mode=post&f=" + this.forums[0].rounds[this.match.round-1].forum + "&match=" + this.$route.params.id, "_blank" )
+      }
     },
     watch: {
       match: function() {
