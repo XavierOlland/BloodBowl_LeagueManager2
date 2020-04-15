@@ -6,7 +6,7 @@
         <div class="plain prime">
           <h2>Classement</h2>
           <CompetitionStanding :competition="competition.standing" :details="true" :limit="100" :teamAccess="true"/>
-          <Button :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
+          <Button v-if="user.coach.active==1 || admin==1" :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
         </div>
         <div class="card-columns">
           <Statistics class="d-none d-sm-block" v-for="stat in competition.playersStats" :key="stat.type" :statistics="stat" :limit="3" :dictionnary="dictionnary"/>
@@ -56,6 +56,9 @@
       }
     },
     computed:{
+      user() {
+        return this.$store.state.user;
+      },
       competition(){
         return this.$store.state.competition.competition;
       },
