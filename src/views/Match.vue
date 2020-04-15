@@ -8,11 +8,11 @@
           <h3>{{match.competitionname}}</h3>
         </div>
       </div>
-      <div class="col-md-3 d-flex flex-row">
-        <div v-if="admin==1" class="topright tab align-self-start">
+      <div class="col-md-3 d-flex flex-row justify-content-end">
+        <div v-if="admin==1" class="tab align-self-start">
           <div class="label" @click="matchReset()" >Reset</div>
         </div>
-        <div v-if="match.competition_active!=1 && (user.coach.coach_id==metadata.coach_id_1 || user.coach.coach_id==metadata.coach_id_2 || admin==1)" class="topright align-self-start" :class="{tab : user.coach.coach_id==metadata.coach_id_1 || user.coach.coach_id==metadata.coach_id_2 || admin==1}">
+        <div v-if="match.competition_active!=1 && (user.coach.coach_id==metadata.coach_id_1 || user.coach.coach_id==metadata.coach_id_2 || admin==1)" class="align-self-start" :class="{tab : user.coach.coach_id==metadata.coach_id_1 || user.coach.coach_id==metadata.coach_id_2 || admin==1}">
           <div class="label" @click="postToForum()">Poster</div>
         </div>
       </div>
