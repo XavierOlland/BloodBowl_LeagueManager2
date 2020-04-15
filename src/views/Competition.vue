@@ -6,16 +6,15 @@
         <div class="plain prime">
           <h2>Classement</h2>
           <CompetitionStanding :competition="competition.standing" :details="true" :limit="100" :teamAccess="true"/>
-          <Button :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
-
+          <Button v-if="user.coach.active==1 || admin==1" :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
         </div>
         <div class="card-columns">
           <Statistics class="d-none d-sm-block" v-for="stat in competition.playersStats" :key="stat.type" :statistics="stat" :limit="3" :dictionnary="dictionnary"/>
         </div>
       </div>
       <div class="col-lg-5">
-        <div v-for="day in calendar" :key="day.round" v-show="day.round <= displayDay || displayDay==0" class="plain prime" :class="{ current: day.round == currentDay}">
-          <div v-if="day.round == currentDay && displayDay != 0" class="topright zelda" @click="fullCalendar()">Calendrier complet</div>
+        <div v-for="day in calendar" :key="day.round" v-show="day.round <= displayDay || displayDay==0" class="day plain prime" :class="{ current: day.round == currentDay}">
+          <div v-if="day.round == currentDay && displayDay != 0" class="tab zelda" @click="fullCalendar()">Calendrier complet</div>
           <h3 v-if="competition.format!='single_elimination'">Journée {{day.round}}</h3>
           <h3 v-else>{{rounds[day.round-1]}} </h3>
           <div v-for="match in day.matchs" :key="match.id" :title="match.name_1 + ' VS ' + match.name_2" class="vs d-inline-flex col-lg-6 col-xl-4">
@@ -57,6 +56,9 @@
       }
     },
     computed:{
+      user() {
+        return this.$store.state.user;
+      },
       competition(){
         return this.$store.state.competition.competition;
       },
@@ -97,6 +99,13 @@
 </script>
 
 <style lang="scss" scoped>
+  .day {
+    .tab {
+      top: 0;
+      right: 0;
+      position: absolute;
+    }
+  }
   .vs {
     padding: 0.2em;
   }

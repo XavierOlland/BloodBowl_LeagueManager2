@@ -17,6 +17,7 @@ export default new Vuex.Store({
 		team
 	},
 	state: {
+		user: {},
 		dictionnary: [],
 		archives: [],
 		competitions: [],
@@ -30,6 +31,9 @@ export default new Vuex.Store({
 		}
 	},
 	mutations: {
+		setUser(state, payload) {
+			state.user = payload;
+		},
 		setDictionnary(state, payload) {
 			state.dictionnary = payload;
 		},
@@ -50,7 +54,8 @@ export default new Vuex.Store({
 					context.commit('setDictionnary', response.data.parameters);
 					context.commit('setCompetitions', response.data.competitions);
 					context.commit('setStatistics', response.data.stats);
-					context.dispatch('upcomingGames')
+					context.commit('setUser', window.user);
+					context.dispatch('upcomingGames');
 				}, error => {
 					console.error(error); // eslint-disable-line no-console
 				});
