@@ -2,9 +2,10 @@
   <div id="MatchPreview" @click="matchDetails" class="vs match x-center" :class="{ zelda: match.cyanide_id }">
     <div>
       <p v-if="match.started">{{match.started | moment("add", "2 hours","D MMM HH:mm")}}</p>
-      <datetime v-else-if="!match.started && admin==1"
+    <datetime v-else-if="(!match.cyanide_id && (coach_id==match.coach_id_1 || coach_id==match.coach_id_2 || admin==1))"
         v-on:close="setMatchDate()"
         v-model="match.started"
+        placeholder="À venir"
         :type="'datetime'"
         :minute-step="15"
         :phrases="{ok: 'OK', cancel: 'Annuler'}"
@@ -20,9 +21,6 @@
       <span class="score" v-else > {{match.score_1}} - {{match.score_2}} </span>
       <img :src="require('../assets/logos/Logo_' + match.logo_2 + '.png')">
     </div>
-    <!--div class="calendarOdds" v-if="round >= currentDay && betsAlreadyDone(match)" ng-bind-html="ratio(match)"></div>
-    <div class="calendarBetsAd" v-if="round >= currentDay && !betsAlreadyDone(match)"><img class="betLogo" src="resources/bets/BetLogo.png"></div-->
-
   </div>
 </template>
 
@@ -30,9 +28,9 @@
   export default {
     name: 'MatchPreview',
     props: {
-      currentDay: Number,
       match: Object,
-      round: Number
+      round: Number,
+      coach_id: Number
     },
     data(){
       return {
@@ -47,12 +45,13 @@
       },
       matchDetails() {
         if (this.match.cyanide_id) {
+          //Match is played : show match
           this.$router.push({ name: 'Match', params: { id:this.match.id } })
         }
-        /*else if (($rootScope.coach_cyanide_id == match.coach_id_1 || $rootScope.coach_cyanide_id == match.coach_id_2) && match.started == null) {
-            //Set date
-            //else bet functions
-        }*/
+        else if (this.coach_id==this.match.coach_id_1 || this.coach_id==this.match.coach_id_2 || this.admin==1) {
+          //Match not played & user is a player or an admin: set date
+          this.$refs.dateTime.focus();
+        }
       }
     }
 

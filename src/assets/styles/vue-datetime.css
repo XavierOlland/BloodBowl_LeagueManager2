@@ -12,6 +12,7 @@
   --link-contrast: #000;
   --error-85: rgba(212, 0, 0, 0.85);
 }
+@import url('https://fonts.googleapis.com/css?family=Muli:400');
 
 .vdatetime-fade-enter-active,
 .vdatetime-fade-leave-active {
@@ -28,6 +29,14 @@
   background: transparent;
   border:none;
   cursor:pointer;
+  font-family: "Muli";
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  margin-bottom: 0.5em;
+  }
+::placeholder {
+  color: var(--prime-text);
 }
 
 .vdatetime-overlay {
@@ -53,7 +62,7 @@
   max-width: calc(100% - 30px);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .3);
   color: var(--prime-text);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: "Muli", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   line-height: 1.18;
   background: var(--seconde-bg);
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
