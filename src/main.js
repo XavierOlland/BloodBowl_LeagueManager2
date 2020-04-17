@@ -4,7 +4,17 @@ import router from './router'
 import store from './store/index.js'
 import VueLodash from 'vue-lodash'
 import lodash from 'lodash'
+import {
+	Datetime
+} from 'vue-datetime'
+import 'vue-datetime/dist/vue-datetime.css'
+import {
+	Settings
+} from 'luxon'
 
+Settings.defaultLocale = 'fr'
+Vue.use(Datetime)
+Vue.component('datetime', Datetime);
 const moment = require('moment')
 require('moment/locale/fr')
 

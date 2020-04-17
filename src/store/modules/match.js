@@ -33,6 +33,12 @@ const actions = {
 			}, error => {
 				console.error(error); // eslint-disable-line no-console
 			});
+	},
+	updateMatch(context, match) {
+		instance.post(route + 'matchDate', match)
+			.then(() => {
+				context.commit('setMatch', match);
+			})
 	}
 }
 
