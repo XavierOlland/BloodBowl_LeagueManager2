@@ -1,11 +1,10 @@
 <template>
   <div id="MatchPreview" @click="matchDetails" class="vs match x-center" :class="{ zelda: match.cyanide_id }">
-    <div >
+    <div>
       <p v-if="match.started">{{match.started | moment("add", "2 hours","D MMM HH:mm")}}</p>
       <datetime v-else-if="!match.started && admin==1"
         v-on:close="setMatchDate()"
         v-model="match.started"
-        :input-class="'dateTimeInput'"
         :type="'datetime'"
         :minute-step="15"
         :phrases="{ok: 'OK', cancel: 'Annuler'}"
@@ -28,8 +27,6 @@
 </template>
 
 <script>
-  //const moment = require('moment')
-
   export default {
     name: 'MatchPreview',
     props: {
@@ -45,9 +42,7 @@
     methods: {
       setMatchDate() {
         if(this.match.started){
-          console.log(this.match.started)// eslint-disable-line no-console
           this.$store.dispatch('match/updateMatch', this.match);
-
         }
       },
       matchDetails() {
@@ -92,12 +87,4 @@
     margin-bottom: 0.5em;
     color: $prime-text;
   }
-  .field.is-dark {
-    .field-input {
-    background-color: $prime-bg;
-    border-color: transparent;
-    color: $prime-text
-  }
-  }
-
 </style>
