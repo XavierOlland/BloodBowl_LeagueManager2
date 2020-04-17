@@ -39,7 +39,7 @@
         </div>
         <div class="w-100"></div>
         <!-- Competitions -->
-        <div class="plain prime" v-for="competition in competitions" :key="competition.id">
+        <div class="plain prime zelda" v-for="competition in competitions" :key="competition.id" @click="$router.push({ name: 'Competition', params: { id: competition.id }})">
           <h2>{{competition.site_name}}</h2>
           <CompetitionStanding :competition="competition.standing" :limit="5" :teamAccess="false"/>
           <Button :id="'Prime'" :text="'La Compétition'" @clicked="$router.push({ name: 'Competition', params: { id: competition.id }})" />
@@ -50,12 +50,12 @@
       <div class="col-xl-3 stick-right d-none d-xl-block" >
         <Champion
         :mode="'list'"
-        :competition="{id:305,name:'archive.season'}"
-        :coach="'coach'"
-        :team="'name'"
-        :race="Number(18)"
-        :logo="'asd'"
-        :colours="['#0F0','#F00']"
+        :competition="champion.competition"
+        :coach="champion.coach"
+        :team="champion.team"
+        :race="Number(champion.race)"
+        :logo="champion.logo"
+        :colours="champion.colours"
         />
         <Statistics v-for="stat in leagueStats.playersStats" :key="stat.type" :statistics="stat" :limit="3" />
       </div>
@@ -108,6 +108,10 @@ export default {
     },
     user() {
       return this.$store.state.user
+    },
+    champion() {
+
+      return JSON.parse(this.$store.state.dictionnary.find(param => param.type == 'bbbl_champion').translation);
     }
   },
   methods: {

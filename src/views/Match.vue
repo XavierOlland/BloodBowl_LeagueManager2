@@ -2,8 +2,8 @@
   <div id="Match" class="view container" v-if="!isFetching">
     <div class="row adapt">
       <div class="col-md-3"></div>
-      <div class="col-md-6" @click="previousPage()">
-        <div class="plain header seconde text-center stadium zelda" :style="{ background: `url(${stadiumImage}) center center`, backgroundSize: 'cover'}">
+      <div class="col-md-6" @click="$router.push({ name: 'Competition', params: { id: metadata.competition_id }})">
+        <div class="plain header seconde text-center stadium zelda" :style="{ background: `url(${stadiumImage}) center center,rgba(68,68,68,0.9)`, backgroundSize: 'cover'}">
           <h4>{{match.leaguename}}</h4>
           <h3>{{match.competitionname}}</h3>
         </div>
@@ -58,7 +58,7 @@
         <MatchTeamStats :colours="[metadata.team_1_color_1]" :team="match.teams[0]"/>
       </div>
       <div class="col-md-4 d-none d-md-block">
-        <div class="plain seconde text-center stadium" :style="{ background: `url(${stadiumImage}) center center`, backgroundSize: 'cover'}">
+        <div class="plain seconde text-center stadium" :style="{ background: `url(${stadiumImage}) center center,rgba(68,68,68,0.9)`, backgroundSize: 'cover'}">
           <h3>{{match.started| moment("D MMM HH")}}H</h3><br />
           <h4>Stade</h4>
           <h3>{{metadata.stadium}}</h3><br />
@@ -204,6 +204,7 @@
     }
   }
   .stadium {
+    padding-bottom: 10px;
     h3,h4 {
       text-shadow: 0 2px 5px $shadow;
     }
