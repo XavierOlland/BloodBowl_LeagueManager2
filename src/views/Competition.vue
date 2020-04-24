@@ -9,7 +9,7 @@
           <Button v-if="user.coach.active==1 || admin==1" :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
         </div>
         <div class="card-columns">
-          <Statistics class="d-none d-sm-block" v-for="stat in competition.playersStats" :key="stat.type" :statistics="stat" :limit="3" :dictionnary="dictionnary"/>
+          <Statistics class="d-none d-sm-flex" v-for="stat in competition.playersStats" :key="stat.type" :statistics="stat" :limit="3" :dictionnary="dictionnary"/>
         </div>
       </div>
       <div class="col-lg-5">

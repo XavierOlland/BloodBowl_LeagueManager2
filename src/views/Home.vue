@@ -29,7 +29,7 @@
           Tribunes vous offres aujourd'hui un accés illimité à l'Histoire de la ligue</p>
           <Button :id="'Seconde'" :text="'les Archives'" @clicked="$router.push('Archives')"/>
         </div>
-
+        <User/>
       </div>
 
       <div class="col-xl-6 col-lg-9">
@@ -48,7 +48,6 @@
       </div>
 
       <div class="col-xl-3 stick-right d-none d-xl-block" >
-        <User/>
         <Champion
         :mode="'list'"
         :competition="champion.competition"
