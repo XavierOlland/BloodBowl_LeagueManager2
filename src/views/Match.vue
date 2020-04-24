@@ -12,7 +12,8 @@
         <div v-if="admin==1" class="tab align-self-start">
           <div class="label" @click="matchReset()" >Reset</div>
         </div>
-        <div v-if="match.competition_active!=1 && (user.coach.coach_id==metadata.coach_id_1 || user.coach.coach_id==metadata.coach_id_2 || admin==1)" class="align-self-start" :class="{tab : user.coach.coach_id==metadata.coach_id_1 || user.coach.coach_id==metadata.coach_id_2 || admin==1}">
+        <div v-if="metadata.competition_active==1 && (user.coach.id==metadata.coach_id_1 || user.coach.id==metadata.coach_id_2 || admin==1)" class="align-self-start"
+        :class="{tab : user.coach.id==metadata.coach_id_1 || user.coach.id==metadata.coach_id_2 || admin==1}">
           <div class="label" @click="postToForum()">Poster</div>
         </div>
       </div>

@@ -48,6 +48,7 @@
       </div>
 
       <div class="col-xl-3 stick-right d-none d-xl-block" >
+        <User/>
         <Champion
         :mode="'list'"
         :competition="champion.competition"
@@ -71,6 +72,7 @@ import Champion from '../components/Champion.vue'
 import Statistics from '../components/Statistics.vue'
 import Modal from '../components/Modal.vue'
 import Button from '../components/ui/Button.vue';
+import User from '../components/utilities/User.vue';
 
 export default {
   name: 'Home',
@@ -80,7 +82,8 @@ export default {
     Champion,
     Statistics,
     Modal,
-    Button
+    Button,
+    User
   },
   props: {
     msg: String
