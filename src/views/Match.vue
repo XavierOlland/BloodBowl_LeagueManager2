@@ -8,7 +8,7 @@
           <h3>{{match.competitionname}}</h3>
         </div>
       </div>
-      <div class="col-md-3 d-flex flex-row justify-content-end">
+      <div class="col-md-3 d-flex flex-row justify-content-end tabs">
         <div v-if="admin==1" class="tab align-self-start">
           <div class="label" @click="matchReset()" >Reset</div>
         </div>
