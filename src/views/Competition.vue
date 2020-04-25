@@ -4,7 +4,9 @@
     <div class="row">
       <div class="col-lg-7">
         <div class="plain prime">
-          <h2>Classement </h2>
+          <h2 v-if="competition.site_name==competition.season">{{competition.site_name}} </h2>
+          <h2 v-else>{{competition.season}} - {{competition.site_name}} </h2>
+          <h3>Classement </h3>
           <CompetitionStanding :competition="competition.standing" :details="true" :limit="100" :teamAccess="true"/>
           <Button v-if="user.coach.active==1 || admin==1" :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
         </div>

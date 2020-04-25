@@ -36,14 +36,14 @@
   text-align: center;
   margin-bottom: 0.5em;
 }
-.vdatetime-input:hover {
+.vs:hover .vdatetime-input, .vdatetime-input:hover {
   background: var(--prime-color);
 }
 ::placeholder{
   color: var(--prime-color);
   opacity:1;
 }
-.vdatetime-input:hover::placeholder {
+.vs:hover .vdatetime-input::placeholder, .vdatetime-input:hover::placeholder {
   color: var(--prime-text);
 }
 
