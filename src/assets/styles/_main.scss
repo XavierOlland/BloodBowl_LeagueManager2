@@ -139,14 +139,19 @@ li > h3 { display:inline; }
 .prime  {
   border-color: $prime-color;
   background: $prime-bg;
+  tbody.table-hover tr:hover {
+    background: linear-gradient(to right,  $prime-bg, $focus-bg, $prime-bg);
+  }
 }
 .seconde {
   border-color: $seconde-color ;
   background: $seconde-bg;
-}
-
-.seconde .background {
-  background: $seconde-color;
+  .background {
+    background: $seconde-color;
+  }
+  tbody.table-hover tr:hover {
+    background: linear-gradient(to right,  $seconde-bg, $seconde-color, $seconde-bg);
+  }
 }
 
 /* GRAPHICS */
