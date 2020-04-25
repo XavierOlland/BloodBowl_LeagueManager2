@@ -12,14 +12,14 @@
       <datetime v-else-if="(!match.cyanide_id && (coach_id==match.coach_id_1 || coach_id==match.coach_id_2 || admin==1))"
         v-on:close="setMatchDate()"
         v-model="match.started"
-        placeholder="À venir"
+        placeholder="Planifier"
         :type="'datetime'"
         :minute-step="15"
         :phrases="{ok: 'OK', cancel: 'Annuler'}"
         :zone="'UTC+2'"
         :value-zone="'UTC'"
       />
-      <p v-else>A venir</p>
+      <p v-else>à venir</p>
     </div>
   </div>
 </template>
