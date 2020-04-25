@@ -49,7 +49,7 @@
 
       <div class="col-xl-3 stick-right d-none d-xl-block" >
         <Champion
-        :mode="'list'"
+        :mode="'home'"
         :competition="champion.competition"
         :coach="champion.coach"
         :team="champion.team"
