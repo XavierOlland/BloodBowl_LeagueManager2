@@ -39,7 +39,7 @@
         </div>
         <div class="w-100"></div>
         <!-- Competitions -->
-        <div class="plain prime zelda" v-for="competition in competitions" :key="competition.id" @click="$router.push({ name: 'Competition', params: { id: competition.id }})">
+        <div class="plain prime zelda" title="Voir la compétition" v-for="competition in competitions" :key="competition.id" @click="$router.push({ name: 'Competition', params: { id: competition.id }})">
           <h2 v-if="competition.site_name==competition.season">{{competition.site_name}} </h2>
           <h2 v-else>{{competition.season}} - {{competition.site_name}} </h2>
           <CompetitionStanding :competition="competition.standing" :limit="5" :teamAccess="false"/>

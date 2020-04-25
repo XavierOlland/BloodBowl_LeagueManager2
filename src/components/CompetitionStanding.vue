@@ -16,7 +16,7 @@
           <th class="text-center d-none" v-if="details==true" >Pts/M</th>
         </tr>
       </thead>
-      <tbody class="table-hover">
+      <tbody :class="{'table-hover': details==true}">
         <tr v-for="(team, index) in competition.slice(0,limit)" :key="team.id" :class="['standing-' + index, {zelda: teamAccess!=0 }]" @click="goToTeam(team.cyanide_id)">
           <td>{{index+1}}</td>
           <td class="text-left"><img :src="require('../assets/logos/Logo_'+team.logo+'.png')"> {{team.name}}</td>
