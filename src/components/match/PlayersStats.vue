@@ -8,8 +8,8 @@
             <tr :style="{background: colours[0]}">
               <th class="text-left">Joueur</th>
               <th class="text-left position hidden-sm-down">Position</th>
-              <th class="text-center hidden-xs-down">Niv</th>
-              <th class="attributes text-center hidden-xs-down">XP</th>
+              <th class="text-center hidden-down">Niv</th>
+              <th class="attributes text-center hidden-down">XP</th>
               <th class="attributes text-center" title="Joueur du match">JDM</th>
               <th class="attributes text-center" title="Passes">Pa</th>
               <th class="attributes text-center" title="Réceptions">Réc</th>
@@ -33,8 +33,8 @@
               </td>
               <td class="text-left text-cutter hidden-sm-down" v-if="player.type.indexOf('StarPlayer')==-1">{{player.type | talkingToTheGods()}}</td>
               <td class="text-left text-cutter hidden-sm-down" v-if="player.type.indexOf('StarPlayer')>-1">Champion</td>
-              <td class="text-center hidden-xs-down">{{player.level}}</td>
-              <td class="text-center hidden-xs-down">{{player.xp}}</td>
+              <td class="text-center hidden-down">{{player.level}}</td>
+              <td class="text-center hidden-down">{{player.xp}}</td>
               <td class="text-center">{{player.mvp}}</td>
               <td class="text-center">{{player.stats.inflictedpasses}}</td>
               <td class="text-center">{{player.stats.inflictedcatches}}</td>

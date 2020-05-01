@@ -61,7 +61,7 @@ export default {
   }
   .prime {
     .start {
-      stop-color: $prime-bg;
+      stop-color: transparent;
     }
     .stop {
       stop-color: $prime-color;
@@ -69,7 +69,7 @@ export default {
   }
   .seconde {
     .start {
-      stop-color: $seconde-bg;
+      stop-color: transparent;
     }
     .stop {
       stop-color: $seconde-color;

@@ -2,19 +2,34 @@
   <div id="UpcomingGames" class="plain prime" v-if="games.length>0">
     <h2>Programme CabalVision</h2>
     <p v-if="games.length==0">Aucun match de programmé pour le moment.</p>
-    <div v-for="day in games" :key="day.day">
-      <h3 class="col-xs-12">{{day.day | moment('dddd D MMMM')}}</h3>
-      <div class="time noPadding" v-for="match in day.matchs" :key="match.id">
-        <h4 class="col-xs-2">{{match.planned | moment('HH:mm')}}</h4>
-        <div class="match">
-          <div class="col-xs-3 text-right noPadding"><h4>{{match.name_1}}</h4></div>
-          <div class="col-xs-3 x-center noPadding">
-            <img class="teamLogo" :src="require('../assets/logos/Logo_' + match.logo_1 + '.png')">
-            <img class="versus" style="width:30px;" src="../assets/elements/vs.png">
-            <img class="teamLogo" :src="require('../assets/logos/Logo_' + match.logo_2 + '.png')">
+    <div class="row">
+
+    <div :class="['col-12',{'col-lg-6': day.matchs.length==1}]" v-for="day in games" :key="day.day">
+        <h3 class="col-12">{{day.day | moment('dddd D MMMM')}}</h3>
+      <div class="row match" v-for="match in day.matchs" :key="match.id">
+        <div :class="['col-12', {'col-lg-6': day.matchs.length>1}]">
+          <div class="row">
+            <div class="col-12 time">
+              <hr/>
+              <h4>{{match.planned | moment('HH:mm')}}</h4>
+              <hr/>
+            </div>
           </div>
-          <div class="col-xs-3 text-left noPadding"><h4>{{match.name_2}}</h4></div>
+          <div class="row">
+            <div class="col-5 text-center">
+              <img class="teamLogo" :src="require('../assets/logos/Logo_' + match.logo_1 + '.png')">
+              <h4>{{match.name_1}}</h4>
+            </div>
+            <div class="col-2 align-self-center">
+              <img class="versus" src="../assets/elements/vs.png">
+            </div>
+            <div class="col-5 text-center">
+              <img class="teamLogo" :src="require('../assets/logos/Logo_' + match.logo_2 + '.png')">
+              <h4>{{match.name_2}}</h4>
+            </div>
+          </div>
         </div>
+      </div>
       </div>
     </div>
     <Button v-if="admin==1" :id="'Seconde'" :text="'Administrer'" @click="$router.push('admin')"/>
@@ -22,12 +37,17 @@
 </template>
 
 <script>
-  const moment = require('moment')
+  const moment = require('moment');
 
   export default {
     name: 'UpcomingGames',
     props: {
       games: Array
+    },
+    methods: {
+      test() {
+        moment()
+      }
     }
   }
 </script>
@@ -37,25 +57,28 @@
     text-transform: capitalize;
     margin-bottom: 0.75em;
   }
-  .time {
-    width: 100%;
-    display: inline-flex;
-    justify-content: space-between;
-    align-items: center;
-    h4 {
-      flex: 2
+  .match {
+    padding: 0 0.5rem;
+    .time {
+      width: 100%;
+      display: flex;
+      align-items: stretch;
+      border:none;
+      hr {
+        flex-grow: 1;
+        margin: 0.55rem;
+        border-bottom: solid 1px $prime-text;
+      }
+      h4 {
+        display: inline-flex;
+      }
     }
-    .match {
-      flex: 10;
-      display: inline-flex;
-      justify-content: space-around;
-      align-items: center
+    .teamLogo {
+      width: 40%;
+      height: auto;
     }
-  }
-  .teamLogo {
-    width: 40px;
-    height: 40px;
-    display: inline;
-    vertical-align: middle;
+    .versus {
+        width: 100%;
+    }
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div id="MatchPreview" @click="matchDetails" class="vs match x-center" :class="{ zelda: match.cyanide_id }">
+  <div id="MatchPreview" @click="matchDetails" class="vs match text-center" :class="{ zelda: match.cyanide_id }">
     <div>
       <img :src="require('../assets/logos/Logo_' + match.logo_1 + '.png')">
       <img class="versus" v-if="match.cyanide_id == null" src="../assets/elements/vs.png">

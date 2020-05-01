@@ -77,7 +77,7 @@
 </template>
 
 <script>
-  const moment = require('moment')
+  const moment = require('moment');
   import MatchTeamStats from '../components/match/TeamStats.vue';
   import Helmet from '../components/ui/Helmet.vue';
 

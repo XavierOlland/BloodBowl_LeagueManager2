@@ -38,7 +38,7 @@ const actions = {
 		instance.post(route + 'competitionUpdate', params)
 			.then(response => {
 				context.commit('setCompetition', response.data);
-				//context.dispatch('fetchCalendar', id);
+				context.dispatch('fetchCalendar', params[1]);
 			}, error => {
 				console.error(error); // eslint-disable-line no-console
 			});

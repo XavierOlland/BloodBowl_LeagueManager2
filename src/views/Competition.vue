@@ -102,6 +102,7 @@
 
 <style lang="scss" scoped>
   .day {
+    padding-bottom: 15px;
     .tab {
       top: 0;
       right: 0;
@@ -126,7 +127,7 @@
     color: $focus-color;
   }
   .card-columns .card {
+    margin: 20px;
     width: calc(100% - 20px);
   }
-
 </style>

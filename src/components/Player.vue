@@ -6,9 +6,9 @@
           <div id="playerPhoto" class="photo col-md-3 d-none d-md-block">
             <img :src="require('../assets/players/'+player.position+'.jpg')" />
           </div>
-          <div class="col-xs-6 col-md-9">
+          <div class="col-6 col-md-9">
             <div class="row">
-              <div class="col-xs-12 col-md-12">
+              <div class="col-12 col-md-12">
                 <h1 :style="{'color':colours[1]}">{{player.name}}</h1>
                 <h2>{{ player.position | talkingToTheGods() }}</h2>
                 <div class="level">
@@ -19,13 +19,13 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-xs-3 col-md-2 attributes">
+              <div class="col-3 col-md-2 attributes">
                 <h3 :style="{'color':colours[1]}">MV <span>{{ JSON.parse(player.attributes).ma }}</span></h3>
                 <h3 :style="{'color':colours[1]}">FO <span>{{ JSON.parse(player.attributes).st }}</span></h3>
                 <h3 :style="{'color':colours[1]}">AG <span>{{ JSON.parse(player.attributes).ag }}</span></h3>
                 <h3 :style="{'color':colours[1]}">AR <span>{{ JSON.parse(player.attributes).av }}</span></h3>
               </div>
-              <div class="col-xs-5 col-md-5">
+              <div class="col-5 col-md-5">
                 <h3 :style="{'color':colours[1]}">Compétences</h3>
                 <p v-if="JSON.parse(player.skills).length==0">Nada! Peau de zob! Ce joueur est un noob!</p>
                 <ul>
@@ -34,7 +34,7 @@
                   </li>
                 </ul>
               </div>
-              <div class="col-xs-4 col-md-5">
+              <div class="col-4 col-md-5">
                 <h3 :style="{'color':colours[1]}">Blessures</h3>
                 <p v-if="JSON.parse(player.casualties).length==0">Aucune... C'est d'un triste...</p>
                 <ul>
