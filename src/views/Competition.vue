@@ -26,6 +26,7 @@
         </div>
       </div>
     </div>
+    <Button :id="'Back'" :back="true" @clicked="$router.go(-1)"/>
   </div>
 </template>
 

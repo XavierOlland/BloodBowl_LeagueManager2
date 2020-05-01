@@ -42,6 +42,8 @@
 
       </div>
     </div>
+    <Button :id="'Back'" :back="true" @clicked="$router.go(-1)"/>
+
   </div>
 </template>
 
@@ -50,7 +52,6 @@
   import Modal from '../components/Modal.vue'
   import Button from '../components/ui/Button.vue';
   import Helmet from '../components/ui/Helmet.vue';
-
 
   export default {
     name: 'Team',
