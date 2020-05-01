@@ -1,5 +1,6 @@
 <template>
   <div id="Competition" class="view container">
+    <Loader v-if="saving==true" :text="text"/>
     <Modal v-if="modal == true"/>
     <div class="row">
       <div class="col-lg-7">
@@ -34,6 +35,7 @@
   import MatchPreview from '../components/MatchPreview.vue'
   import Modal from '../components/Modal.vue'
   import Button from '../components/ui/Button.vue';
+  import Loader from '../components/ui/Loader.vue';
 
   export default {
     name: 'Competition',
@@ -42,7 +44,8 @@
       Statistics,
       MatchPreview,
       Modal,
-      Button
+      Button,
+      Loader
     },
     props: {
       dictionnary: Array
@@ -53,7 +56,8 @@
         saving: false,
         modal: false,
         displayDay: 0,
-        singleEliminationRounds: ['32emes de finales', '16emes de finales', '8emes de finales', 'Quart de finales', 'Demi-Finales', 'Finale']
+        singleEliminationRounds: ['32emes de finales', '16emes de finales', '8emes de finales', 'Quart de finales', 'Demi-Finales', 'Finale'],
+        text: 'Consignation dans les registres...'
       }
     },
     computed:{
@@ -82,7 +86,9 @@
       competitionUpdate() {
         this.saving = true;
         var params = [this.competition.game_name, this.competition.id, this.competition.format, this.currentRound.currentDay, this.currentRound.matchsToSave ];
-        this.$store.dispatch('competition/updateCompetition',params);
+        this.$store.dispatch('competition/updateCompetition',params).then(() => {
+          this.saving = false;
+        });
       },
       fullCalendar() {
         this.displayDay = 0;
