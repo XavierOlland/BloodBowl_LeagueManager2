@@ -5,27 +5,29 @@
     <div class="row">
       <div :class="['day','col-12',{'col-lg-6': day.matchs.length==1}]" v-for="day in games" :key="day.day">
         <h3 class="col-12">{{day.day | moment('dddd D MMMM')}}</h3>
-        <div class="row match" v-for="match in day.matchs" :key="match.id">
-          <div :class="['col-12', {'col-lg-6': day.matchs.length>1}]">
-            <div class="row">
+        <div class="row">
+          <div :class="['col-12', {'col-lg-6': day.matchs.length>1}]" class="match" v-for="match in day.matchs" :key="match.id">
+            <div class="hover-box">
+              <div class="row">
               <div class="col-12 time">
                 <hr/>
                 <h4>{{match.planned | moment('HH:mm')}}</h4>
                 <hr/>
               </div>
             </div>
-            <div class="row">
+              <div class="row">
               <div class="col-5 text-center">
                 <img class="teamLogo" :src="require('../assets/logos/Logo_' + match.logo_1 + '.png')">
                 <h4>{{match.name_1}}</h4>
               </div>
-              <div class="col-2 align-self-center">
-                <img class="versus" src="../assets/elements/vs.png">
+              <div class="col-2 align-self-center versus">
+                <img src="../assets/elements/vs.png">
               </div>
               <div class="col-5 text-center">
                 <img class="teamLogo" :src="require('../assets/logos/Logo_' + match.logo_2 + '.png')">
                 <h4>{{match.name_2}}</h4>
               </div>
+            </div>
             </div>
           </div>
         </div>
@@ -63,7 +65,7 @@
     }
   }
   .match {
-    padding: 0 0.5rem;
+    padding: 0 0.25rem;
     .time {
       width: 100%;
       display: flex;
@@ -83,7 +85,20 @@
       height: auto;
     }
     .versus {
+      padding: 0.1rem;
+      img {
         width: 100%;
+      }
     }
+    .hover-box {
+      margin: 0.5rem;
+      padding: 0.25rem;
+      border: 1px solid transparent;
+      border-radius: 3px;
+    }
+  }
+  .hover-box:hover {
+    background: $prime-bg;
+    border: 1px solid $prime-color;
   }
 </style>
