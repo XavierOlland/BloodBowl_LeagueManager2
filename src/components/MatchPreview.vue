@@ -1,5 +1,5 @@
 <template>
-  <div id="MatchPreview" @click="matchDetails" class="vs match text-center" :class="{ zelda: match.cyanide_id }">
+  <div id="MatchPreview" @click="matchDetails" class="match text-center" :class="{ zelda: match.cyanide_id }">
     <div>
       <img :src="require('../assets/logos/Logo_' + match.logo_1 + '.png')">
       <img class="versus" v-if="match.cyanide_id == null" src="../assets/elements/vs.png">
@@ -59,53 +59,69 @@
 </script>
 
 <style lang="scss" scoped>
-  img {
-    width: 25%;
-    max-width: 100px;
-    height: 25%;
-    display: inline;
-    vertical-align: middle;
-  }
-  .vs {
-    width:100%;
+  .match {
+    width: 100%;
     color: $prime-text;
     vertical-align: middle;
     text-align: center;
     margin: 0.5rem 0;
     padding: 1rem 0.2rem !important;
     border-radius: 5px;
-    border:1px solid transparent;
+    border: 1px solid transparent;
     span {
       vertical-align: middle;
       display: inline-block;
     }
+    img {
+      width: 25%;
+      max-width: 100px;
+      height: 25%;
+      display: inline;
+      vertical-align: middle;
+    }
+    p {
+      font-family: 'Muli';
+      color: $prime-text;
+      margin: 0;
+    }
+    hr {
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+      border-top: 1px solid $prime-color;
+      width: 75%;
+    }
+    .score {
+      font-family: 'Akashi';
+      font-size: 1.3rem;
+      line-height: 1.6rem !important;
+      font-weight: 400;
+      letter-spacing: -0.15rem;
+      margin: 0 0.5rem;
+    }
+    .winner {
+      color: $prime-color;
+      font-size: 1.7rem;
+    }
+
   }
-  .vs:hover {
+  .match:hover {
     background: $prime-bg;
     border: 1px solid $prime-color;
+    .winner {
+      color: $prime-color;
+    }
   }
-  p {
-    font-family: 'Muli';
-    color: $prime-text;
-    margin:0
-  }
-  hr {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    border-top: 1px solid $prime-color;
-    width: 75%;
-  }
-  .score {
-    font-family: 'Akashi';
-    font-size: 1.3rem;
-    line-height: 1.6rem !important;
-    font-weight: 400;
-    letter-spacing: -0.15rem;
-    margin: 0 0.5rem;
-  }
-  .winner {
-    color: $prime-color;
-    font-size: 1.7rem;
-    //font-weight: 700;
+  .current {
+    hr {
+      border-color: $link-contrast;
+    }
+    .winner {
+      color: $link-contrast;
+    }
+    .match:hover{
+      hr {
+        border-color: $prime-color;
+      }
+    }
   }
 </style>

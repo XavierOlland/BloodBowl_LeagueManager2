@@ -101,7 +101,7 @@
     watch: {
       calendar: function() {
         this.currentRound.currentDay = this.calendar[0].currentDay;
-        this.displayDay = (this.calendar.length < 6 || !this.currentRound.currentDay) ? 0 : this.currentRound.currentDay;
+        this.displayDay = (this.calendar.length < 2 || !this.currentRound.currentDay) ? 0 : this.currentRound.currentDay;
       }
     }
   }
