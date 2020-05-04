@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="col-lg-5">
-        <div v-for="day in calendar" :key="day.round" v-show="day.round <= displayDay || displayDay==0" class="day plain prime" :class="{ current: day.round == currentDay}">
+        <div v-for="day in calendar" :key="day.round" v-show="day.round <= displayDay || displayDay==0" class="day plain prime" :class="{ 'current': day.round == currentRound.currentDay}">
           <div v-if="day.round == currentRound.currentDay && displayDay != 0" class="tab zelda" @click="fullCalendar()">Calendrier complet</div>
           <h3 v-if="competition.format!='single_elimination'">Journée {{day.round}}</h3>
           <h3 v-else>{{rounds[day.round-1]}} </h3>
@@ -121,20 +121,26 @@
   }
   .card-columns {
     column-count: 2;
+    .card {
+      margin: 20px;
+      width: calc(100% - 20px);
+    }
   }
-  @media (min-width: 1300px) {
+  @media (max-width: 700px), (min-width: 992px) and (max-width: 1200px) {
+    .card-columns {
+      column-count: 1;
+    }
+  }
+  @media (min-width: 1800px) {
     .card-columns {
       column-count: 3;
     }
   }
   .current {
     background: $focus-bg;
-  }
-  .current h3 {
-    color: $focus-color;
-  }
-  .card-columns .card {
-    margin: 20px;
-    width: calc(100% - 20px);
+    border-color: $prime-bg;
+    h3 {
+      color: $focus-color;
+    }
   }
 </style>
