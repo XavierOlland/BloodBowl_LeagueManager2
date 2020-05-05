@@ -44,6 +44,7 @@ export default {
     id: String,
     text: String,
     color: String,
+    level: String,
     action: Function,
     back: {
       type: Boolean,
