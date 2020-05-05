@@ -29,7 +29,7 @@
         </div>
         <div class="plain prime" :style="{'border-color': team.color_1}">
           <h2>Effectif</h2>
-          <Roster :roster="team.players" :colours="[team.color_1,team.color_2]" :formerPlayers="formerPlayers" :showStats="stats" />
+          <Roster :roster="team.players" :colours="[team.color_1, team.color_2, titleText]" :formerPlayers="formerPlayers" :showStats="stats" />
           <Button class="d-none d-md-block" :id="'Stats'" :text="'Statistiques'" :color="team.color_1" @clicked="toggleStats"/>
           <Button class="d-none d-md-block" :id="'FormerPlayers'" :level="'secondary'" :text="formerPlayersText" :color="team.color_1" @clicked="toggleFormerPlayers"/>
         </div>
@@ -39,11 +39,9 @@
           <img class="cover" src="../assets/elements/Cover_Glass.png">
           <img :src="require('../assets/teams/photo'+team.id+'.jpg')" />
         </div>
-
       </div>
     </div>
     <Button :id="'Back'" :back="true" @clicked="$router.go(-1)"/>
-
   </div>
 </template>
 
@@ -95,10 +93,9 @@
     },
     watch: {
       team: function() {
-        this.isFetching = this.team.length>0? true : false;
-        this.titleText = Color(this.team.color_2).luminosity() < 0.05 ? '#EEE' : this.team.color_2;
+        this.isFetching = this.team.length > 0 ? true : false;
+        this.titleText = Color(this.team.color_2).luminosity() < 0.05 ? '#AAA' : this.team.color_2;
       }
-
     }
   }
 </script>
@@ -114,7 +111,7 @@
   }
   .teamboard {
     padding-bottom: 10px;
-    text-shadow: 0 2px 5px #000000;
+    text-shadow: 0 1px 5px $shadow;
     h1 {
       margin-bottom: 0;
     }

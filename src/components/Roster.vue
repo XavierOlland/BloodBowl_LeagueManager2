@@ -86,7 +86,8 @@
       },
       updateColours() {
         var tableText = Color(this.colours[0]).isLight() ? '#000' : '#EEE';
-        document.querySelector(':root').style.setProperty('--team-1', this.colours[0]);
+        var tableHover = Color(this.colours[0]).isLight() ? Color(this.colours[0]).darken(0.5) : this.colours[0];
+        document.querySelector(':root').style.setProperty('--team-1', tableHover);
         document.querySelector(':root').style.setProperty('--team-table', tableText);
       }
     },
@@ -129,6 +130,6 @@
     vertical-align: text-bottom;
   }
   .teamHover:hover {
-    background: linear-gradient(to right, rgba(0,0,0,0.1), var(--team-hover), rgba(0,0,0,0.1));
+    background: linear-gradient(to right, rgba(0,0,0,0.1), var(--team-1), rgba(0,0,0,0.1));
   }
 </style>

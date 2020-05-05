@@ -3,30 +3,30 @@
     <div class="veil" @click="modalView">
       <div class="plain seconde" :class="{ modal: modal == true }"  :style="{'border-color': colours[1]}">
         <div class="row">
-          <div id="playerPhoto" class="photo col-md-3 d-none d-md-block">
+          <div id="playerPhoto" class="photo col-md-3 d-none d-md-block align-self-center">
             <img :src="require('../assets/players/'+player.position+'.jpg')" />
           </div>
           <div class="col-6 col-md-9">
             <div class="row">
               <div class="col-12 col-md-12">
-                <h1 :style="{'color':colours[1]}">{{player.name}}</h1>
+                <h1 :style="{'color':colours[2]}">{{player.name}}</h1>
                 <h2>{{ player.position | talkingToTheGods() }}</h2>
                 <div class="level">
-                  <h3 :style="{'color':colours[1]}" v-for="n in player.level" :key="n" class="star" >&#9733;</h3>
-                  <h3 :style="{'color':colours[1]}" class="noselect"> {{player.xp}} XP</h3>
+                  <h3 :style="{'color':colours[2]}" v-for="n in player.level" :key="n" class="star" >&#9733;</h3>
+                  <h3 :style="{'color':colours[2]}" class="noselect"> {{player.xp}} XP</h3>
                 </div>
                 <br/>
               </div>
             </div>
             <div class="row">
               <div class="col-3 col-md-2 attributes">
-                <h3 :style="{'color':colours[1]}">MV <span>{{ JSON.parse(player.attributes).ma }}</span></h3>
-                <h3 :style="{'color':colours[1]}">FO <span>{{ JSON.parse(player.attributes).st }}</span></h3>
-                <h3 :style="{'color':colours[1]}">AG <span>{{ JSON.parse(player.attributes).ag }}</span></h3>
-                <h3 :style="{'color':colours[1]}">AR <span>{{ JSON.parse(player.attributes).av }}</span></h3>
+                <h3 :style="{'color':colours[2]}">MV <span>{{ JSON.parse(player.attributes).ma }}</span></h3>
+                <h3 :style="{'color':colours[2]}">FO <span>{{ JSON.parse(player.attributes).st }}</span></h3>
+                <h3 :style="{'color':colours[2]}">AG <span>{{ JSON.parse(player.attributes).ag }}</span></h3>
+                <h3 :style="{'color':colours[2]}">AR <span>{{ JSON.parse(player.attributes).av }}</span></h3>
               </div>
               <div class="col-5 col-md-5">
-                <h3 :style="{'color':colours[1]}">Compétences</h3>
+                <h3 :style="{'color':colours[2]}">Compétences</h3>
                 <p v-if="JSON.parse(player.skills).length==0">Nada! Peau de zob! Ce joueur est un noob!</p>
                 <ul>
                   <li v-for="skill in JSON.parse(player.skills)" :key="skill">
@@ -35,7 +35,7 @@
                 </ul>
               </div>
               <div class="col-4 col-md-5">
-                <h3 :style="{'color':colours[1]}">Blessures</h3>
+                <h3 :style="{'color':colours[2]}">Blessures</h3>
                 <p v-if="JSON.parse(player.casualties).length==0">Aucune... C'est d'un triste...</p>
                 <ul>
                   <li v-for="casualty in JSON.parse(player.casualties)" :key="casualty">
@@ -96,6 +96,7 @@
               }
     }
     .row {
+      margin: 0;
       div {
         padding:0;
       }
