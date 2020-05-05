@@ -114,7 +114,8 @@
     height:28px;
     font-size:14px;
     border-bottom: 1px solid var(--team-1);
-    color: #EEE
+    color: #EEE;
+    text-indent: 0.25rem;
   }
   thead tr {
     border:none;

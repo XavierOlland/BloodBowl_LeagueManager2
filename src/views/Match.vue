@@ -94,80 +94,7 @@
       return {
         isFetching: true,
         admin: window.admin,
-        coach_id: 1,
-        forums: [
-          {
-            "id":"317",
-            "rounds" : [
-              {
-                "id":1,
-                "forum":611
-              },
-              {
-                "id":2,
-                "forum":612
-              },
-              {
-                "id":3,
-                "forum":613
-              },
-              {
-                "id":4,
-                "forum":614
-              },
-              {
-                "id":5,
-                "forum":615
-              }
-            ]
-          },
-          {
-            "id":"318",
-            "rounds" : [
-              {
-                "id":1,
-                "forum":611
-              },
-              {
-                "id":2,
-                "forum":612
-              },
-              {
-                "id":3,
-                "forum":613
-              },
-              {
-                "id":4,
-                "forum":614
-              },
-              {
-                "id":5,
-                "forum":615
-              }
-            ]
-          },
-          {
-            "id":"319",
-            "rounds" : [
-              {
-                "id":1,
-                "forum":616
-              },
-              {
-                "id":2,
-                "forum":616
-              },
-              {
-                "id":3,
-                "forum":616
-              },
-              {
-                "id":4,
-                "forum":616
-              }
-            ]
-          }
-]
+        coach_id: 1
       }
     },
     computed:{
@@ -189,7 +116,7 @@
     },
     methods:{
       postToForum(){
-        window.open("http://bbbl.fr/Forum/posting.php?mode=post&f=" + this.forums[0].rounds[this.match.round-1].forum + "&match=" + this.$route.params.id, "_blank" )
+        window.open("http://bbbl.fr/Forum/posting.php?mode=post&f=" + this.metadata.forum + "&match=" + this.$route.params.id, "_blank" )
       }
     },
     watch: {
