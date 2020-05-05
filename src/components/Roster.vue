@@ -60,6 +60,8 @@
 </template>
 
 <script>
+  const Color = require('color');
+
   import Player from '../components/Player.vue';
 
   export default {
@@ -83,7 +85,9 @@
         this.modalPlayer = player;
       },
       updateColours() {
+        var tableText = Color(this.colours[0]).isLight() ? '#000' : '#EEE';
         document.querySelector(':root').style.setProperty('--team-1', this.colours[0]);
+        document.querySelector(':root').style.setProperty('--team-table', tableText);
       }
     },
     mounted() {
@@ -91,7 +95,7 @@
     },
     watch: {
       colours: function() {
-        this.updateColours()
+        this.updateColours();
       }
     }
   }
@@ -99,7 +103,8 @@
 
 <style lang="css" scoped>
   :root {
-    --team-1: rgba(50,50,50,0.85)
+    --team-1: rgba(50,50,50,0.85);
+    --team-table: #EEE;
   }
   table {
     width: 100%
@@ -112,7 +117,7 @@
   }
   thead tr {
     border:none;
-
+    color: var(--team-table)
   }
   .former {
     background: linear-gradient(to right, rgba(50,50,50,0.85), rgba(50,50,50,0.65), rgba(50,50,50,0.1));
@@ -124,6 +129,6 @@
     vertical-align: text-bottom;
   }
   .teamHover:hover {
-    background: linear-gradient(to right, rgba(0,0,0,0.1), var(--team-1), rgba(0,0,0,0.1));
+    background: linear-gradient(to right, rgba(0,0,0,0.1), var(--team-hover), rgba(0,0,0,0.1));
   }
 </style>
