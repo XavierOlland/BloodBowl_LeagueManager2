@@ -1,10 +1,13 @@
 <template>
   <div id="Competition" class="view container">
+    <Loader v-if="saving==true" :text="text"/>
     <Modal v-if="modal == true"/>
     <div class="row">
       <div class="col-lg-7">
         <div class="plain prime">
-          <h2>Classement </h2>
+          <h2 v-if="competition.site_name==competition.season">{{competition.site_name}} </h2>
+          <h2 v-else>{{competition.season}} - {{competition.site_name}} </h2>
+          <h3>Classement </h3>
           <CompetitionStanding :competition="competition.standing" :details="true" :limit="100" :teamAccess="true"/>
           <Button v-if="user.coach.active==1 || admin==1" :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
         </div>
@@ -13,16 +16,17 @@
         </div>
       </div>
       <div class="col-lg-5">
-        <div v-for="day in calendar" :key="day.round" v-show="day.round <= displayDay || displayDay==0" class="day plain prime" :class="{ current: day.round == currentDay}">
+        <div v-for="day in calendar" :key="day.round" v-show="day.round <= displayDay || displayDay==0" class="day plain prime" :class="{ 'current': day.round == currentRound.currentDay}">
           <div v-if="day.round == currentRound.currentDay && displayDay != 0" class="tab zelda" @click="fullCalendar()">Calendrier complet</div>
           <h3 v-if="competition.format!='single_elimination'">Journée {{day.round}}</h3>
           <h3 v-else>{{rounds[day.round-1]}} </h3>
-          <div v-for="match in day.matchs" :key="match.id" :title="match.name_1 + ' VS ' + match.name_2" class="vs d-inline-flex col-lg-6 col-xl-4">
+          <div v-for="match in day.matchs" :key="match.id" :title="match.name_1 + ' VS ' + match.name_2" class="vs d-inline-flex col-md-6 col-xl-4">
             <MatchPreview :match="match" :round="day.round" :coach_id="user.coach.cyanide_id"/>
           </div>
         </div>
       </div>
     </div>
+    <Button :id="'Back'" :back="true" @clicked="$router.go(-1)"/>
   </div>
 </template>
 
@@ -32,6 +36,7 @@
   import MatchPreview from '../components/MatchPreview.vue'
   import Modal from '../components/Modal.vue'
   import Button from '../components/ui/Button.vue';
+  import Loader from '../components/ui/Loader.vue';
 
   export default {
     name: 'Competition',
@@ -40,7 +45,8 @@
       Statistics,
       MatchPreview,
       Modal,
-      Button
+      Button,
+      Loader
     },
     props: {
       dictionnary: Array
@@ -51,7 +57,8 @@
         saving: false,
         modal: false,
         displayDay: 0,
-        singleEliminationRounds: ['32emes de finales', '16emes de finales', '8emes de finales', 'Quart de finales', 'Demi-Finales', 'Finale']
+        singleEliminationRounds: ['32emes de finales', '16emes de finales', '8emes de finales', 'Quart de finales', 'Demi-Finales', 'Finale'],
+        text: 'Consignation dans les registres...'
       }
     },
     computed:{
@@ -80,7 +87,9 @@
       competitionUpdate() {
         this.saving = true;
         var params = [this.competition.game_name, this.competition.id, this.competition.format, this.currentRound.currentDay, this.currentRound.matchsToSave ];
-        this.$store.dispatch('competition/updateCompetition',params);
+        this.$store.dispatch('competition/updateCompetition',params).then(() => {
+          this.saving = false;
+        });
       },
       fullCalendar() {
         this.displayDay = 0;
@@ -92,7 +101,7 @@
     watch: {
       calendar: function() {
         this.currentRound.currentDay = this.calendar[0].currentDay;
-        this.displayDay = (this.calendar.length < 6 || !this.currentRound.currentDay) ? 0 : this.currentRound.currentDay;
+        this.displayDay = (this.calendar.length < 2 || !this.currentRound.currentDay) ? 0 : this.currentRound.currentDay;
       }
     }
   }
@@ -100,6 +109,7 @@
 
 <style lang="scss" scoped>
   .day {
+    padding-bottom: 15px;
     .tab {
       top: 0;
       right: 0;
@@ -111,20 +121,26 @@
   }
   .card-columns {
     column-count: 2;
+    .card {
+      margin: 20px;
+      width: calc(100% - 20px);
+    }
   }
-  @media (min-width: 1300px) {
+  @media (max-width: 700px), (min-width: 992px) and (max-width: 1200px) {
+    .card-columns {
+      column-count: 1;
+    }
+  }
+  @media (min-width: 1800px) {
     .card-columns {
       column-count: 3;
     }
   }
   .current {
     background: $focus-bg;
+    border-color: $prime-bg;
+    h3 {
+      color: $focus-color;
+    }
   }
-  .current h3 {
-    color: $focus-color;
-  }
-  .card-columns .card {
-    width: calc(100% - 20px);
-  }
-
 </style>

@@ -27,7 +27,7 @@
       <tbody  class="table-hover noselect">
         <tr v-for="player in roster" :key="player.id"
         v-show="(player.dead+player.fired)==0 || formerPlayers==true"
-        :class="[{former: (player.dead+player.fired)!=0 }, 'zelda']" :style="{'border-color': colours[0]}"
+        :class="[{former: (player.dead+player.fired)!=0 }, 'zelda', 'teamHover']" :style="{'border-color': colours[0]}"
         @click="displayPlayer(player,true)">
           <td class="text-left text-cutter">
             <span class="playerStatus" v-if="player.casualties.length>2"><img src="../assets/icons/injured.png"> </span>
@@ -60,6 +60,8 @@
 </template>
 
 <script>
+  const Color = require('color');
+
   import Player from '../components/Player.vue';
 
   export default {
@@ -81,31 +83,53 @@
     methods: {
       displayPlayer(player) {
         this.modalPlayer = player;
+      },
+      updateColours() {
+        var tableText = Color(this.colours[0]).isLight() ? '#000' : '#EEE';
+        var tableHover = Color(this.colours[0]).isLight() ? Color(this.colours[0]).darken(0.5) : this.colours[0];
+        document.querySelector(':root').style.setProperty('--team-1', tableHover);
+        document.querySelector(':root').style.setProperty('--team-table', tableText);
+      }
+    },
+    mounted() {
+      this.updateColours();
+    },
+    watch: {
+      colours: function() {
+        this.updateColours();
       }
     }
   }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="css" scoped>
+  :root {
+    --team-1: rgba(50,50,50,0.85);
+    --team-table: #EEE;
+  }
+  table {
+    width: 100%
+  }
   tr {
     height:28px;
     font-size:14px;
-    border-bottom: 1px solid #FFF;
+    border-bottom: 1px solid var(--team-1);
+    color: #EEE
   }
   thead tr {
     border:none;
-
+    color: var(--team-table)
   }
   .former {
     background: linear-gradient(to right, rgba(50,50,50,0.85), rgba(50,50,50,0.65), rgba(50,50,50,0.1));
   }
-  .playerStatus {
-    img{
-      height: 20px;
-      width: 20px;
-      margin-right: 5px;
-      vertical-align: text-bottom;
-    }
+  .playerStatus img {
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
+    vertical-align: text-bottom;
+  }
+  .teamHover:hover {
+    background: linear-gradient(to right, rgba(0,0,0,0.1), var(--team-1), rgba(0,0,0,0.1));
   }
 </style>

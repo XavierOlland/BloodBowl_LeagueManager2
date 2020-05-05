@@ -73,19 +73,22 @@
         <MatchTeamStats :colours="[metadata.team_2_color_1]" :team="match.teams[1]"/>
       </div>
     </div>
+    <Button :id="'Back'" :back="true" @clicked="$router.go(-1)"/>
   </div>
 </template>
 
 <script>
-  const moment = require('moment')
+  const moment = require('moment');
   import MatchTeamStats from '../components/match/TeamStats.vue';
   import Helmet from '../components/ui/Helmet.vue';
+  import Button from '../components/ui/Button.vue';
 
   export default {
     name: 'Match',
     components: {
       MatchTeamStats,
-      Helmet
+      Helmet,
+      Button
     },
     data(){
       return {
@@ -93,63 +96,77 @@
         admin: window.admin,
         coach_id: 1,
         forums: [
-	{
-		"id":"316",
-		"rounds" : [
-			{
-				"id":1,
-				"forum":591
-			},
-			{
-				"id":2,
-				"forum":592
-			},
-			{
-				"id":3,
-				"forum":593
-			},
-			{
-				"id":4,
-				"forum":594
-			},
-			{
-				"id":5,
-				"forum":595
-			},
-			{
-				"id":6,
-				"forum":596
-			},
-			{
-				"id":7,
-				"forum":597
-			},
-			{
-				"id":8,
-				"forum":598
-			},
-			{
-				"id":9,
-				"forum":599
-			},
-			{
-				"id":10,
-				"forum":600
-			},
-			{
-				"id":11,
-				"forum":601
-			},
-			{
-				"id":12,
-				"forum":602
-			},
-			{
-				"id":13,
-				"forum":603
-			}
-		]
-	}
+          {
+            "id":"317",
+            "rounds" : [
+              {
+                "id":1,
+                "forum":611
+              },
+              {
+                "id":2,
+                "forum":612
+              },
+              {
+                "id":3,
+                "forum":613
+              },
+              {
+                "id":4,
+                "forum":614
+              },
+              {
+                "id":5,
+                "forum":615
+              }
+            ]
+          },
+          {
+            "id":"318",
+            "rounds" : [
+              {
+                "id":1,
+                "forum":611
+              },
+              {
+                "id":2,
+                "forum":612
+              },
+              {
+                "id":3,
+                "forum":613
+              },
+              {
+                "id":4,
+                "forum":614
+              },
+              {
+                "id":5,
+                "forum":615
+              }
+            ]
+          },
+          {
+            "id":"319",
+            "rounds" : [
+              {
+                "id":1,
+                "forum":616
+              },
+              {
+                "id":2,
+                "forum":616
+              },
+              {
+                "id":3,
+                "forum":616
+              },
+              {
+                "id":4,
+                "forum":616
+              }
+            ]
+          }
 ]
       }
     },

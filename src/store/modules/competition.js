@@ -34,11 +34,11 @@ const actions = {
 				console.error(error); // eslint-disable-line no-console
 			});
 	},
-	updateCompetition(context, params) {
-		instance.post(route + 'competitionUpdate', params)
+	async updateCompetition(context, params) {
+		return instance.post(route + 'competitionUpdate', params)
 			.then(response => {
 				context.commit('setCompetition', response.data);
-				//context.dispatch('fetchCalendar', id);
+				context.dispatch('fetchCalendar', params[1]);
 			}, error => {
 				console.error(error); // eslint-disable-line no-console
 			});

@@ -1,19 +1,19 @@
 <template>
-  <div id="Statistics">
+  <div id="Statistics" v-if="statistics.players.length>0">
     <div class="veil" v-show="modal == true" @click="modalView"></div>
     <div class="card plain seconde" :class="{ modal: modal == true }">
       <h3>{{statistics.type | talkingToTheGods()}}</h3>
-      <div v-if="statistics.players.length > 0">
+      <div>
         <div class="scroll">
           <table class="mainStats">
             <thead>
               <tr class="background">
-                <th></th>
-                <th class="text-left">Joueur</th>
-                <th class="text-center" >{{statistics.stats[0] | talkingToTheGods()}}</th>
+                <th width="5%"></th>
+                <th width="60%" class="text-left">Joueur</th>
+                <th width="35%" class="text-center" >{{statistics.stats[0] | talkingToTheGods()}}</th>
               </tr>
             </thead>
-            <tbody class="noselect">
+            <tbody class="noselect" :class="{ 'table-hover': modal == true }">
               <tr class="playerDetails" v-for="player in statistics.players.slice(0,max)" :key="player.player">
                 <td class="logo"><img :src="require('../assets/logos/Logo_'+player.logo+'.png')"></td>
                 <td class="text-left text-cutter">{{player.name}}</td>
@@ -23,9 +23,6 @@
           </table>
         </div>
         <Button :id="'Stats'" :text="buttonText" @clicked="modalView" />
-      </div>
-      <div v-else>
-        <p>Aucun résultat pour le moment</p>
       </div>
     </div>
   </div>

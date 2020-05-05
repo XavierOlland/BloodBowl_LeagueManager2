@@ -37,19 +37,19 @@
             <h1>"J'ai aimé cette ligue comme je n'ai jamais aimé aucune femme..."</h1>
             <p>Coach Jahstrad, peu avant sa disparition</p>
         </div>
-        <div class="w-100"></div>
+        <UpcomingGames v-if="upcomingGames.length>0" :games="upcomingGames"/>
         <!-- Competitions -->
-        <div class="plain prime zelda" v-for="competition in competitions" :key="competition.id" @click="$router.push({ name: 'Competition', params: { id: competition.id }})">
-          <h2>{{competition.site_name}}</h2>
+        <div class="plain prime zelda" title="Voir la compétition" v-for="competition in competitions" :key="competition.id" @click="$router.push({ name: 'Competition', params: { id: competition.id }})">
+          <h2 v-if="competition.site_name==competition.season">{{competition.site_name}} </h2>
+          <h2 v-else>{{competition.season}} - {{competition.site_name}} </h2>
           <CompetitionStanding :competition="competition.standing" :limit="5" :teamAccess="false"/>
           <Button :id="'Prime'" :text="'La Compétition'" @clicked="$router.push({ name: 'Competition', params: { id: competition.id }})" />
         </div>
-        <UpcomingGames :games="upcomingGames"/>
       </div>
 
       <div class="col-xl-3 stick-right d-none d-xl-block" >
         <Champion
-        :mode="'list'"
+        :mode="'home'"
         :competition="champion.competition"
         :coach="champion.coach"
         :team="champion.team"
