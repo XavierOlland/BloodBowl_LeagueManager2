@@ -6,7 +6,7 @@ const instance = axios.create({
 	}
 });
 const route = 'vue-routes.php?action='
-
+const admin = 'admin/admin.php?action='
 const state = {
 	archives: [],
 }
@@ -26,7 +26,16 @@ const actions = {
 			}, error => {
 				console.error(error); // eslint-disable-line no-console
 			});
-	}
+	},
+	async seasonArchive(context) {
+		const response = await instance.post(admin + 'seasonArchive')
+		context.commit('setCompetitions', [], {
+			root: true
+		})
+		context.dispatch('fetchArchives');
+		return response.data
+	},
+
 }
 
 export default {
