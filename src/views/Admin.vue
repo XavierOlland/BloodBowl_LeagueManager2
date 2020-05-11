@@ -2,16 +2,19 @@
   <div id="Admin" class="view container">
     <div class="row">
       <Archiver class="col-4"/>
+      <NewCompetition class= "col-4"/>
     </div>
   </div>
 </template>
 
 <script>
   import Archiver from '../components/admin/Archiver.vue'
+  import NewCompetition from '../components/admin/NewCompetition.vue'
   export default {
     name: 'Admin',
     components: {
       Archiver,
+      NewCompetition
     },
     data(){
       return {
@@ -25,6 +28,9 @@
     },
     methods: {
 
+    },
+    mounted(){
+       this.$store.dispatch('admin/getIngameCompetitions');
     }
   }
 </script>
