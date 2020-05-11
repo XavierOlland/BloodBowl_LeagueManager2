@@ -1,6 +1,6 @@
 <template>
   <div id="NewCompetition" class="plain prime">
-    <h2>2. Ajout de competition</h2>
+    <h2>Ajout de competition</h2>
     <form>
       Compétition en jeu :<br/>
         <select v-model="newCompetition.cyanide_id">
@@ -53,6 +53,7 @@
           </span>
         </span>
     </form>
+    <p v-if="message.type" :class="message.type">{{message.text}}</p>
     <Button :id="'AddCompetition'" :text="'Ajouter'" @clicked="addCompetition" />
   </div>
 </template>

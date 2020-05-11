@@ -1,6 +1,6 @@
 <template>
   <div id="Archiver" class="plain prime">
-    <h2>1. Passage de saison</h2>
+    <h2>Passage de saison</h2>
     <p>En passant la saison, les compétitions sont archivées. Les équipes et coachs sont rendues "inactifs". Leur participation à une nouvelle compétition les réactivera.<p/>
     <p v-if="season.length>0" class="data">Saison en cours: <br/>
       <span>{{season[0].season}}</span><br/><br/>
@@ -10,7 +10,7 @@
     </ul>
     </p>
     <p v-else :class="message.type">{{message.text}}</p>
-    <Button :id="'ArchiveSeason'" :text="'Archiver'" @clicked="seasonArchive" />
+    <Button :id="'ArchiveSeason'" :text="'Archiver'" @clicked="archiveSeason" />
   </div>
 </template>
 
@@ -37,10 +37,10 @@
       }
     },
     methods: {
-       seasonArchive() {
-        this.$store.dispatch('archives/seasonArchive').then((response) => {
-           this.message = response;
-         });
+       archiveSeason() {
+        this.$store.dispatch('admin/archiveSeason').then((response) => {
+          this.message = response;
+        });
       }
     }
   }

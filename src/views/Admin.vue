@@ -3,6 +3,7 @@
     <div class="row">
       <Archiver class="col-4"/>
       <NewCompetition class= "col-4"/>
+      <Forum class= "col-4"/>
     </div>
   </div>
 </template>
@@ -10,11 +11,13 @@
 <script>
   import Archiver from '../components/admin/Archiver.vue'
   import NewCompetition from '../components/admin/NewCompetition.vue'
+  import Forum from '../components/admin/Forum.vue'
   export default {
     name: 'Admin',
     components: {
       Archiver,
-      NewCompetition
+      NewCompetition,
+      Forum
     },
     data(){
       return {

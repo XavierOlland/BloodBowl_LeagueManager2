@@ -1,11 +1,11 @@
 import axios from 'axios'
 const instance = axios.create({
-	baseURL: 'http://bbbl.fr/backend/',
+	baseURL: process.env.VUE_APP_BACKENDURL,
 	headers: {
 		'content-type': 'application/x-www-form-urlencoded'
 	}
 });
-const route = 'admin/admin.php?action='
+const route = 'admin.php?action=';
 const state = {
 	ingameCompetitions: [],
 }
@@ -17,8 +17,8 @@ const mutations = {
 }
 
 const actions = {
-	async seasonArchive(context) {
-		const response = await instance.post(route + 'seasonArchive')
+	async archiveSeason(context) {
+		const response = await instance.post(route + 'seasonArchive');
 		context.commit('setCompetitions', [], {
 			root: true
 		})
@@ -34,12 +34,18 @@ const actions = {
 				console.error(error); // eslint-disable-line no-console
 			});
 	},
-	addCompetition(context, params) {
-		instance.post(route + 'competitionAdd', params)
-			.then(response => {
-				console.log(response); // eslint-disable-line no-console
-			})
-	}
+	async addCompetition(context, params) {
+		const response = await instance.post(route + 'competitionAdd', params)
+		instance.post(route + 'getIngameCompetitions')
+
+		context.commit('setCompetitions', response.data.competitions);
+
+		return response.data
+	},
+	async updateForum() {
+		const response = await instance.post(route + 'forumUpdate');
+		return response.data;
+	},
 }
 
 export default {

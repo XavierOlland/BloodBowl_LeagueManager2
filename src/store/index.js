@@ -6,9 +6,16 @@ import archives from './modules/Archives.js'
 import competition from './modules/Competition.js'
 import match from './modules/Match.js'
 import team from './modules/Team.js'
-//const moment = require('moment')
 
 Vue.use(Vuex)
+
+const instance = axios.create({
+	baseURL: process.env.VUE_APP_BACKENDURL,
+	headers: {
+		'content-type': 'application/x-www-form-urlencoded'
+	}
+});
+const route = 'vue-routes.php?action=';
 
 export default new Vuex.Store({
 	modules: {
@@ -19,10 +26,8 @@ export default new Vuex.Store({
 		team
 	},
 	state: {
-		admin: {},
 		user: {},
 		dictionnary: [],
-		archives: [],
 		competitions: [],
 		statistics: [],
 		calendar: {}
@@ -52,7 +57,7 @@ export default new Vuex.Store({
 	},
 	actions: {
 		async boot(context) {
-			axios.get(process.env.VUE_APP_BACKENDURL + "action=boot")
+			instance.get(route + 'boot')
 				.then(response => {
 					context.commit('setDictionnary', response.data.parameters);
 					context.commit('setCompetitions', response.data.competitions);
@@ -64,7 +69,7 @@ export default new Vuex.Store({
 				});
 		},
 		async upcomingGames(context) {
-			axios.get(process.env.VUE_APP_BACKENDURL + "action=upcomingGames")
+			instance.get(route + 'upcomingGames')
 				.then(response => {
 					const calendar = response.data ? response.data : {};
 					context.commit('setCalendar', calendar);
