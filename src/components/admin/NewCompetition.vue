@@ -1,9 +1,10 @@
 <template>
-  <div id="NewCompetition" class="plain prime">
+  <div id="NewCompetition">
+    <div class="plain prime">
     <h2>Ajout de competition</h2>
     <p>Les forums pour les journées doivent être créés avant l'ajout de la compétition.</p>
-    <br/><br/>
-    <form>
+    <div>
+      <form>
       Compétition en jeu :<br/>
         <select v-model="newCompetition.cyanide_id">
           <option v-for="competition in ingameCompetitions" :key="competition.id" :value="competition.id">{{competition.name}}</option>
@@ -61,12 +62,14 @@
             <option v-for="sub in parent.subs" :key="sub.forum_id" :value="sub.forum_id">{{sub.forum_name}}</option>
           </optgroup>
         </select>
-    </form>
-    <br/><br/>
+      </form>
+    </div>
+
     <p v-if="message.type" :class="message.type">{{message.text}}</p>
 
     <Button :id="'AddCompetition'" :text="'Ajouter'" @clicked="addCompetition" />
 
+  </div>
   </div>
 </template>
 
@@ -113,6 +116,7 @@
     },
     methods: {
       addCompetition() {
+        this.$emit('loader', 'Création de la compétition');
         const metadata = this.ingameCompetitions.find(param => param.id == this.newCompetition.cyanide_id)
         this.newCompetition.game_name = metadata.name;
         this.newCompetition.format = metadata.format;
@@ -120,6 +124,7 @@
         this.newCompetition.rounds_count = 5;
         this.$store.dispatch('admin/addCompetition', this.newCompetition ).then((response) => {
            this.message = response;
+           this.$emit('loader', '');
         });
       }
     },
@@ -128,9 +133,9 @@
 </script>
 
 <style lang="scss" scoped>
- #NewCompetition {
-   p, form {
-     display:inline;
-   }
- }
+  #NewCompetition {
+    select, input {
+      margin:0.25rem 0 0.5rem;
+    }
+  }
 </style>
