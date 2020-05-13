@@ -28,7 +28,7 @@
     },
     methods: {
       updateForum() {
-        this.$store.dispatch('admin/updateForum').then(response => {
+        this.$store.dispatch('admin/updateForumProfiles').then(response => {
           this.message = response;
         });
       }

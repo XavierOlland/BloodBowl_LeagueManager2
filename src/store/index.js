@@ -10,7 +10,7 @@ import team from './modules/Team.js'
 Vue.use(Vuex)
 
 const instance = axios.create({
-	baseURL: process.env.VUE_APP_BACKENDURL,
+	baseURL: process.env.VUE_APP_BACKEND_URL,
 	headers: {
 		'content-type': 'application/x-www-form-urlencoded'
 	}

@@ -1,6 +1,8 @@
 <template>
   <div id="NewCompetition" class="plain prime">
     <h2>Ajout de competition</h2>
+    <p>Les forums pour les journées doivent être créés avant l'ajout de la compétition.</p>
+    <br/><br/>
     <form>
       Compétition en jeu :<br/>
         <select v-model="newCompetition.cyanide_id">
@@ -52,9 +54,19 @@
             Round : <input type="number" min="1" v-model="newCompetition.round" />
           </span>
         </span>
+        Forum de première journée :<br/>
+        <select v-model="newCompetition.forum_id">
+          <option disabled value="">Sélectionner</option>
+          <optgroup v-for="parent in forums" :key="parent.forum_id" :label="parent.forum_name">
+            <option v-for="sub in parent.subs" :key="sub.forum_id" :value="sub.forum_id">{{sub.forum_name}}</option>
+          </optgroup>
+        </select>
     </form>
+    <br/><br/>
     <p v-if="message.type" :class="message.type">{{message.text}}</p>
+
     <Button :id="'AddCompetition'" :text="'Ajouter'" @clicked="addCompetition" />
+
   </div>
 </template>
 
@@ -86,13 +98,17 @@
           competition_id_parent: 'null',
           sponsor_id_1: 'null',
           sponsor_id_2: 'null',
-          round: 0
+          round: 0,
+          forum_id: ''
         }
       }
     },
     computed: {
       ingameCompetitions() {
         return this.$store.state.admin.ingameCompetitions;
+      },
+      forums() {
+        return this.$store.state.admin.forums;
       }
     },
     methods: {
@@ -100,6 +116,8 @@
         const metadata = this.ingameCompetitions.find(param => param.id == this.newCompetition.cyanide_id)
         this.newCompetition.game_name = metadata.name;
         this.newCompetition.format = metadata.format;
+        this.newCompetition.rounds_count = metadata.rounds_count;
+        this.newCompetition.rounds_count = 5;
         this.$store.dispatch('admin/addCompetition', this.newCompetition ).then((response) => {
            this.message = response;
         });
@@ -110,5 +128,9 @@
 </script>
 
 <style lang="scss" scoped>
- .test {}
+ #NewCompetition {
+   p, form {
+     display:inline;
+   }
+ }
 </style>
