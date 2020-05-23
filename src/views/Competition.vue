@@ -1,14 +1,14 @@
 <template>
-  <div id="Competition" class="view container">
+  <div id="Competition" class="view container" v-if="!isFetching">
     <Loader v-if="saving==true" :text="text"/>
     <Modal v-if="modal == true"/>
     <div class="row">
       <div class="col-lg-7">
         <div class="plain prime">
           <h2 v-if="competition.site_name==competition.season">{{competition.site_name}} </h2>
-          <h2 v-else>{{competition.season}} - {{competition.site_name}} </h2>
-          <h3>Classement </h3>
-          <CompetitionStanding :competition="competition.standing" :details="true" :limit="100" :teamAccess="true"/>
+          <h2 v-else>{{competition.season}} - {{competition.site_name}}</h2>
+          <CompetitionStanding v-if="competition.format!='single_elimination'" :competition="competition.standing" :details="true" :limit="100" :teamAccess="true"/>
+          <StandingSingleElimination v-else :competition="competition.standing" :details="true" :limit="100" :teamAccess="true" :roundsName="roundsName"/>
           <Button v-if="user.coach.active==1 || admin==1" :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
         </div>
         <div class="card-columns">
@@ -19,7 +19,7 @@
         <div v-for="day in calendar" :key="day.round" v-show="day.round <= displayDay || displayDay==0" class="day plain prime" :class="{ 'current': day.round == currentRound.currentDay}">
           <div v-if="day.round == currentRound.currentDay && displayDay != 0" class="tab zelda" @click="fullCalendar()">Calendrier complet</div>
           <h3 v-if="competition.format!='single_elimination'">Journée {{day.round}}</h3>
-          <h3 v-else>{{rounds[day.round-1]}} </h3>
+          <h3 v-else>{{roundsName[day.round-1]}} </h3>
           <div v-for="match in day.matchs" :key="match.id" :title="match.name_1 + ' VS ' + match.name_2" class="vs d-inline-flex col-md-6 col-xl-4">
             <MatchPreview :match="match" :round="day.round" :coach_id="user.coach.cyanide_id"/>
           </div>
@@ -32,6 +32,7 @@
 
 <script>
   import CompetitionStanding from '../components/CompetitionStanding.vue'
+  import StandingSingleElimination from '../components/StandingSingleElimination.vue'
   import Statistics from '../components/Statistics.vue'
   import MatchPreview from '../components/MatchPreview.vue'
   import Modal from '../components/Modal.vue'
@@ -42,6 +43,7 @@
     name: 'Competition',
     components: {
       CompetitionStanding,
+      StandingSingleElimination,
       Statistics,
       MatchPreview,
       Modal,
@@ -53,6 +55,7 @@
     },
     data(){
       return {
+        isFetching: true,
         admin: 0,
         saving: false,
         modal: false,
@@ -70,15 +73,31 @@
       },
       calendar(){
         const cal = this.$store.state.competition.calendar;
-        this.competition.game=='BB1'? cal.reverse() : cal;
-        return this.$store.state.competition.calendar;
+        //this.competition.game=='BB1'? cal.reverse() : cal;
+        return cal;
       },
       currentRound(){
         const round = this.calendar.find(round => round.round === round.currentDay);
         return round;
       },
-      rounds(){
-        const rounds = this.singleEliminationRounds.slice(6 - this.calendar.length);
+      roundsName(){
+        var sliceLimit = 5
+        const round = this.calendar.find(round => round.round === 1);
+        switch(round.matchs.length){
+          case 2:
+            sliceLimit = 4;
+            break;
+          case 4:
+            sliceLimit = 3;
+            break;
+          case 8:
+            sliceLimit = 3;
+            break;
+          case 16:
+            sliceLimit = 1;
+            break;
+        }
+        const rounds = this.singleEliminationRounds.slice(sliceLimit);
         this.competition.game=='BB1'? rounds.reverse() : rounds;
         return rounds;
       }
@@ -102,6 +121,7 @@
       calendar: function() {
         this.currentRound.currentDay = this.calendar[0].currentDay;
         this.displayDay = (this.calendar.length < 2 || !this.currentRound.currentDay) ? 0 : this.currentRound.currentDay;
+        this.isFetching = this.calendar.length>0? true : false;
       }
     }
   }

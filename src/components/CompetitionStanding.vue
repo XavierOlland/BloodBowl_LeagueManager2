@@ -1,5 +1,6 @@
 <template>
   <div id="CompetitionStanding">
+    <h3 v-if="details==true">Classement</h3>
     <table>
       <thead>
         <tr>
