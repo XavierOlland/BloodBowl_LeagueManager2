@@ -115,7 +115,7 @@ export default {
       return this.$store.state.user
     },
     champion() {
-      return JSON.parse(this.$store.state.dictionnary.find(param => param.type == 'bbbl_champion').translation);
+      return JSON.parse(this.$store.getters.getTranslation('Current champion'));
     }
   },
   methods: {

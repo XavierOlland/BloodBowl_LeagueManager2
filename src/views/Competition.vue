@@ -60,8 +60,9 @@
         saving: false,
         modal: false,
         displayDay: 0,
+        currentRound: 1,
         singleEliminationRounds: ['32emes de finales', '16emes de finales', '8emes de finales', 'Quart de finales', 'Demi-Finales', 'Finale'],
-        text: 'Consignation dans les registres...'
+        text: 'Consignation dans les registres...',
       }
     },
     computed:{
@@ -75,31 +76,6 @@
         const cal = this.$store.state.competition.calendar;
         //this.competition.game=='BB1'? cal.reverse() : cal;
         return cal;
-      },
-      currentRound(){
-        const round = this.calendar.find(round => round.round === round.currentDay);
-        return round;
-      },
-      roundsName(){
-        var sliceLimit = 5
-        const round = this.calendar.find(round => round.round === 1);
-        switch(round.matchs.length){
-          case 2:
-            sliceLimit = 4;
-            break;
-          case 4:
-            sliceLimit = 3;
-            break;
-          case 8:
-            sliceLimit = 3;
-            break;
-          case 16:
-            sliceLimit = 1;
-            break;
-        }
-        const rounds = this.singleEliminationRounds.slice(sliceLimit);
-        this.competition.game=='BB1'? rounds.reverse() : rounds;
-        return rounds;
       }
     },
     methods: {
@@ -112,16 +88,41 @@
       },
       fullCalendar() {
         this.displayDay = 0;
+      },
+      setRounds(games) {
+        var sliceLimit = 5;
+        switch(games){
+          case 2:
+            sliceLimit = 4;
+            break;
+          case 4:
+            sliceLimit = 3;
+            break;
+          case 8:
+            sliceLimit = 2;
+            break;
+          case 16:
+            sliceLimit = 1;
+            break;
+        }
+        const rounds = this.singleEliminationRounds.slice(sliceLimit);
+        this.competition.game=='BB1'? rounds.reverse() : rounds;
+        this.roundsName = rounds;
       }
     },
-    mounted() {
-      this.$store.dispatch('competition/fetchCompetition',this.$route.params.id);
+    async mounted() {
+      await this.$store.dispatch('competition/fetchCompetition',this.$route.params.id);
+      await this.$store.dispatch('competition/fetchCalendar',this.$route.params.id);
+
     },
     watch: {
       calendar: function() {
-        this.currentRound.currentDay = this.calendar[0].currentDay;
-        this.displayDay = (this.calendar.length < 2 || !this.currentRound.currentDay) ? 0 : this.currentRound.currentDay;
-        this.isFetching = this.calendar.length>0? true : false;
+        this.displayDay = (this.calendar.length < 5 || !this.currentRound.currentDay || this.competition.format=='single_elimination') ? 0 : this.currentRound.currentDay;
+        this.currentRound = this.$store.state.competition.calendar.find(day => day.round == day.currentRound);
+        this.setRounds(this.$store.state.competition.calendar.find(day => day.round == 1).matchs.length);
+      },
+      competition: function() {
+        this.isFetching = this.competition.length==0 ? true : false;
       }
     }
   }

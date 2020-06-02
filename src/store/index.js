@@ -5,7 +5,6 @@ import archives from './modules/Archives.js'
 import competition from './modules/Competition.js'
 import match from './modules/Match.js'
 import team from './modules/Team.js'
-//const moment = require('moment')
 
 Vue.use(Vuex)
 
@@ -19,15 +18,13 @@ export default new Vuex.Store({
 	state: {
 		user: {},
 		dictionnary: [],
-		archives: [],
 		competitions: [],
 		statistics: [],
-		calendar: {}
+		upcomingGames: {}
 	},
 	getters: {
 		getTranslation: (state) => (name) => {
-			return state.dictionnary.find(param => param.name == name)
-				.translation;
+			return state.dictionnary.find(param => param.name == name).translation
 		}
 	},
 	mutations: {
@@ -44,12 +41,12 @@ export default new Vuex.Store({
 			state.statistics = payload;
 		},
 		setCalendar(state, payload) {
-			state.calendar = payload;
+			state.upcomingGames = payload;
 		}
 	},
 	actions: {
 		async boot(context) {
-			axios.get(process.env.VUE_APP_BACKENDURL + "action=boot")
+			axios.get(process.env.VUE_APP_BACKEND_URL + "/vue-routes.php?action=boot")
 				.then(response => {
 					context.commit('setDictionnary', response.data.parameters);
 					context.commit('setCompetitions', response.data.competitions);
@@ -61,7 +58,7 @@ export default new Vuex.Store({
 				});
 		},
 		async upcomingGames(context) {
-			axios.get(process.env.VUE_APP_BACKENDURL + "action=upcomingGames")
+			axios.get(process.env.VUE_APP_BACKEND_URL + "/vue-routes.php?action=upcomingGames")
 				.then(response => {
 					const calendar = response.data ? response.data : {};
 					context.commit('setCalendar', calendar);
