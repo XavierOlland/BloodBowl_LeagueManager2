@@ -42,15 +42,15 @@
         <div class="plain prime zelda" title="Voir la compétition" v-for="competition in competitions" :key="competition.id" @click="$router.push({ name: 'Competition', params: { id: competition.id }})">
           <h2 v-if="competition.site_name==competition.season">{{competition.site_name}} </h2>
           <h2 v-else>{{competition.season}} - {{competition.site_name}} </h2>
-          <CompetitionStanding v-if="competition.format!='single_elimination'" :competition="competition.standing" :limit="5" :teamAccess="false"/>
-          <StandingSingleElimination v-else :competition="competition.standing" :roundsName="[]" :limit="5" :teamAccess="false"/>
+          <CompetitionStanding v-if="competition.format!='single_elimination'" :competition="competition" :limit="5" :teamAccess="false"/>
+          <StandingSingleElimination v-else :competition="competition" :roundsName="[]" :limit="5" :teamAccess="false"/>
           <Button :id="'Prime'" :text="'La Compétition'" @clicked="$router.push({ name: 'Competition', params: { id: competition.id }})" />
         </div>
       </div>
 
       <div class="col-xl-3 stick-right d-none d-xl-block" >
         <Champion
-        :mode="'home'"
+        :mode="'card'"
         :competition="champion.competition"
         :coach="champion.coach"
         :team="champion.team"

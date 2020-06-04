@@ -1,8 +1,7 @@
 <template>
   <div id="StandingSingleElimination">
-    <Champion v-if="qualified.length==1"/>
-    <div v-else>
-      <h3 v-if="details==true">En lice</h3>
+    <div v-if="details==true && qualified.length>1">
+      <h3>En lice</h3>
       <table>
         <thead>
           <tr>
@@ -35,7 +34,7 @@
           <tr>
             <th class="text-left">Equipe</th>
             <th class="text-left d-none d-sm-table-cell">Coach</th>
-            <th class="text-left">Tour</th>
+            <th class="text-left" v-if="roundsCount==0">Tour</th>
             <th class="text-center d-none d-sm-table-cell">TD</th>
             <th class="text-center d-none d-sm-table-cell">S</th>
           </tr>
@@ -44,7 +43,7 @@
           <tr v-for="team in losers"  :key="team.id" class="zelda" @click="goToTeam(team.cyanide_id)">
             <td class="text-left"><img :src="require('../assets/logos/Logo_'+team.logo+'.png')"> {{team.name}}</td>
             <td class="text-left d-none d-sm-table-cell" >{{team.coach}}</td>
-            <td class="text-left d-none d-sm-table-cell" >{{roundsName.slice(team.V)[0]}}</td>
+            <td class="text-left d-none d-sm-table-cell" v-if="roundsCount==0" >{{roundsName.slice(team.V)[0]}}</td>
             <td class="text-center d-none d-sm-table-cell">{{team.TD}}</td>
             <td class="text-center d-none d-sm-table-cell">{{team.S}}</td>
           </tr>
@@ -55,26 +54,23 @@
 </template>
 
 <script>
-  import Champion from '../components/Champion.vue'
 
   export default {
     name: 'StandingSingleElimination',
-    components: {
-      Champion
-    },
+
     props: {
-      competition: Array,
+      competition: Object,
       details: Boolean,
-      limit: Number,
       teamAccess: Boolean,
-      roundsName: Array
+      roundsName: Array,
+      roundsCount: Number
     },
     computed:{
       qualified() {
-        return this.competition.filter(team => team.D==0)
+        return this.competition.standing.filter(team => team.D==0)
       },
       losers() {
-        return this.competition.filter(team => team.D==1)
+        return this.competition.standing.filter(team => team.D==1)
       },
       maxVictory() {
         console.log(Math.max(this.qualified.map(team => team.V), 0));// eslint-disable-line no-console

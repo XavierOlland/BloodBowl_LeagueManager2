@@ -4,11 +4,22 @@
     <Modal v-if="modal == true"/>
     <div class="row">
       <div class="col-lg-7">
+        <div class="plain seconde banner">
+          <h1 v-if="competition.site_name==competition.season">{{competition.site_name}} </h1>
+          <h1 v-else>{{competition.season}} - {{competition.site_name}}</h1>
+        </div>
+        <Champion v-if="competition.champion==1 && competition.active==0"
+          :mode="'card'"
+          :competition="competition"
+          :coach="competition.standing[0].coach"
+          :team="competition.standing[0].name"
+          :race="Number(competition.standing[0].race)"
+          :logo="competition.standing[0].logo"
+          :colours="[competition.standing[0].color_1,competition.standing[0].color_2]"
+        />
         <div class="plain prime">
-          <h2 v-if="competition.site_name==competition.season">{{competition.site_name}} </h2>
-          <h2 v-else>{{competition.season}} - {{competition.site_name}}</h2>
-          <CompetitionStanding v-if="competition.format!='single_elimination'" :competition="competition.standing" :details="true" :limit="100" :teamAccess="true"/>
-          <StandingSingleElimination v-else :competition="competition.standing" :details="true" :limit="100" :teamAccess="true" :roundsName="roundsName"/>
+          <CompetitionStanding v-if="competition.format!='single_elimination'" :competition="competition" :details="true" :limit="100" :teamAccess="true"/>
+          <StandingSingleElimination v-else :competition="competition" :details="true" :limit="100" :teamAccess="true" :roundsName="roundsName" :roundsCount="roundsCount"/>
           <Button v-if="user.coach.active==1 || admin==1" :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
         </div>
         <div class="card-columns">
@@ -31,6 +42,7 @@
 </template>
 
 <script>
+  import Champion from '../components/Champion.vue'
   import CompetitionStanding from '../components/CompetitionStanding.vue'
   import StandingSingleElimination from '../components/StandingSingleElimination.vue'
   import Statistics from '../components/Statistics.vue'
@@ -42,6 +54,7 @@
   export default {
     name: 'Competition',
     components: {
+      Champion,
       CompetitionStanding,
       StandingSingleElimination,
       Statistics,
@@ -90,7 +103,8 @@
         this.displayDay = 0;
       },
       setRounds(games) {
-        var sliceLimit = 5;
+        //case for hand made competitions
+        var sliceLimit = this.competition.rounds_count ? 6 - this.competition.rounds_count : 6 - this.currentRound.currentRound;
         switch(games){
           case 2:
             sliceLimit = 4;
@@ -105,6 +119,7 @@
             sliceLimit = 1;
             break;
         }
+
         const rounds = this.singleEliminationRounds.slice(sliceLimit);
         this.competition.game=='BB1'? rounds.reverse() : rounds;
         this.roundsName = rounds;
@@ -119,7 +134,7 @@
       calendar: function() {
         this.displayDay = (this.calendar.length < 5 || !this.currentRound.currentDay || this.competition.format=='single_elimination') ? 0 : this.currentRound.currentDay;
         this.currentRound = this.$store.state.competition.calendar.find(day => day.round == day.currentRound);
-        this.setRounds(this.$store.state.competition.calendar.find(day => day.round == 1).matchs.length);
+        this.setRounds(this.calendar.find(day => day.round == 1).matchs.length);
       },
       competition: function() {
         this.isFetching = this.competition.length==0 ? true : false;
@@ -129,6 +144,12 @@
 </script>
 
 <style lang="scss" scoped>
+  .banner {
+    padding-bottom: 10px;
+    h1 {
+      text-align:center;
+    }
+  }
   .day {
     padding-bottom: 15px;
     .tab {
