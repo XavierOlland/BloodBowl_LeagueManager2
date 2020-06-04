@@ -40,7 +40,7 @@
   export default {
     name: 'CompetitionStanding',
     props: {
-      competition: Array,
+      competition: Object,
       details: Boolean,
       limit: Number,
       teamAccess: Boolean

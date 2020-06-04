@@ -8,7 +8,7 @@
           <h1 v-if="competition.site_name==competition.season">{{competition.site_name}} </h1>
           <h1 v-else>{{competition.season}} - {{competition.site_name}}</h1>
         </div>
-        <Champion v-if="competition.champion==1 && competition.active==0"
+        <Champion v-if="hasChampion==true"
           :mode="'card'"
           :competition="competition"
           :coach="competition.standing[0].coach"
@@ -19,7 +19,7 @@
         />
         <div class="plain prime">
           <CompetitionStanding v-if="competition.format!='single_elimination'" :competition="competition" :details="true" :limit="100" :teamAccess="true"/>
-          <StandingSingleElimination v-else :competition="competition" :details="true" :limit="100" :teamAccess="true" :roundsName="roundsName" :roundsCount="roundsCount"/>
+          <StandingSingleElimination v-else :competition="competition" :details="true" :limit="100" :teamAccess="true" :roundsName="roundsName" :roundsCount="competition.rounds_count"/>
           <Button v-if="user.coach.active==1 || admin==1" :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
         </div>
         <div class="card-columns">
@@ -32,7 +32,7 @@
           <h3 v-if="competition.format!='single_elimination'">Journée {{day.round}}</h3>
           <h3 v-else>{{roundsName[day.round-1]}} </h3>
           <div v-for="match in day.matchs" :key="match.id" :title="match.name_1 + ' VS ' + match.name_2" class="vs d-inline-flex col-md-6 col-xl-4">
-            <MatchPreview :match="match" :round="day.round" :coach_id="user.coach.cyanide_id"/>
+            <MatchPreview :match="match" :round="day.round" :coach_id="user.coach.cyanide_id" />
           </div>
         </div>
       </div>
@@ -70,11 +70,13 @@
       return {
         isFetching: true,
         admin: 0,
+        hasChampion: false,
         saving: false,
         modal: false,
         displayDay: 0,
         currentRound: 1,
         singleEliminationRounds: ['32emes de finales', '16emes de finales', '8emes de finales', 'Quart de finales', 'Demi-Finales', 'Finale'],
+        roundsName: ['32emes de finales', '16emes de finales', '8emes de finales', 'Quart de finales', 'Demi-Finales', 'Finale'],
         text: 'Consignation dans les registres...',
       }
     },
@@ -123,6 +125,29 @@
         const rounds = this.singleEliminationRounds.slice(sliceLimit);
         this.competition.game=='BB1'? rounds.reverse() : rounds;
         this.roundsName = rounds;
+      },
+      setChampion() {
+        if(this.competition.champion==1){
+          if(this.competition.active==1){
+            switch(this.competition.format){
+              case 'single_elimination':
+                this.hasChampion = this.competition.standing.filter(team => team.D==0)==1? true : false;
+                break
+              case 'ladder':
+                this.hasChampion = false;
+                break;
+              default:
+                this.hasChampion = (this.competition.lastRound == this.competition.rounds_count && this.competition.matchsLeft == 0) ? true : false;
+                break;
+            }
+          }
+          else{
+            this.hasChampion = true;
+          }
+        }
+        else{
+          this.hasChampion = false;
+        }
       }
     },
     async mounted() {
@@ -135,9 +160,11 @@
         this.displayDay = (this.calendar.length < 5 || !this.currentRound.currentDay || this.competition.format=='single_elimination') ? 0 : this.currentRound.currentDay;
         this.currentRound = this.$store.state.competition.calendar.find(day => day.round == day.currentRound);
         this.setRounds(this.calendar.find(day => day.round == 1).matchs.length);
+        this.setChampion();
       },
       competition: function() {
         this.isFetching = this.competition.length==0 ? true : false;
+        this.setChampion();
       }
     }
   }

@@ -80,7 +80,9 @@
       position: absolute;
       z-index:2;
       height: auto;
-      width: 25%;
+      width: auto;
+      max-height: 75%;
+      max-width: 25%;
       bottom: 5%;
       left: 5%;
       transform: rotate(-10deg);

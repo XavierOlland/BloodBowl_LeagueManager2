@@ -1,7 +1,7 @@
 <template>
   <div id="StandingSingleElimination">
-    <div v-if="details==true && qualified.length>1">
-      <h3>En lice</h3>
+    <div v-if="competition.active==1 && qualified.length>1">
+      <h3 v-if="details==true">En lice</h3>
       <table>
         <thead>
           <tr>
@@ -34,7 +34,7 @@
           <tr>
             <th class="text-left">Equipe</th>
             <th class="text-left d-none d-sm-table-cell">Coach</th>
-            <th class="text-left" v-if="roundsCount==0">Tour</th>
+            <th class="text-left" v-if="!roundsCount">Tour</th>
             <th class="text-center d-none d-sm-table-cell">TD</th>
             <th class="text-center d-none d-sm-table-cell">S</th>
           </tr>
@@ -43,7 +43,7 @@
           <tr v-for="team in losers"  :key="team.id" class="zelda" @click="goToTeam(team.cyanide_id)">
             <td class="text-left"><img :src="require('../assets/logos/Logo_'+team.logo+'.png')"> {{team.name}}</td>
             <td class="text-left d-none d-sm-table-cell" >{{team.coach}}</td>
-            <td class="text-left d-none d-sm-table-cell" v-if="roundsCount==0" >{{roundsName.slice(team.V)[0]}}</td>
+            <td class="text-left d-none d-sm-table-cell" v-if="!roundsCount" >{{roundsName.slice(team.V)[0]}}</td>
             <td class="text-center d-none d-sm-table-cell">{{team.TD}}</td>
             <td class="text-center d-none d-sm-table-cell">{{team.S}}</td>
           </tr>
@@ -57,7 +57,6 @@
 
   export default {
     name: 'StandingSingleElimination',
-
     props: {
       competition: Object,
       details: Boolean,
@@ -67,14 +66,13 @@
     },
     computed:{
       qualified() {
-        return this.competition.standing.filter(team => team.D==0)
+        return this.competition.standing.filter(team => team.D==0);
       },
       losers() {
-        return this.competition.standing.filter(team => team.D==1)
+        return this.competition.standing.filter(team => team.D==1);
       },
       maxVictory() {
-        console.log(Math.max(this.qualified.map(team => team.V), 0));// eslint-disable-line no-console
-        return 1
+        return this.competition.lastRound;
       }
     },
     methods: {
