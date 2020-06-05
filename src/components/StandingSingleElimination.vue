@@ -1,5 +1,13 @@
 <template>
   <div id="StandingSingleElimination">
+    <div class="winner" v-if="details==false && qualified.length==1">
+      <br/>
+      <h3>vainqueur</h3>
+      <hr>
+      <h1>{{qualified[0].name}}</h1>
+      <hr>
+      <h2>{{qualified[0].coach}}</h2>
+    </div>
     <div v-if="competition.active==1 && qualified.length>1">
       <h3 v-if="details==true">En lice</h3>
       <table>
@@ -25,8 +33,9 @@
           </tr>
         </tbody>
       </table>
+      <br v-if="details==true"/>
     </div>
-    <br/>
+
     <div v-if="details==true">
       <h3>Éliminés</h3>
       <table>
@@ -86,6 +95,17 @@
 </script>
 
 <style lang="scss" scoped>
+  .winner{
+    h1,h2,h3 {
+      text-align: center;
+    }
+    hr {
+      width: 80%;
+      border-top: 1px solid #ffffff;
+      text-align: center;
+      margin: 10px auto;
+    }
+  }
   th {
     background: $prime-color;
   }

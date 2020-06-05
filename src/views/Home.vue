@@ -43,7 +43,7 @@
           <h2 v-if="competition.site_name==competition.season">{{competition.site_name}} </h2>
           <h2 v-else>{{competition.season}} - {{competition.site_name}} </h2>
           <CompetitionStanding v-if="competition.format!='single_elimination'" :competition="competition" :limit="5" :teamAccess="false"/>
-          <StandingSingleElimination v-else :competition="competition" :roundsName="[]" :limit="5" :teamAccess="false"/>
+          <StandingSingleElimination v-else :competition="competition" :roundsName="[]" :teamAccess="false"/>
           <Button :id="'Prime'" :text="'La Compétition'" @clicked="$router.push({ name: 'Competition', params: { id: competition.id }})" />
         </div>
       </div>
