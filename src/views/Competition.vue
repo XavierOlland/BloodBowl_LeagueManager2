@@ -131,7 +131,7 @@
           if(this.competition.active==1){
             switch(this.competition.format){
               case 'single_elimination':
-                this.hasChampion = this.competition.standing.filter(team => team.D==0)==1? true : false;
+                this.hasChampion = this.competition.standing.filter(team => team.D==0).length==1? true : false;
                 break
               case 'ladder':
                 this.hasChampion = false;
