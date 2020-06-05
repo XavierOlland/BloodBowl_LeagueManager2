@@ -1,5 +1,6 @@
 <template>
   <div id="CompetitionStanding">
+    <h3 v-if="details==true">Classement</h3>
     <table>
       <thead>
         <tr>
@@ -17,7 +18,7 @@
         </tr>
       </thead>
       <tbody :class="{'table-hover': details==true}">
-        <tr v-for="(team, index) in competition.slice(0,limit)" :key="team.id" :class="['standing-' + index, {zelda: teamAccess!=0 }]" @click="goToTeam(team.cyanide_id)">
+        <tr v-for="(team, index) in competition.standing.slice(0,limit)" :key="team.id" :class="['standing-' + index, {zelda: teamAccess!=0 }]" @click="goToTeam(team.cyanide_id)">
           <td>{{index+1}}</td>
           <td class="text-left"><img :src="require('../assets/logos/Logo_'+team.logo+'.png')"> {{team.name}}</td>
           <td class="text-left d-none d-sm-table-cell" >{{team.coach}}</td>
@@ -39,7 +40,7 @@
   export default {
     name: 'CompetitionStanding',
     props: {
-      competition: Array,
+      competition: Object,
       details: Boolean,
       limit: Number,
       teamAccess: Boolean

@@ -33,7 +33,6 @@
         </div>
       </div>
     </div>
-    <Button v-if="admin==1" :id="'Seconde'" :text="'Administrer'" @click="$router.push('admin')"/>
   </div>
 </template>
 

@@ -18,7 +18,7 @@
       <hr>
       <h2>{{coach}}</h2>
     </div>
-    <Button class="button" :id="'Prime'" :text="'La Compétition'" @clicked="$router.push({ name: 'Competition', params: { id: competition.id }})" />
+    <Button v-if="mode=='list'" class="button" :id="'Prime'" :text="'La Compétition'" @clicked="$router.push({ name: 'Competition', params: { id: competition.id }})" />
   </div>
 </template>
 
@@ -80,7 +80,9 @@
       position: absolute;
       z-index:2;
       height: auto;
-      width: 25%;
+      width: auto;
+      max-height: 75%;
+      max-width: 25%;
       bottom: 5%;
       left: 5%;
       transform: rotate(-10deg);

@@ -30,7 +30,7 @@
     props: {
       match: Object,
       round: Number,
-      coach_id: Number
+      coach_id: String
     },
     data(){
       return {
