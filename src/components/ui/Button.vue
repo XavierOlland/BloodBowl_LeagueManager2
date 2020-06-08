@@ -79,6 +79,7 @@ export default {
     left: 0;
     height: 45px;
     width: 68px;
+    position: fixed;
     .fill {
       fill: $seconde-bg;
     }

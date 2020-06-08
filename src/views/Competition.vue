@@ -28,8 +28,8 @@
       </div>
       <div class="col-lg-5">
         <div v-for="day in calendar" :key="day.round" v-show="day.round <= displayDay || displayDay==0" class="day plain prime" :class="{ 'current': day.round == currentRound.currentDay}">
-          <div v-if="day.round == currentRound.currentDay && displayDay != 0" class="tab zelda" @click="fullCalendar()">Calendrier complet</div>
-          <h3 v-if="competition.format!='single_elimination'">Journée {{day.round}}</h3>
+          <div v-if="day.round == currentRound.currentDay && displayDay != 0 && calendar.length!=currentRound.currentDay" class="tab zelda" @click="fullCalendar()">Calendrier complet</div>
+          <h3 v-if="competition.format!='single_elimination'">Journée {{day.round}} {{currentRound.currentDay}}</h3>
           <h3 v-else>{{roundsName[day.round-1]}} </h3>
           <div v-for="match in day.matchs" :key="match.id" :title="match.name_1 + ' VS ' + match.name_2" class="vs d-inline-flex col-md-6 col-xl-4">
             <MatchPreview :match="match" :round="day.round" :coach_id="user.coach.cyanide_id" />
