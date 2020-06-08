@@ -42,14 +42,15 @@
         <div class="plain prime zelda" title="Voir la compétition" v-for="competition in competitions" :key="competition.id" @click="$router.push({ name: 'Competition', params: { id: competition.id }})">
           <h2 v-if="competition.site_name==competition.season">{{competition.site_name}} </h2>
           <h2 v-else>{{competition.season}} - {{competition.site_name}} </h2>
-          <CompetitionStanding :competition="competition.standing" :limit="5" :teamAccess="false"/>
+          <CompetitionStanding v-if="competition.format!='single_elimination'" :competition="competition" :limit="5" :teamAccess="false"/>
+          <StandingSingleElimination v-else :competition="competition" :roundsName="[]" :teamAccess="false"/>
           <Button :id="'Prime'" :text="'La Compétition'" @clicked="$router.push({ name: 'Competition', params: { id: competition.id }})" />
         </div>
       </div>
 
       <div class="col-xl-3 stick-right d-none d-xl-block" >
         <Champion
-        :mode="'home'"
+        :mode="'card'"
         :competition="champion.competition"
         :coach="champion.coach"
         :team="champion.team"
@@ -66,6 +67,7 @@
 
 <script>
 import UpcomingGames from '../components/UpcomingGames.vue'
+import StandingSingleElimination from '../components/StandingSingleElimination.vue'
 import CompetitionStanding from '../components/CompetitionStanding.vue'
 import Champion from '../components/Champion.vue'
 import Statistics from '../components/Statistics.vue'
@@ -78,6 +80,7 @@ export default {
   components: {
     UpcomingGames,
     CompetitionStanding,
+    StandingSingleElimination,
     Champion,
     Statistics,
     Modal,
@@ -106,14 +109,13 @@ export default {
       return this.$store.state.statistics;
     },
     upcomingGames() {
-      return this.$store.state.calendar;
+      return this.$store.state.upcomingGames;
     },
     user() {
       return this.$store.state.user
     },
     champion() {
-
-      return JSON.parse(this.$store.state.dictionnary.find(param => param.type == 'bbbl_champion').translation);
+      return JSON.parse(this.$store.getters.getTranslation('Current champion'));
     }
   },
   methods: {

@@ -13,8 +13,8 @@ export default {
   components: {
     HeaderNav
   },
-  mounted(){
-     this.$store.dispatch('boot');
+  async mounted(){
+     await this.$store.dispatch('boot');
   }
 }
 </script>

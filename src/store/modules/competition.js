@@ -9,7 +9,19 @@ const route = 'vue-routes.php?action=';
 const state = {
 	competition: {},
 	statistics: [],
-	calendar: {}
+	calendar: []
+}
+
+const getters = {
+	getRound: (state) => (round) => {
+		console.log(state.calendar); // eslint-disable-line no-console
+		if(round==0){
+			return state.calendar.find(day => day.round === day.currentRound)
+		}
+		else {
+			return state.calendar.find(day => day.round === round)
+		}
+	}
 }
 
 const mutations = {
@@ -22,7 +34,7 @@ const mutations = {
 }
 
 const actions = {
-	fetchCompetition(context, id) {
+	async fetchCompetition(context, id) {
 		instance.post(route + 'competition', {
 				id: id
 			})
@@ -37,13 +49,13 @@ const actions = {
 		return instance.post(route + 'competitionUpdate', params)
 			.then(response => {
 				context.commit('setCompetition', response.data);
-				context.dispatch('fetchCalendar', params[1]);
+				//context.dispatch('fetchCalendar', params[1]);
 			}, error => {
 				console.error(error); // eslint-disable-line no-console
 			});
 	},
-	fetchCalendar(context, id) {
-		instance.post(route + 'competitionCalendar', [id])
+	async fetchCalendar(context, id) {
+		return instance.post(route + 'competitionCalendar', [id])
 			.then(response => {
 				context.commit('setCalendar', response.data.slice()
 					.reverse());
@@ -54,6 +66,7 @@ const actions = {
 export default {
 	namespaced: true,
 	state,
+	getters,
 	mutations,
 	actions
 }

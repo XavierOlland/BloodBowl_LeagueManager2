@@ -30,12 +30,11 @@ export default new Vuex.Store({
 		dictionnary: [],
 		competitions: [],
 		statistics: [],
-		calendar: {}
+		upcomingGames: {}
 	},
 	getters: {
 		getTranslation: (state) => (name) => {
-			return state.dictionnary.find(param => param.name == name)
-				.translation;
+			return state.dictionnary.find(param => param.name == name).translation
 		}
 	},
 	mutations: {
@@ -52,11 +51,12 @@ export default new Vuex.Store({
 			state.statistics = payload;
 		},
 		setCalendar(state, payload) {
-			state.calendar = payload;
+			state.upcomingGames = payload;
 		}
 	},
 	actions: {
 		async boot(context) {
+
 			instance.get(route + 'boot')
 				.then(response => {
 					context.commit('setDictionnary', response.data.parameters);
@@ -69,6 +69,7 @@ export default new Vuex.Store({
 				});
 		},
 		async upcomingGames(context) {
+
 			instance.get(route + 'upcomingGames')
 				.then(response => {
 					const calendar = response.data ? response.data : {};
