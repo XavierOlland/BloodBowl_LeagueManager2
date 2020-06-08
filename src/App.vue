@@ -19,7 +19,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -28,7 +28,7 @@ export default {
   font-family: 'Muli';
   font-size: 1em;
   line-height: 1;
-  background-image:url('~@/assets/elements/spring/background.jpg');
+  background-image: $main-bg;
   background-position: bottom;
   background-size: cover;
   overflow: hidden;
