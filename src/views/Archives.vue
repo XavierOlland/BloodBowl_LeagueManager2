@@ -1,5 +1,5 @@
 <template>
-  <div id="Archives" class="view container" >
+  <div id="Archives" class="view container">
     <div class="row">
       <div class="col-3 scroll">
         <div class="plain seconde searchBox scroll">
@@ -23,7 +23,6 @@
               :colours="[archive.standing[0].color_1,archive.standing[0].color_2]"
             />
           </div>
-
       </div>
     </div>
   </div>

@@ -19,7 +19,7 @@
           <p>La BBBL c'est du sang, de la violence, des indiens... Chaque jour que les dieux font, nous nous echarpons joyeusement sur les terrains.</p>
           <p>Mais toi le visiteur, toi le coach, toi le paria, toi aussi tu peux venir cramponner dans nos rangs.</p>
           <p>Il te suffit de t'inscrire sur notre forum et de remplir le formulaire 22X47B, ainsi que l'appendice 42 et verser les 51 pièces d'or nécessaires au gobelin comptable de permanence.</p>
-          <Button v-if="admin==1" :id="'Seconde'" :text="'Administrer'" @click="$router.push('admin')"/>
+          <Button v-if="admin==1" :id="'Seconde'" :text="'Administrer'" @clicked="$router.push('Admin')"/>
           <Button v-else :id="'Seconde'" :text="'Découvrir'" @click="goToForum()"/>
         </div>
 
@@ -92,7 +92,7 @@ export default {
   },
   data(){
     return {
-      admin: 0,
+      admin: window.admin,
       modal: false,
       colours: [
         {

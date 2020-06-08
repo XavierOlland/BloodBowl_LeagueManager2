@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import Admin from './views/Admin.vue'
 import Archives from './views/Archives.vue'
 import Competition from './views/Competition.vue'
 import Match from './views/Match.vue'
@@ -16,6 +17,11 @@ export default new Router({
 			path: '/',
 			name: 'Home',
 			component: Home
+		},
+		{
+			path: '/admin',
+			name: 'Admin',
+			component: Admin
 		},
 		{
 			path: '/archives',

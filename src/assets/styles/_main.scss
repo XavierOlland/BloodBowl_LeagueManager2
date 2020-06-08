@@ -3,7 +3,7 @@ $prime-color: #008822;
 $prime-bg: rgba(0, 11, 3, 0.95);
 $seconde-color: #308446;
 $seconde-bg: rgba(37, 48, 40, 0.9);
-$focus-bg: rgba(0, 136, 34, 0.9);
+$focus-bg: rgba(0, 136, 34, 0.8);
 $focus-color: #EEE;
 
 $prime-text:#EEE;
@@ -23,11 +23,11 @@ $error-85: rgba(212, 0, 0, 0.85);
 }
 
 .view {
-  overflow-y:auto;
+  overflow-y: auto;
   overflow-x: hidden;
-  height:calc(100vh - 65px);
-  max-width:100vw;
-  padding:0;
+  height: calc(100vh - 65px);
+  max-width: 100vw !important;
+  padding: 0;
   position: relative;
 }
 
@@ -241,9 +241,3 @@ li > h3 { display:inline; }
 .plain table { width: 100%; color:$prime-text;  text-align: center; }
 .td-left { text-align: left; padding-left: 10px; text-align: center; }
 tbody.table-hover tr:hover { background-color:transparent; background: $link-contrast; }
-
-
-/*Admin*/
-.success {color:green;}
-.processing {color:orange;}
-.failure {color:red;}

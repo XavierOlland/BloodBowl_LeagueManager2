@@ -1,12 +1,11 @@
 import axios from 'axios'
 const instance = axios.create({
-	baseURL: 'http://bbbl.fr/backend/',
+	baseURL: process.env.VUE_APP_BACKEND_URL,
 	headers: {
 		'content-type': 'application/x-www-form-urlencoded'
 	}
 });
-const route = 'vue-routes.php?action='
-
+const route = 'vue-routes.php?action=';
 const state = {
 	archives: [],
 }
