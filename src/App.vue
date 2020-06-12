@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <HeaderNav/>
+  <div id="app" :class="{'forum': $route.fullPath.indexOf('forum')>-1}">
+    <HeaderNav v-if="$route.fullPath.indexOf('forum')==-1"/>
     <router-view/>
   </div>
 </template>
@@ -15,6 +15,7 @@ export default {
   },
   async mounted(){
      await this.$store.dispatch('boot');
+     console.log(this.$route) // eslint-disable-line no-console
   }
 }
 </script>
@@ -32,6 +33,10 @@ export default {
   background-position: bottom;
   background-size: cover;
   overflow: hidden;
+}
+#app.forum{
+  background: transparent;
+  padding-top: 0 !important;
 }
 @media all and (orientation:portrait) {
   #app {
