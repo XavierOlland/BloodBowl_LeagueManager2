@@ -47,7 +47,7 @@
     },
     data(){
       return {
-        isFetching: true,
+        isFetching: this.$store.state.archives.archives.length>0? false : true,
         searchQuery: '',
         loaderText: 'Récupération des données'
       }
@@ -73,7 +73,7 @@
       }
     },
     methods: {
-      clearSearch: function(){
+      clearSearch(){
         this.searchQuery = ''
       }
     },

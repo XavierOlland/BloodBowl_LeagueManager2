@@ -25,14 +25,15 @@
           <h2 class="zelda" :style="{color: metadata.team_1_color_1}" @click="$router.push({ name: 'Team', params: { id: match.teams[0].idteamlisting }})">{{match.teams[0].teamname}}</h2>
           <div class="scoreBoard">
             <div class="teamBoard">
-              <h3>coaché par <span :style="{color: metadata.team_1_color_1}">{{match.coaches[0].coachname}}</span></h3>
+              <h3 :style="{color: metadata.team_1_color_1}"><span>{{metadata.team_1_race | talkingToTheGods()}}</span></h3>
+              <h3>coaché par <span :style="{color: metadata.team_1_color_1}">{{metadata.coach_1_name}}</span></h3>
               <h3>TV <span :style="{color: metadata.team_1_color_1}">{{match.teams[0].value}}</span></h3>
               <h3>
                 <div v-for="i in match.teams[0].popularitybeforematch" class="star" :style="{color: metadata.team_1_color_1}">&#9733;</div>
                 <span v-if="match.teams[0].popularitygain"> + <div class="star">&#9733;</div></span>
               </h3>
             </div>
-            <div class="score" :style="{color: metadata.team_1_color_1}">{{match.teams[0].score}}</div>
+            <div class="score align-self-baseline" :style="{color: metadata.team_1_color_1}">{{match.teams[0].score}}</div>
           </div>
         </div>
       </div>
@@ -41,9 +42,10 @@
         <div class="plain prime content noselect text-left" :style="{'border-color': metadata.team_2_color_1}">
           <h2 class="zelda" :style="{color: metadata.team_2_color_1}" @click="$router.push({ name: 'Team', params: { id: match.teams[1].idteamlisting }})">{{match.teams[1].teamname}}</h2>
           <div class="scoreBoard">
-            <div class="score" :style="{color: metadata.team_2_color_1}">{{match.teams[1].score}}</div>
+            <div class="score align-self-baseline" :style="{color: metadata.team_2_color_1}">{{match.teams[1].score}}</div>
             <div class="teamBoard">
-              <h3>coaché par <span :style="{color: metadata.team_2_color_1}">{{match.coaches[1].coachname}}</span></h3>
+              <h3 :style="{color: metadata.team_2_color_1}"><span>{{match.teams[1].idraces | talkingToTheGods()}}</span></h3>
+              <h3>coachés par <span :style="{color: metadata.team_2_color_1}">{{match.coaches[1].coachname}}</span></h3>
               <h3>TV <span :style="{color: metadata.team_2_color_1}">{{match.teams[1].value}}</span></h3>
               <h3>
                 <div v-for="i in match.teams[1].popularitybeforematch" class="star" :style="{color: metadata.team_2_color_1}">&#9733;</div>

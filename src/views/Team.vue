@@ -6,6 +6,7 @@
         <Helmet class="helmet" :race="team.param_id_race" :logo="team.logo" :colours="[team.color_1,team.color_2]" />
         <div class="plain seconde teamboard" :style="{'border-color': team.color_2}">
           <h1 :style="{'color':titleText}">{{team.name}}</h1>
+          <h2 :style="{'color':titleText}">{{team.param_id_race | talkingToTheGods()}}</h2><br/>
           <h2 v-for="n in team.popularity" :key="n" :style="{'color':titleText}">&#9733;</h2>
           <div id="fame">
             <h4 class="noselect" :style="{'color':titleText}">TV {{Intl.NumberFormat().format(team.value)}}</h4>
@@ -63,6 +64,7 @@
     },
     data(){
       return {
+        isFetching: true,
         modal: false,
         stats: false,
         formerPlayers: false,
