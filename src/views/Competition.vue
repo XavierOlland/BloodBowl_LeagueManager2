@@ -1,6 +1,6 @@
 <template>
-  <div id="Competition" class="view container" v-if="!isFetching">
-    <Loader v-if="saving==true" :text="text"/>
+  <div id="Competition" class="view container">
+    <Loader v-if="saving==true || isFetching" :text="isFetching? chargingText : savingText"/>
     <Modal v-if="modal == true"/>
     <div class="row">
       <div class="col-lg-7">
@@ -20,19 +20,19 @@
         <div class="plain prime">
           <CompetitionStanding v-if="competition.format!='single_elimination'" :competition="competition" :details="true" :limit="100" :teamAccess="true"/>
           <StandingSingleElimination v-else :competition="competition" :details="true" :limit="100" :teamAccess="true" :roundsName="roundsName" :roundsCount="competition.rounds_count"/>
-          <Button v-if="user.coach.active==1 || admin==1" :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
+          <Button v-if="(user.coach.active==1 || admin==1) && competition.active==1" :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
         </div>
         <div class="card-columns">
           <Statistics class="d-none d-sm-flex" v-for="stat in competition.playersStats" :key="stat.type" :statistics="stat" :limit="3" :dictionnary="dictionnary"/>
         </div>
       </div>
       <div class="col-lg-5">
-        <div v-for="day in calendar" :key="day.round" v-show="day.round <= displayDay || displayDay==0" class="day plain prime" :class="{ 'current': day.round == currentRound.currentDay}">
+        <div v-for="day in calendar" :key="day.round" v-show="day.round <= displayDay || displayDay==0" class="day plain prime" :class="{ 'current': day.round == currentRound.currentDay && competition.active==1}">
           <div v-if="day.round == currentRound.currentDay && displayDay != 0 && calendar.length!=currentRound.currentDay" class="tab zelda" @click="fullCalendar()">Calendrier complet</div>
           <h3 v-if="competition.format!='single_elimination'">Journée {{day.round}}</h3>
-          <h3 v-else>{{roundsName[day.round-1]}} </h3>
+          <h3 v-else>{{roundsName[day.round-1]}}</h3>
           <div v-for="match in day.matchs" :key="match.id" :title="match.name_1 + ' VS ' + match.name_2" class="vs d-inline-flex col-md-6 col-xl-4">
-            <MatchPreview :match="match" :round="day.round" :coach_id="user.coach.cyanide_id" />
+            <MatchPreview :match="match" :round="day.round" :coach_id="user.coach.cyanide_id" :archived="!competition.active"/>
           </div>
         </div>
       </div>
@@ -77,7 +77,8 @@
         currentRound: 1,
         singleEliminationRounds: ['32emes de finales', '16emes de finales', '8emes de finales', 'Quart de finales', 'Demi-Finales', 'Finale'],
         roundsName: ['32emes de finales', '16emes de finales', '8emes de finales', 'Quart de finales', 'Demi-Finales', 'Finale'],
-        text: 'Consignation dans les registres...',
+        savingText: 'Consignation dans les registres...',
+        chargingText: 'Chargement de la competition...'
       }
     },
     computed:{
@@ -89,7 +90,7 @@
       },
       calendar(){
         const cal = this.$store.state.competition.calendar;
-        //this.competition.game=='BB1'? cal.reverse() : cal;
+        this.competition.game=='BB1'? cal.reverse() : cal;
         return cal;
       }
     },
@@ -158,9 +159,11 @@
     watch: {
       calendar: function() {
         this.displayDay = (this.calendar.length < 5 || !this.currentRound.currentDay || this.competition.format=='single_elimination') ? 0 : this.currentRound.currentDay;
-        this.currentRound = this.$store.state.competition.calendar.find(day => day.round == day.currentRound);
-        this.setRounds(this.calendar.find(day => day.round == 1).matchs.length);
-        this.setChampion();
+        if(this.calendar.length>0){
+          this.currentRound = this.calendar.find(day => day.round == day.currentRound);
+          this.setRounds(this.calendar.find(day => day.round == 1).matchs.length);
+          this.setChampion();
+        }
       },
       competition: function() {
         this.isFetching = this.competition.length==0 ? true : false;

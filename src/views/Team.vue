@@ -6,6 +6,7 @@
         <Helmet class="helmet" :race="team.param_id_race" :logo="team.logo" :colours="[team.color_1,team.color_2]" />
         <div class="plain seconde teamboard" :style="{'border-color': team.color_2}">
           <h1 :style="{'color':titleText}">{{team.name}}</h1>
+          <h2 :style="{'color':titleText}">{{team.param_id_race | talkingToTheGods()}}</h2><br/>
           <h2 v-for="n in team.popularity" :key="n" :style="{'color':titleText}">&#9733;</h2>
           <div id="fame">
             <h4 class="noselect" :style="{'color':titleText}">TV {{Intl.NumberFormat().format(team.value)}}</h4>
@@ -24,7 +25,7 @@
               <li v-if="team.cheerleaders>0">{{team.cheerleader}} pom-pom girl<span v-if="team.cheerleaders>1">s</span></li>
               <li v-if="team.assistantcoaches>0">{{team.assistantcoaches}} assistant<span v-if="team.assistantcoaches>1">s</span></li>
             </ul><br/>
-            <h6 class="text-right" :style="{'color':team.color_2}" v-if="team.leitmotiv"> "{{team.leitmotiv}}"</h6>
+            <h6 class="text-right" :style="{'color':titleText}" v-if="team.leitmotiv"> "{{team.leitmotiv}}"</h6>
           </div>
         </div>
         <div class="plain prime" :style="{'border-color': team.color_1}">
@@ -63,6 +64,7 @@
     },
     data(){
       return {
+        isFetching: true,
         modal: false,
         stats: false,
         formerPlayers: false,

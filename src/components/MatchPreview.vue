@@ -8,7 +8,8 @@
     </div>
     <hr />
     <div>
-      <p v-if="match.started">{{match.started | moment("add", "2 hours","D MMM HH:mm")}}</p>
+      <p v-if="archived">{{match.started | moment("add", "500 years","D MMM YYYY")}}</p>
+      <p v-else-if="match.started">{{match.started | moment("add", "2 hours","D MMM HH:mm")}}</p>
       <datetime v-else-if="(!match.cyanide_id && (coach_id==match.coach_id_1 || coach_id==match.coach_id_2 || admin==1))"
         v-on:close="setMatchDate()"
         v-model="match.started"
@@ -19,6 +20,7 @@
         :zone="'UTC+2'"
         :value-zone="'UTC'"
       />
+      <p v-else-if="archived">Non joué</p>
       <p v-else>à venir</p>
     </div>
   </div>
@@ -30,7 +32,8 @@
     props: {
       match: Object,
       round: Number,
-      coach_id: String
+      coach_id: String,
+      archived: Boolean
     },
     data(){
       return {
@@ -44,7 +47,7 @@
         }
       },
       matchDetails() {
-        if (this.match.cyanide_id) {
+        if (this.match.cyanide_id && this.match.cyanide_id.indexOf('BB1')==-1) {
           //Match is played : show match
           this.$router.push({ name: 'Match', params: { id:this.match.id } })
         }

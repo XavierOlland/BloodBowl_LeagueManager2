@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexPersistence from 'vuex-persist'
 import axios from 'axios'
 import admin from './modules/Admin.js'
 import archives from './modules/Archives.js'
@@ -9,12 +10,17 @@ import team from './modules/Team.js'
 
 Vue.use(Vuex)
 
+const vuexLocal = new VuexPersistence({
+  storage: window.localStorage
+})
+
 const instance = axios.create({
 	baseURL: process.env.VUE_APP_BACKEND_URL,
 	headers: {
 		'content-type': 'application/x-www-form-urlencoded'
 	}
 });
+
 const route = 'vue-routes.php?action=';
 
 export default new Vuex.Store({
@@ -56,7 +62,6 @@ export default new Vuex.Store({
 	},
 	actions: {
 		async boot(context) {
-
 			instance.get(route + 'boot')
 				.then(response => {
 					context.commit('setDictionnary', response.data.parameters);
@@ -78,6 +83,6 @@ export default new Vuex.Store({
 					console.error(error); // eslint-disable-line no-console
 				});
 		},
-
-	}
+	},
+	plugins: [vuexLocal.plugin]
 })

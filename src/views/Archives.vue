@@ -1,5 +1,6 @@
 <template>
   <div id="Archives" class="view container">
+    <Loader v-if="isFetching==true" :text="loaderText"/>
     <div class="row">
       <div class="col-3 scroll">
         <div class="plain seconde searchBox scroll">
@@ -32,20 +33,23 @@
 
   import Champion from '../components/Champion.vue'
   import CompetitionsList from '../components/CompetitionsList.vue'
+  import Loader from '../components/ui/Loader.vue'
 
   export default {
     name: 'Archives',
     components: {
       Champion,
-      CompetitionsList
+      CompetitionsList,
+      Loader
     },
     props: {
       dictionnary: Array
     },
     data(){
       return {
-        isFetching: true,
-        searchQuery: ''
+        isFetching: this.$store.state.archives.archives.length>0? false : true,
+        searchQuery: '',
+        loaderText: 'Récupération des données'
       }
     },
     computed:{
@@ -69,7 +73,7 @@
       }
     },
     methods: {
-      clearSearch: function(){
+      clearSearch(){
         this.searchQuery = ''
       }
     },
@@ -78,7 +82,7 @@
     },
     watch: {
       archives: function() {
-        this.isFetching = this.archives.length>0? true : false;
+        this.isFetching = this.archives.length>0? false : true;
       }
     }
 
