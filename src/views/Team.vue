@@ -25,7 +25,7 @@
               <li v-if="team.cheerleaders>0">{{team.cheerleader}} pom-pom girl<span v-if="team.cheerleaders>1">s</span></li>
               <li v-if="team.assistantcoaches>0">{{team.assistantcoaches}} assistant<span v-if="team.assistantcoaches>1">s</span></li>
             </ul><br/>
-            <h6 class="text-right" :style="{'color':team.color_2}" v-if="team.leitmotiv"> "{{team.leitmotiv}}"</h6>
+            <h6 class="text-right" :style="{'color':titleText}" v-if="team.leitmotiv"> "{{team.leitmotiv}}"</h6>
           </div>
         </div>
         <div class="plain prime" :style="{'border-color': team.color_1}">
