@@ -36,9 +36,9 @@
         </div>
       </div>
       <div class="col-lg-12 col-xl-5">
-        <div class="plain photo" v-if="team.id>268" :style="{'border-color': team.color_1}">
+        <div class="plain photo" :style="{'border-color': team.color_1}">
           <img class="cover" src="../assets/elements/Cover_Glass.png">
-          <img :src="require('../assets/teams/photo'+team.id+'.jpg')" />
+          <img :src="teamPhoto" @error="altPhoto"/>
         </div>
       </div>
     </div>
@@ -68,7 +68,8 @@
         modal: false,
         stats: false,
         formerPlayers: false,
-        formerPlayersText: '+ Anciens'
+        formerPlayersText: '+ Anciens',
+        teamPhoto: 'http://www.bbbl.fr/resources/img/teams/missing.jpg'
       }
     },
     computed:{
@@ -88,6 +89,9 @@
         else {
           this.formerPlayersText = '+ Anciens';
         }
+      },
+      altPhoto() {
+        this.teamPhoto = 'http://www.bbbl.fr/resources/img/teams/missing.jpg'
       }
     },
     mounted() {
@@ -95,6 +99,7 @@
     },
     watch: {
       team: function() {
+        this.teamPhoto = 'http://www.bbbl.fr/resources/img/teams/photo'+this.team.id+'.jpg';
         this.isFetching = this.team.length > 0 ? true : false;
         this.titleText = Color(this.team.color_2).luminosity() < 0.05 ? '#AAA' : this.team.color_2;
       }
