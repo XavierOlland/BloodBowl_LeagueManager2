@@ -114,9 +114,9 @@
 </script>
 
 <style lang="scss" scoped>
-.prime {
-  border-top: 1px solid;
-}
+  .prime {
+    border-top: 1px solid;
+  }
   .scoreBoard {
     display: inline-flex;
     .score {
