@@ -74,7 +74,6 @@ export default new Vuex.Store({
 				});
 		},
 		async upcomingGames(context) {
-
 			instance.get(route + 'upcomingGames')
 				.then(response => {
 					const calendar = response.data ? response.data : {};

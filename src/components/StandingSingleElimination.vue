@@ -5,6 +5,7 @@
       <h3>vainqueur</h3>
       <hr>
       <h1>{{qualified[0].name}}</h1>
+      <h5>{{qualified[0].race | talkingToTheGods()}}</h5>
       <hr>
       <h2>{{qualified[0].coach}}</h2>
     </div>
@@ -14,6 +15,7 @@
         <thead>
           <tr>
             <th class="text-left">Equipe</th>
+            <th class="text-left d-none d-md-table-cell">Race</th>
             <th class="text-left d-none d-sm-table-cell">Coach</th>
             <th class="text-left" v-if="details==true">Tour</th>
             <th class="text-center d-none d-sm-table-cell" v-if="details==true">TD</th>
@@ -24,6 +26,7 @@
         <tbody :class="{'table-hover': details==true}">
           <tr v-for="team in qualified"  :key="team.id" :class="[{zelda: teamAccess!=0 }]" @click="goToTeam(team.cyanide_id)">
             <td class="text-left"><img :src="require('../assets/logos/Logo_'+team.logo+'.png')"> {{team.name}}</td>
+            <td class="text-left d-none d-md-table-cell" >{{team.race | talkingToTheGods()}}</td>
             <td class="text-left d-none d-sm-table-cell" >{{team.coach}}</td>
             <td class="text-left d-none d-sm-table-cell" v-if="details==true">{{roundsName.slice(team.V)[0]}}</td>
             <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{team.TD}}</td>
@@ -42,6 +45,7 @@
         <thead>
           <tr>
             <th class="text-left">Equipe</th>
+            <th class="text-left d-none d-md-table-cell">Race</th>
             <th class="text-left d-none d-sm-table-cell">Coach</th>
             <th class="text-left" v-if="!roundsCount">Tour</th>
             <th class="text-center d-none d-sm-table-cell">TD</th>
@@ -51,6 +55,7 @@
         <tbody class="table-hover">
           <tr v-for="team in losers"  :key="team.id" class="zelda" @click="goToTeam(team.cyanide_id)">
             <td class="text-left"><img :src="require('../assets/logos/Logo_'+team.logo+'.png')"> {{team.name}}</td>
+            <td class="text-left d-none d-md-table-cell" >{{team.race | talkingToTheGods()}}</td>
             <td class="text-left d-none d-sm-table-cell" >{{team.coach}}</td>
             <td class="text-left d-none d-sm-table-cell" v-if="!roundsCount" >{{roundsName.slice(team.V)[0]}}</td>
             <td class="text-center d-none d-sm-table-cell">{{team.TD}}</td>

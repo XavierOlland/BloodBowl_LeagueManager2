@@ -7,6 +7,7 @@
       <h3>{{competition.name}}</h3>
       <hr>
       <h1>{{team}}</h1>
+      <h5>{{race}}</h5>
       <hr>
       <h2>{{coach}}</h2>
     </div>
@@ -15,6 +16,7 @@
       <h3>{{competition.name}}</h3>
       <hr>
       <h1>{{team}}</h1>
+      <h5>{{race | talkingToTheGods()}}</h5>
       <hr>
       <h2>{{coach}}</h2>
     </div>

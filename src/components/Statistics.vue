@@ -9,14 +9,18 @@
             <thead>
               <tr class="background">
                 <th width="5%"></th>
-                <th width="60%" class="text-left">Joueur</th>
-                <th width="35%" class="text-center" >{{statistics.stats[0] | talkingToTheGods()}}</th>
+                <th :width="modal==false?'60%':'25%'" class="text-left">Joueur</th>
+                <th v-if="modal==true" width="25%" class="text-left">Race</th>
+                <th v-if="modal==true" width="25%" class="text-left">Team</th>
+                <th :width="modal==false?'35%':'20%'" class="text-center" >{{statistics.stats[0] | talkingToTheGods()}}</th>
               </tr>
             </thead>
             <tbody class="noselect" :class="{ 'table-hover': modal == true }">
               <tr class="playerDetails" v-for="player in statistics.players.slice(0,max)" :key="player.player">
                 <td class="logo"><img :src="require('../assets/logos/Logo_'+player.logo+'.png')"></td>
                 <td class="text-left text-cutter">{{player.name}}</td>
+                <td v-if="modal==true" class="text-left text-cutter">{{player.race | talkingToTheGods()}}</td>
+                <td v-if="modal==true" class="text-left text-cutter">{{player.team}}</td>
                 <td class="text-center" >{{player.stat0}}</td>
               </tr>
             </tbody>

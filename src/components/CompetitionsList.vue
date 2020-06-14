@@ -1,17 +1,21 @@
 <template>
   <div id="CompetitionsList">
     <div class="list">
-          <div v-for="(value,key) in list" :key="key">
-              <div class="year"><hr/><h3>{{value[0].year}}</h3><hr/></div>
-            <router-link tag="div" v-for="item in value" :key="item.id" :class="['entry', {'title':item.champion==1}]"  :to="{ name: 'Competition', params: { id: item.id }}">
-              <span v-if="item.champion==1">&#9733; </span>
-              {{item.season}} - {{item.site_name}}
-            </router-link>
-          </div>
-          <div v-if="_.isEmpty(list)" class="disclaimer">
-            Aucune competition trouvée.
-          </div>
+      <div v-for="(value,key) in list" :key="key">
+        <div class="year">
+          <hr/>
+          <h3>{{value[0].year}}</h3>
+          <hr/>
         </div>
+        <router-link tag="div" v-for="item in value" :key="item.id" :class="['entry', {'title':item.champion==1}]"  :to="{ name: 'Competition', params: { id: item.id }}">
+          <span v-if="item.champion==1">&#9733; </span>
+          {{item.season}} - {{item.site_name}}
+        </router-link>
+      </div>
+      <div v-if="_.isEmpty(list)" class="disclaimer">
+        Aucune competition trouvée.
+      </div>
+    </div>
   </div>
 </template>
 
