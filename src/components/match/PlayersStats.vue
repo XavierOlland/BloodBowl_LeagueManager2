@@ -1,6 +1,6 @@
 <template>
   <div id="PlayersStats">
-    <div class="veil" v-show="modal == true" @click="close">
+    <div class="veil" :class="{'forum': $route.fullPath.indexOf('forum')>-1}" v-show="modal == true" @click="close">
       <div class="card plain seconde modal"  :style="{'border-color': colours[0]}" v-show="modal == true">
         <h3 :style="{color: colours[0]}">Effectif</h3>
         <table>
@@ -24,7 +24,7 @@
             </tr>
           </thead>
           <tbody  class="table-hover noselect">
-            <tr v-for="player in roster" :style="{'border-color': colours[0]}">
+            <tr v-for="player in roster" :key="player.id" :style="{'border-color': colours[0]}">
               <td class="text-left text-cutter">
                 <span class="playerStatus" :title="player.casualties_sustained[0] | talkingToTheGods()" v-if="player.casualties_sustained.length > 0 && player.stats.sustainedcasualties > 0 && player.stats.sustaineddead==0"><img src="../../assets/icons/injured.png"> </span>
                 <span class="playerStatus" v-if="player.stats.sustaineddead==1"><img src="../../assets/icons/dead.png"> </span>
@@ -101,5 +101,8 @@
       margin-right: 5px;
       vertical-align: text-bottom;
     }
+  }
+  .forum {
+    top:0 !important;
   }
 </style>

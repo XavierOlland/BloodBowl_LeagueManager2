@@ -23,6 +23,10 @@ th { color:#000; }
     src: url('~@/assets/styles/Akashi.ttf');
 }
 
+body {
+  background: transparent !important;
+}
+
 .view {
   overflow-y: auto;
   overflow-x: hidden;
@@ -166,7 +170,7 @@ li > h3 { display:inline; }
   position: fixed;
   left:0;
   background: $shadow;
-  margin: 0 -0.9375rem;
+  margin: 0;
   width: 100%;
   height: calc(100vh - 65px);
   top: 65px;
@@ -186,7 +190,7 @@ li > h3 { display:inline; }
   max-width: 80vw;
   max-height: calc(90vh - 65px);
   left: 0;
-  z-index: 5;
+  z-index: 30;
   .scroll {
     height:calc(80vh - 170px);
     overflow-x: auto;
