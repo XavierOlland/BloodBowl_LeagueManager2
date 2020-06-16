@@ -73,7 +73,7 @@
     },
     methods:{
       goToCompetition(){
-        window.open("http://bbbl.fr/vue.php?competition=" + this.competition.id, "_blank" )
+        window.open("http://bbbl.fr/#/competition/" + this.competition.id, "_blank" )
       },
       setRounds(games) {
         //case for hand made competitions

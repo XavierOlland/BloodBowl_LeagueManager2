@@ -102,7 +102,7 @@
     },
     methods:{
       goToCompetition(){
-        window.open("http://bbbl.fr/vue.php?competition=" + this.metadata.competition_id, "_blank" )
+        window.open("http://bbbl.fr/#/competition/" + this.metadata.competition_id, "_blank" )
       }
     },
     watch: {

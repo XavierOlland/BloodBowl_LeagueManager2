@@ -1,5 +1,6 @@
 <template>
-  <div id="Match" class="view container" v-if="!isFetching">
+  <div id="Match" class="view container">
+    <Loader v-if="isFetching" :text="chargingText"/>
     <div class="row adapt">
       <div class="col-md-3"></div>
       <div class="col-md-6" @click="$router.push({ name: 'Competition', params: { id: metadata.competition_id }})">
@@ -84,19 +85,22 @@
   import MatchTeamStats from '../components/match/TeamStats.vue';
   import Helmet from '../components/ui/Helmet.vue';
   import Button from '../components/ui/Button.vue';
+  import Loader from '../components/ui/Loader.vue';
 
   export default {
     name: 'Match',
     components: {
       MatchTeamStats,
       Helmet,
-      Button
+      Button,
+      Loader
     },
     data(){
       return {
         isFetching: true,
         admin: window.admin,
-        coach_id: 1
+        coach_id: 1,
+        chargingText: 'Chargement du match...'
       }
     },
     computed:{

@@ -1,5 +1,6 @@
 <template>
-  <div id="Team" class="view container" v-if="!isFetching">
+  <div id="Team" class="view container">
+    <Loader v-if="isFetching" :text="chargingText"/>
     <Modal v-if="modal == true"/>
     <div class="row">
       <div class="col-lg-12 col-xl-7">
@@ -53,6 +54,7 @@
   import Modal from '../components/Modal.vue'
   import Button from '../components/ui/Button.vue';
   import Helmet from '../components/ui/Helmet.vue';
+  import Loader from '../components/ui/Loader.vue';
 
   export default {
     name: 'Team',
@@ -60,7 +62,8 @@
       Roster,
       Modal,
       Button,
-      Helmet
+      Helmet,
+      Loader
     },
     data(){
       return {
@@ -69,7 +72,8 @@
         stats: false,
         formerPlayers: false,
         formerPlayersText: '+ Anciens',
-        teamPhoto: 'http://www.bbbl.fr/resources/img/teams/missing.jpg'
+        teamPhoto: 'img/teams/missing.jpg',
+        chargingText: 'Chargement de l\'équipe...'
       }
     },
     computed:{
@@ -91,7 +95,7 @@
         }
       },
       altPhoto() {
-        this.teamPhoto = 'http://www.bbbl.fr/resources/img/teams/missing.jpg'
+        this.teamPhoto = 'img/teams/missing.jpg'
       }
     },
     mounted() {
@@ -99,7 +103,7 @@
     },
     watch: {
       team: function() {
-        this.teamPhoto = 'http://www.bbbl.fr/resources/img/teams/photo'+this.team.id+'.jpg';
+        this.teamPhoto = 'img/teams/photo'+this.team.id+'.jpg';
         this.isFetching = this.team.length > 0 ? true : false;
         this.titleText = Color(this.team.color_2).luminosity() < 0.05 ? '#AAA' : this.team.color_2;
       }
