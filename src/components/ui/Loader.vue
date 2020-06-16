@@ -10,10 +10,7 @@
 export default {
   name: 'Loader',
   props: {
-    text: String,
-  },
-  methods: {
-
+    text: String
   }
 }
 </script>

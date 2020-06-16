@@ -66,7 +66,7 @@
     props: {
       dictionnary: Array
     },
-    data(){
+    data() {
       return {
         isFetching: true,
         admin: 0,
@@ -81,14 +81,14 @@
         chargingText: 'Chargement de la competition...'
       }
     },
-    computed:{
+    computed: {
       user() {
         return this.$store.state.user;
       },
-      competition(){
+      competition() {
         return this.$store.state.competition.competition;
       },
-      calendar(){
+      calendar() {
         const cal = this.$store.state.competition.calendar;
         this.competition.game=='BB1'? cal.reverse() : cal;
         return cal;

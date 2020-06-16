@@ -74,11 +74,8 @@
         buttonText: "Fermer"
       }
     },
-    computed: {
-
-    },
     methods: {
-      close: function(){
+      close() {
         this.$emit('clicked')
       }
     }

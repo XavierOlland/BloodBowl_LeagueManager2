@@ -1,22 +1,22 @@
 <template>
   <div id="HeaderNav">
-      <nav class="d-flex justify-content-between">
-        <div class="d-flex">
-          <img :class="['logo',{'hidden':logo==false}]" src="~@/assets/league/Logo_S.png" @click="$router.push('/')"/>
-          <h1 class="title inline text-cutter">{{ title }}</h1>
-        </div>
-        <ul class="d-flex">
-          <li>
-            <a href="Forum">Forum</a>
-          </li>
-          <li  class="d-none d-sm-block">
-            <a href="steam://run/236690">Jouer</a>
-          </li>
-          <li class="d-none d-sm-block">
-            <a  href="https://discordapp.com/channels/159656062125998080/159656062125998080" target="_blank">Discord</a>
-          </li>
-        </ul>
-      </nav>
+    <nav class="d-flex justify-content-between">
+      <div class="d-flex">
+        <img :class="['logo',{'hidden':logo==false}]" src="~@/assets/league/Logo_S.png" @click="$router.push('/')"/>
+        <h1 class="title inline text-cutter">{{ title }}</h1>
+      </div>
+      <ul class="d-flex">
+        <li>
+          <a href="Forum">Forum</a>
+        </li>
+        <li  class="d-none d-sm-block">
+          <a href="steam://run/236690">Jouer</a>
+        </li>
+        <li class="d-none d-sm-block">
+          <a  href="https://discordapp.com/channels/159656062125998080/159656062125998080" target="_blank">Discord</a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </template>
 
@@ -24,13 +24,13 @@
 
 export default {
   name: 'HeaderNav',
-  data(){
+  data() {
     return {
       title: window.innerWidth<576 ? "BBBL": "Blood Bowl Baston League",
       logo: this.checkLogo(this.$router.currentRoute.name)
     }
   },
-  methods:{
+  methods: {
     checkLogo(route) {
       return route=='Home' && window.innerWidth>1024? false:true;
     }

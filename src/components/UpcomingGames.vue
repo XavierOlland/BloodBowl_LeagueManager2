@@ -43,11 +43,6 @@
     name: 'UpcomingGames',
     props: {
       games: Array
-    },
-    methods: {
-      test() {
-        moment()
-      }
     }
   }
 </script>

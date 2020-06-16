@@ -23,7 +23,7 @@
       Forum,
       Loader
     },
-    data(){
+    data() {
       return {
         loaderText: '',
         admin: window.admin
@@ -39,7 +39,7 @@
         this.loaderText = value;
       }
     },
-    mounted(){
+    mounted() {
       this.$store.dispatch('admin/getIngameCompetitions');
       this.$store.dispatch('admin/getCompetitionsForums',[process.env.VUE_APP_COMPETITION_FORUM_ID]);
     }

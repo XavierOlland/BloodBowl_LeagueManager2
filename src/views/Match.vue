@@ -95,7 +95,7 @@
       Button,
       Loader
     },
-    data(){
+    data() {
       return {
         isFetching: true,
         admin: window.admin,
@@ -103,7 +103,7 @@
         chargingText: 'Chargement du match...'
       }
     },
-    computed:{
+    computed: {
       user() {
         return this.$store.state.user;
       },
@@ -120,8 +120,8 @@
     mounted() {
       this.$store.dispatch('match/fetchMatch',this.$route.params.id)
     },
-    methods:{
-      postToForum(){
+    methods: {
+      postToForum() {
         window.open("http://bbbl.fr/Forum/posting.php?mode=post&f=" + this.metadata.forum + "&match=" + this.$route.params.id, "_blank" )
       }
     },

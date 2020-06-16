@@ -81,12 +81,12 @@
       MatchTeamStats,
       Helmet
     },
-    data(){
+    data() {
       return {
         isFetching: true,
       }
     },
-    computed:{
+    computed: {
       match() {
         return this.$store.state.match.match;
       },
@@ -100,8 +100,8 @@
     mounted() {
       this.$store.dispatch('match/fetchMatch',this.$route.params.id)
     },
-    methods:{
-      goToCompetition(){
+    methods: {
+      goToCompetition() {
         window.open("http://bbbl.fr/#/competition/" + this.metadata.competition_id, "_blank" )
       }
     },

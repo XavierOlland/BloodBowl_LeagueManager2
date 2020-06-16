@@ -35,7 +35,7 @@
       coach_id: String,
       archived: Boolean
     },
-    data(){
+    data() {
       return {
         admin: window.admin
       }
@@ -57,7 +57,6 @@
         }
       }
     }
-
   }
 </script>
 

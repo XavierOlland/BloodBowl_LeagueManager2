@@ -93,12 +93,7 @@ export default {
   data(){
     return {
       admin: window.admin,
-      modal: false,
-      colours: [
-        {
-          hexa: '#B00'
-        }
-      ]
+      modal: false
     }
   },
   computed: {
@@ -119,10 +114,10 @@ export default {
     }
   },
   methods: {
-    goToPage(page){
+    goToPage(page) {
       this.$router.push(page);
     },
-    goToForum(){
+    goToForum() {
       window.location.href = 'Forum'
     }
   }
