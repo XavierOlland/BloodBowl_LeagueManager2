@@ -122,7 +122,7 @@
     },
     methods: {
       postToForum() {
-        window.open("http://bbbl.fr/Forum/posting.php?mode=post&f=" + this.metadata.forum + "&match=" + this.$route.params.id, "_blank" )
+        window.open("https://bbbl.fr/Forum/posting.php?mode=post&f=" + this.metadata.forum + "&match=" + this.$route.params.id, "_blank" )
       }
     },
     watch: {
