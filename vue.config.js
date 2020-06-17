@@ -13,7 +13,6 @@ module.exports = {
       scss: {
         prependData: `
           @import "@/assets/styles/_main.scss";
-          @import "@/assets/styles/_helmets.scss";
           `
       }
     }
