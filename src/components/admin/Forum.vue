@@ -26,8 +26,6 @@
         }
       }
     },
-    computed: {
-    },
     methods: {
       updateForum() {
         this.$emit('loader', 'Mise à jour des profiles');

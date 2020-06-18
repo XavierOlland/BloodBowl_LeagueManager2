@@ -21,7 +21,7 @@
               <h3>coaché par <span :style="{color: metadata.team_1_color_1}">{{metadata.coach_1_name}}</span></h3>
               <h3>TV <span :style="{color: metadata.team_1_color_1}">{{match.teams[0].value}}</span></h3>
               <h3>
-                <div v-for="i in match.teams[0].popularitybeforematch" class="star" :style="{color: metadata.team_1_color_1}">&#9733;</div>
+                <div v-for="index in match.teams[0].popularitybeforematch" :key="index" class="star" :style="{color: metadata.team_1_color_1}">&#9733;</div>
                 <span v-if="match.teams[0].popularitygain"> + <div class="star">&#9733;</div></span>
               </h3>
             </div>
@@ -40,7 +40,7 @@
               <h3>coachés par <span :style="{color: metadata.team_2_color_1}">{{match.coaches[1].coachname}}</span></h3>
               <h3>TV <span :style="{color: metadata.team_2_color_1}">{{match.teams[1].value}}</span></h3>
               <h3>
-                <div v-for="i in match.teams[1].popularitybeforematch" class="star" :style="{color: metadata.team_2_color_1}">&#9733;</div>
+                <div v-for="index in match.teams[1].popularitybeforematch" :key="index" class="star" :style="{color: metadata.team_2_color_1}">&#9733;</div>
                 <span v-if="match.teams[1].popularitygain"> + <div class="star">&#9733;</div></span>
               </h3>
             </div>
@@ -71,7 +71,7 @@
 </template>
 
 <script>
-  const moment = require('moment');
+  const moment = require('moment'); // eslint-disable-line
   import MatchTeamStats from '../../components/match/TeamStats.vue';
   import Helmet from '../../components/ui/Helmet.vue';
 
@@ -81,12 +81,12 @@
       MatchTeamStats,
       Helmet
     },
-    data(){
+    data() {
       return {
         isFetching: true,
       }
     },
-    computed:{
+    computed: {
       match() {
         return this.$store.state.match.match;
       },
@@ -100,9 +100,9 @@
     mounted() {
       this.$store.dispatch('match/fetchMatch',this.$route.params.id)
     },
-    methods:{
-      goToCompetition(){
-        window.open("http://bbbl.fr/#/competition/" + this.metadata.competition_id, "_blank" )
+    methods: {
+      goToCompetition() {
+        window.open("https://bbbl.fr/#/competition/" + this.metadata.competition_id, "_blank" )
       }
     },
     watch: {

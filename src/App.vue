@@ -13,9 +13,8 @@ export default {
   components: {
     HeaderNav
   },
-  async mounted(){
+  async mounted() {
      await this.$store.dispatch('boot');
-     console.log(this.$route) // eslint-disable-line no-console
   }
 }
 </script>

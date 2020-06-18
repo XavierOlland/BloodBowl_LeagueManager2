@@ -31,7 +31,6 @@
           </g>
           <polygon id="Icon" fill="#eee" fill-rule="nonzero" points="35 20.9649123 35 24.0350877 15.994152 24.0350877 24.6929825 32.8070175 22.5 35 10 22.5 22.5 10 24.6929825 12.1929825 15.994152 20.9649123"></polygon>
       </g>
-
     </svg>
   </div>
 </template>
@@ -52,7 +51,7 @@ export default {
     },
   },
   methods: {
-    clicked(){
+    clicked() {
       this.$emit('clicked')
     }
   }

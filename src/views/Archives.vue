@@ -45,15 +45,15 @@
     props: {
       dictionnary: Array
     },
-    data(){
+    data() {
       return {
         isFetching: this.$store.state.archives.archives.length>0? false : true,
         searchQuery: '',
         loaderText: 'Récupération des données'
       }
     },
-    computed:{
-      archives(){
+    computed: {
+      archives() {
         return this.$store.state.archives.archives;
       },
       searchList() {
@@ -67,13 +67,13 @@
           return this.$store.state.archives.archives
         }
       },
-      champions(){
+      champions() {
         var champions = this.$store.state.archives.archives.filter(archive => archive.champion == 1);
         return champions
       }
     },
     methods: {
-      clearSearch(){
+      clearSearch() {
         this.searchQuery = ''
       }
     },

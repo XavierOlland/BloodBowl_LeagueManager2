@@ -54,11 +54,11 @@
         roundsName: ['32emes de finales', '16emes de finales', '8emes de finales', 'Quart de finales', 'Demi-Finales', 'Finale'],
       }
     },
-    computed:{
-      competition(){
+    computed: {
+      competition() {
         return this.$store.state.competition.competition;
       },
-      day(){
+      day() {
         const day = this.$store.state.competition.calendar.find(day => day.round == this.round);
         return day;
       },
@@ -71,9 +71,9 @@
       await this.$store.dispatch('competition/fetchCompetition',competition_id);
       await this.$store.dispatch('competition/fetchCalendar',competition_id);
     },
-    methods:{
-      goToCompetition(){
-        window.open("http://bbbl.fr/#/competition/" + this.competition.id, "_blank" )
+    methods: {
+      goToCompetition() {
+        window.open("https://bbbl.fr/#/competition/" + this.competition.id, "_blank" )
       },
       setRounds(games) {
         //case for hand made competitions

@@ -14,11 +14,9 @@
 
 export default {
   name: 'Modal',
-  props: {},
   methods: {
     close() {
       this.modal = !this.modal;
-      alert(this.modal);
     },
   },
 }

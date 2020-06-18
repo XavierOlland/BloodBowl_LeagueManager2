@@ -90,7 +90,7 @@
       }
     },
     methods: {
-      goToTeam(id){
+      goToTeam(id) {
         if(this.teamAccess == true){
           this.$router.push({ name: 'Team', params: { id: id }})
         }

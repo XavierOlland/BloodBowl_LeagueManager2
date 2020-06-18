@@ -37,17 +37,12 @@
 </template>
 
 <script>
-  const moment = require('moment');
+  const moment = require('moment'); // eslint-disable-line
 
   export default {
     name: 'UpcomingGames',
     props: {
       games: Array
-    },
-    methods: {
-      test() {
-        moment()
-      }
     }
   }
 </script>

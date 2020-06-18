@@ -65,7 +65,7 @@
       Helmet,
       Loader
     },
-    data(){
+    data() {
       return {
         isFetching: true,
         modal: false,
@@ -76,16 +76,16 @@
         chargingText: 'Chargement de l\'équipe...'
       }
     },
-    computed:{
+    computed: {
       team(){
         return this.$store.state.team.team;
       }
     },
     methods: {
-      toggleStats: function() {
+      toggleStats() {
         this.stats = !this.stats;
       },
-      toggleFormerPlayers: function() {
+      toggleFormerPlayers() {
         this.formerPlayers = !this.formerPlayers;
         if(this.formerPlayers == true){
           this.formerPlayersText = '- Anciens';

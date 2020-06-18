@@ -32,8 +32,8 @@ export default {
       list: {}
     }
   },
-  methods:{
-    yearSplit: function() {
+  methods: {
+    yearSplit() {
       var cal = this.data.map(function(year) {
         var competition = Object.assign({}, year);
         competition.year = moment(competition.started).format("YYYY");
