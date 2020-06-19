@@ -1,7 +1,7 @@
 <template>
   <div id="Champion" class="plain prime">
     <Helmet class="helmet" :race="race" :logo="logo" :colours="colours" />
-    <img class="logo" :src="require('../assets/logos/Logo_'+logo+'.png')"/>
+    <img class="logo" :src="'https://bbbl.fr/img/logos/Logo_'+logo+'.png'"/>
     <div class="spacer">
       <h3 v-if="mode!='list'">CHAMPION</h3>
       <h3>{{competition.name}}</h3>

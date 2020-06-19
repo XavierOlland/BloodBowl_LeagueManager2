@@ -2,7 +2,7 @@
   <div id="Helmet">
     <img class="foreground" v-if="[1,2,3,4,5,7,8,9,10,12,15,17,18,24].includes(race)" :src="require('../../assets/helmets/helmet_'+race+'.png')"/>
     <img class="foreground" v-else :src="require('../../assets/helmets/helmet_0.png')"/>
-    <img :class="['logo',raceLogo]" :src="require('../../assets/logos/Logo_'+logo+'.png')"/>
+    <img :class="['logo',raceLogo]" :src="'https://bbbl.fr/img/logos/Logo_Underworld_07.png/Logo_'+logo+'.png'"/>
 
     <svg width="100%" height="100%" viewBox="0 0 300 300">
       <path v-if="race==2" :fill="colours[0]" d="M140,49.1245983 C208.096898,46.2061599 229.325527,95.4394807 233,104.124598 C244,130.124598 233,131.124598 219,157.124598 L243,157.124598 L256,191.124598 L260,196.124598 L261,205.124598 L266,211.124598 L266,215.124598 L274,220.124598 C230,223.124598 151,214.124598 79,242.124598 L78,235.124598 L40,243.124598 L40,209.124598 L32,208.124598 L33,193.124598 L31,189.124598 L56,140.124598 C56,140.124598 59.2285206,114.105019 51,109.124598 C64,76.1245983 70,52.1245983 140,49.1245983 Z"></path>

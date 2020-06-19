@@ -103,7 +103,8 @@
     },
     watch: {
       team: function() {
-        this.teamPhoto = 'img/teams/photo'+this.team.id+'.jpg';
+        this.teamPhoto = 'img/tems/photo'+this.team.id+'.jpg';
+        this.teamPhoto = 'img/tems/photo'+this.team.id+'.jpg';
         this.isFetching = this.team.length > 0 ? true : false;
         this.titleText = Color(this.team.color_2).luminosity() < 0.05 ? '#AAA' : this.team.color_2;
       }

@@ -21,14 +21,14 @@
             <div class="hover-box">
               <div class="row">
                 <div class="col-5 text-center">
-                  <img class="teamLogo" :src="require('../../assets/logos/Logo_' + match.logo_1 + '.png')">
+                  <img class="teamLogo" :src="'https://bbbl.fr/img/logos/Logo_Underworld_07.png/Logo_' + match.logo_1 + '.png'">
                   <h4>{{match.name_1}}</h4>
                 </div>
                 <div class="col-2 align-self-center text-center versus">
                   <img src="../../assets/elements/vs.png">
                 </div>
                 <div class="col-5 text-center">
-                  <img class="teamLogo" :src="require('../../assets/logos/Logo_' + match.logo_2 + '.png')">
+                  <img class="teamLogo" :src="'https://bbbl.fr/img/logos/Logo_Underworld_07.png/Logo_' + match.logo_2 + '.png'">
                   <h4>{{match.name_2}}</h4>
                 </div>
               </div>

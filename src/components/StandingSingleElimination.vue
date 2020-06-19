@@ -25,7 +25,7 @@
         </thead>
         <tbody :class="{'table-hover': details==true}">
           <tr v-for="team in qualified"  :key="team.id" :class="[{zelda: teamAccess!=0 }]" @click="goToTeam(team.cyanide_id)">
-            <td class="text-left"><img :src="require('../assets/logos/Logo_'+team.logo+'.png')"> {{team.name}}</td>
+            <td class="text-left"><img :src="'https://bbbl.fr/img/logos/Logo_'+team.logo+'.png'"> {{team.name}}</td>
             <td class="text-left d-none d-md-table-cell" >{{team.race | talkingToTheGods()}}</td>
             <td class="text-left d-none d-sm-table-cell" >{{team.coach}}</td>
             <td class="text-left d-none d-sm-table-cell" v-if="details==true">{{roundsName.slice(team.V)[0]}}</td>
@@ -54,7 +54,7 @@
         </thead>
         <tbody class="table-hover">
           <tr v-for="team in losers"  :key="team.id" class="zelda" @click="goToTeam(team.cyanide_id)">
-            <td class="text-left"><img :src="require('../assets/logos/Logo_'+team.logo+'.png')"> {{team.name}}</td>
+            <td class="text-left"><img :src="'https://bbbl.fr/img/logos/Logo_'+team.logo+'.png'"> {{team.name}}</td>
             <td class="text-left d-none d-md-table-cell" >{{team.race | talkingToTheGods()}}</td>
             <td class="text-left d-none d-sm-table-cell" >{{team.coach}}</td>
             <td class="text-left d-none d-sm-table-cell" v-if="!roundsCount" >{{roundsName.slice(team.V)[0]}}</td>
