@@ -33,7 +33,7 @@
           <h2>Effectif</h2>
           <Roster :roster="team.players" :colours="[team.color_1, team.color_2, titleText]" :formerPlayers="formerPlayers" :showStats="stats" />
           <Button class="d-none d-md-block" :id="'Stats'" :text="'Statistiques'" :color="team.color_1" @clicked="toggleStats"/>
-          <Button class="d-none d-md-block" :id="'FormerPlayers'" :level="'secondary'" :text="formerPlayersText" :color="team.color_1" @clicked="toggleFormerPlayers"/>
+          <Button class="d-none d-md-block" :id="'FormerPlayers'" :type="'secondary'" :text="formerPlayersText" :color="team.color_1" @clicked="toggleFormerPlayers"/>
         </div>
       </div>
       <div class="col-lg-12 col-xl-5">
@@ -43,7 +43,7 @@
         </div>
       </div>
     </div>
-    <Button :id="'Back'" :back="true" @clicked="$router.go(-1)"/>
+    <Button :id="'Back'" :type="'back'" @clicked="$router.go(-1)"/>
   </div>
 </template>
 

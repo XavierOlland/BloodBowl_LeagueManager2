@@ -37,7 +37,7 @@
         </div>
       </div>
     </div>
-    <Button :id="'Back'" :back="true" @clicked="$router.go(-1)"/>
+    <Button :id="'Back'" :type="'back'" @clicked="$router.go(-1)"/>
   </div>
 </template>
 
