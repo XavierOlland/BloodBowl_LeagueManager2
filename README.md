@@ -1,16 +1,29 @@
-# leaguemanager2
+# BloodBowl League Manager 2
+The aim of the League Manager is to deliver a tool for leagues playing BloodBowl 2 from Cyanide Studio to organize themselves and keep track of their competitions and results.  
+The overall tool is a combination of 3 elements:  
+- [A web interface built with VueJS](https://github.com/XavierOlland/BloodBowl_LeagueManager2): to display the competitions, results and statistics.
+- [A backend built with PHP](https://github.com/XavierOlland/BB_LM2_Backend): to update the data and serve it to the interface.
+- [A phpBB forum](https://www.phpbb.com/): for coach to organize them.
 
-Version 2.0.0 - Point Zero
+You can see the whole project running for french Blood Bowl Bastonm League at [https://bbbl.fr](https://bbbl.fr)
 
-THe previous version of our League Manager for Blood Bowl 2 from Cyanide had been developed with AngularJS. It has been redeveloped under VueJS to allow also a redesign of some feature and development of new ones.
+# This web interface
+This web interface is built with [VueJS](https://vuejs.org/) using [VueCLI](https://cli.vuejs.org/).
+It's role is to show the current and past competitions results through standings, leaderboards, and matchs details.
 
-You can see it live here: https://bbbl.fr
+## Dependencies
+- [Vuex](https://vuex.vuejs.org/) for state management
+- [VueRouter](https://router.vuejs.org/) for routing
+- [Axios](https://github.com/axios/axios) to connect to the BB_LM2_Backend
+- [vuemoment](https://github.com/brockpetrie/vue-moment) for date manipulation
+- [vue-datetime](https://github.com/mariomka/vue-datetime) for the date picker when planning games
+- [vuelodash](https://github.com/Ewocker/vue-lodash) because
 
-## To do after build
+## To do after building
 
 Change index extension to **php** file and add the following script at the end of the **head** section to ensure phpBB interaction.
 
-`<script>
+`<script>  
     <?php  
       define('PHPBB_ROOT_PATH','./Forum/');  
       include('backend/vue-config.php');  
@@ -18,3 +31,7 @@ Change index extension to **php** file and add the following script at the end o
       echo "window.admin = ".$admin  
     ?>  
   </script>`
+
+# Disclaimer
+This project has no link whatsoever with phpBB, Cyanide Studio, Focus Interactive or Games Workshop (though we'd like to thank Cyanide for their help and support with their API).
+BloodBowl is a registered trademark of Games Workshop.

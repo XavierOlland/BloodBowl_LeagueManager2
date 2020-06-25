@@ -21,7 +21,7 @@ const instance = axios.create({
   }
 });
 
-const route = 'vue-routes.php?action=';
+const route = process.env.VUE_APP_BACKEND_ROUTES;
 
 export default new Vuex.Store({
   modules: {

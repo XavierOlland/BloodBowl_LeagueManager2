@@ -5,7 +5,7 @@ const instance = axios.create({
     'content-type': 'application/x-www-form-urlencoded'
   }
 });
-const route = 'vue-routes.php?action=';
+const route = process.env.VUE_APP_BACKEND_ROUTES;
 const state = {
   team: {},
 }
