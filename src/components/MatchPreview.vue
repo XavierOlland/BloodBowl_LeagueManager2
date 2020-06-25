@@ -1,10 +1,10 @@
 <template>
   <div id="MatchPreview" @click="matchDetails" class="match text-center" :class="{ zelda: match.cyanide_id }">
     <div>
-      <img :src="require('../assets/logos/Logo_' + match.logo_1 + '.png')">
+      <img :src="'https://bbbl.fr/img/logos/Logo_' + match.logo_1 + '.png'">
       <img class="versus" v-if="match.cyanide_id == null" src="../assets/elements/vs.png">
       <span class="score" v-else > <span :class="{'winner': match.score_1 >match.score_2 }">{{match.score_1}}</span> - <span :class="{'winner': match.score_1 < match.score_2 }">{{match.score_2}}</span> </span>
-      <img :src="require('../assets/logos/Logo_' + match.logo_2 + '.png')">
+      <img :src="'https://bbbl.fr/img/logos/Logo_' + match.logo_2 + '.png'">
     </div>
     <hr />
     <div>

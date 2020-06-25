@@ -17,7 +17,7 @@
             </thead>
             <tbody class="noselect" :class="{ 'table-hover': modal == true }">
               <tr class="playerDetails" v-for="player in statistics.players.slice(0,max)" :key="player.player">
-                <td class="logo"><img :src="require('../assets/logos/Logo_'+player.logo+'.png')"></td>
+                <td class="logo"><img :src="'https://bbbl.fr/img/logos/Logo_'+player.logo+'.png'"></td>
                 <td class="text-left text-cutter">{{player.name}}</td>
                 <td v-if="modal==true" class="text-left text-cutter">{{player.race | talkingToTheGods()}}</td>
                 <td v-if="modal==true" class="text-left text-cutter">{{player.team}}</td>

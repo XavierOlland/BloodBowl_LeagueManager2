@@ -1,6 +1,6 @@
 <template>
   <div id="TeamStats" class="plain prime text-center" :style="{'border-color': colours[0]}">
-    <img :src="require('../../assets/logos/Logo_'+team.teamlogo+'.png')" class="background">
+    <img :src="'https://bbbl.fr/img/logos/Logo_'+team.teamlogo+'.png'" class="background">
     <h3 :style="{color: colours[0]}" class="info">Statistiques</h3>
     <ul class="stats list-unstyled info">
       <li>Possession : <span :style="{color: colours[0]}">{{team.possessionball}} %</span></li>
