@@ -19,6 +19,11 @@ It's role is to show the current and past competitions results through standings
 - [vue-datetime](https://github.com/mariomka/vue-datetime) for the date picker when planning games
 - [vuelodash](https://github.com/Ewocker/vue-lodash) because
 
+## Before building
+
+Building won't work because of missing images. Because we can't be sure to what extend ingame content is considered as fair use. This apply mainly to teams' logos and stadium images.
+Please feel free to contact us for any help concerning that matter.
+
 ## To do after building
 
 Change index extension to **php** file and add the following script at the end of the **head** section to ensure phpBB interaction.
