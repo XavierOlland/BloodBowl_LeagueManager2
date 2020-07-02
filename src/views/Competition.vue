@@ -30,9 +30,9 @@
         <div v-for="day in calendar" :key="day.round" v-show="day.round <= displayDay || displayDay==0" class="day plain prime" :class="{ 'current': day.round == currentRound.currentDay && competition.active==1 && competition.format != 'ladder'}">
           <div v-if="day.round == currentRound.currentDay && displayDay != 0 && calendar.length!=currentRound.currentDay" class="tab zelda" @click="fullCalendar()">Calendrier complet</div>
           <h3 v-if="competition.format == 'single_elimination'">{{roundsName[day.round-1]}}</h3>
-          <h3 v-else-if="competition.format == 'ladder'">Matchs</h3>
+          <h3 v-else-if="competition.format == 'ladder'">Rencontres</h3>
           <h3 v-else>Journée {{day.round}}</h3>
-          <div v-for="match in day.matchs" :key="match.id" :title="match.name_1 + ' VS ' + match.name_2" class="vs d-inline-flex col-md-6 col-xl-4">
+          <div v-for="match in orderBy(day.matchs,'started',-1)" :key="match.id" :title="match.name_1 + ' VS ' + match.name_2" class="vs d-inline-flex col-md-6 col-xl-4">
             <MatchPreview :match="match" :round="day.round" :coach_id="user.coach.cyanide_id" :archived="!competition.active"/>
           </div>
         </div>
@@ -52,6 +52,8 @@
   import Button from '../components/ui/Button.vue';
   import Loader from '../components/ui/Loader.vue';
 
+  import Vue2Filters from 'vue2-filters'
+
   export default {
     name: 'Competition',
     components: {
@@ -64,6 +66,7 @@
       Button,
       Loader
     },
+    mixins: [Vue2Filters.mixin],
     props: {
       dictionnary: Array
     },
