@@ -7,7 +7,7 @@
           <div class="row">
             <div class="col-12 time">
               <hr/>
-              <h4>{{match.played | moment('dddd D MMMM HH:mm') | capitalize({ onlyFirstLetter: true })}}</h4>
+              <h4>{{match.played | moment('dddd D MMMM HH:mm')}}</h4>
               <hr/>
             </div>
           </div>
@@ -15,7 +15,7 @@
             <div class="col-4 text-right">
               <img class="teamLogo" :src="'https://bbbl.fr/img/logos/Logo_' + match.logo_1 + '.png'">
             </div>
-            <div class="col-4 align-self-center versus text-center">
+            <div class="col-4 align-self-center text-center">
               <span class="score">
                 <span :class="{'winner': match.score_1 > match.score_2 }">{{match.score_1}}</span> - <span :class="{'winner': match.score_1 < match.score_2 }">{{match.score_2}}</span>
               </span>
@@ -55,15 +55,8 @@
 </script>
 
 <style lang="scss" scoped>
-  #UpcomingGames {
+  #LastGames {
     padding-bottom: 15px;
-  }
-  .day {
-    margin-bottom: 1rem;
-    h3 {
-      text-transform: capitalize;
-      margin-bottom: 0.75em;
-    }
   }
   .match {
     padding: 0 0.25rem;
@@ -83,18 +76,13 @@
         border-bottom: solid 1px $prime-text;
       }
       h4 {
+        text-transform: capitalize;
         display: inline-flex;
       }
     }
     .teamLogo {
       width: 50%;
       height: auto;
-    }
-    .versus {
-      padding: 0.1rem;
-      img {
-        width: 100%;
-      }
     }
     .hover-box {
       margin: 0.5rem;

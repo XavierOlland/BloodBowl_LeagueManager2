@@ -6,7 +6,8 @@
       <div class="col-md-6" @click="$router.push({ name: 'Competition', params: { id: metadata.competition_id }})">
         <div class="plain header seconde text-center stadium zelda" :style="{ background: `url(${stadiumImage}) center center,rgba(68,68,68,0.9)`, backgroundSize: 'cover'}">
           <h4>{{match.leaguename}}</h4>
-          <h3>{{match.competitionname}}</h3>
+          <h3 v-if="metadata.competition_name==metadata.season">{{metadata.competition_name}} </h3>
+          <h3 v-else>{{metadata.season}} - {{metadata.competition_name}}</h3>
         </div>
       </div>
       <div class="col-md-3 d-flex flex-row justify-content-end tabs">
