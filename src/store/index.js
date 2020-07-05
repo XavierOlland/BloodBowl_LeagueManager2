@@ -36,7 +36,8 @@ export default new Vuex.Store({
     dictionnary: [],
     competitions: [],
     statistics: [],
-    upcomingGames: {}
+    upcomingGames: [],
+    lastGames: []
   },
   getters: {
     getTranslation: (state) => (name) => {
@@ -56,8 +57,11 @@ export default new Vuex.Store({
     setStatistics(state, payload) {
       state.statistics = payload;
     },
-    setCalendar(state, payload) {
+    setUpcomingGames(state, payload) {
       state.upcomingGames = payload;
+    },
+    setLastGames(state, payload) {
+      state.lastGames = payload;
     }
   },
   actions: {
@@ -76,12 +80,21 @@ export default new Vuex.Store({
     async upcomingGames(context) {
       instance.get(route + 'upcomingGames')
         .then(response => {
-          const calendar = response.data ? response.data : {};
-          context.commit('setCalendar', calendar);
+          const calendar = response.data ? response.data : [];
+          calendar.length == 0 ? context.dispatch('lastGames') : context.commit('setUpcomingGames', calendar);
         }, error => {
           console.error(error); // eslint-disable-line no-console
         });
     },
+    async lastGames(context) {
+      instance.get(route + 'lastGames')
+        .then(response => {
+          const calendar = response.data ? response.data : {};
+          context.commit('setLastGames', calendar);
+        }, error => {
+          console.error(error); // eslint-disable-line no-console
+        });
+    }
   },
   plugins: [vuexLocal.plugin]
 })

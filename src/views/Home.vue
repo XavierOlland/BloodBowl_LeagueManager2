@@ -2,7 +2,7 @@
   <div id="Landing" class="view container">
     <Modal v-if="modal == true"/>
     <div class="row">
-      <div class="col-lg-3 d-none d-sm-block">
+      <div id="LeftColumn" class="col-lg-3 d-none d-sm-block">
         <div class="image">
           <img src="../assets/league/Logo_M.png">
         </div>
@@ -32,12 +32,13 @@
         <User/>
       </div>
 
-      <div class="col-xl-6 col-lg-9">
+      <div id="MidColumn" class="col-xl-6 col-lg-9">
         <div class="col-sm quote">
             <h1>"J'ai aimé cette ligue comme je n'ai jamais aimé aucune femme..."</h1>
             <p>Coach Jahstrad, peu avant sa disparition</p>
         </div>
         <UpcomingGames v-if="upcomingGames.length>0" :games="upcomingGames"/>
+        <LastGames v-if="lastGames.length>0" :games="lastGames" :limit="4"/>
         <!-- Competitions -->
         <div class="plain prime zelda" title="Voir la compétition" v-for="competition in competitions" :key="competition.id" @click="$router.push({ name: 'Competition', params: { id: competition.id }})">
           <h2 v-if="competition.site_name==competition.season">{{competition.site_name}} </h2>
@@ -48,7 +49,7 @@
         </div>
       </div>
 
-      <div class="col-xl-3 stick-right d-none d-xl-block" >
+      <div id="RightColumn" class="col-xl-3 stick-right d-none d-xl-block" >
         <Champion
         :mode="'card'"
         :competition="champion.competition"
@@ -67,6 +68,7 @@
 
 <script>
 import UpcomingGames from '../components/UpcomingGames.vue'
+import LastGames from '../components/LastGames.vue'
 import StandingSingleElimination from '../components/StandingSingleElimination.vue'
 import CompetitionStanding from '../components/CompetitionStanding.vue'
 import Champion from '../components/Champion.vue'
@@ -78,6 +80,7 @@ import User from '../components/utilities/User.vue';
 export default {
   name: 'Home',
   components: {
+    LastGames,
     UpcomingGames,
     CompetitionStanding,
     StandingSingleElimination,
@@ -105,6 +108,9 @@ export default {
     },
     upcomingGames() {
       return this.$store.state.upcomingGames;
+    },
+    lastGames() {
+      return this.$store.state.lastGames;
     },
     user() {
       return this.$store.state.user
