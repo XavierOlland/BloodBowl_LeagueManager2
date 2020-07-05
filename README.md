@@ -5,11 +5,11 @@ The overall tool is a combination of 3 elements:
 - [A backend built with PHP](https://github.com/XavierOlland/BB_LM2_Backend): to update the data and serve it to the interface.
 - [A phpBB forum](https://www.phpbb.com/): for coach to organize them.
 
-You can see the whole project running for french Blood Bowl Bastonm League at [https://bbbl.fr](https://bbbl.fr)
+You can see the whole project running for French Blood Bowl Baston League at [https://bbbl.fr](https://bbbl.fr)
 
 # This web interface
 This web interface is built with [VueJS](https://vuejs.org/) using [VueCLI](https://cli.vuejs.org/).
-It's role is to show the current and past competitions results through standings, leaderboards, and matchs details.
+It's role is to show the current and past competitions results through standings, leaderboards, and matches details.
 
 ## Dependencies
 - [Vuex](https://vuex.vuejs.org/) for state management
@@ -18,6 +18,7 @@ It's role is to show the current and past competitions results through standings
 - [vuemoment](https://github.com/brockpetrie/vue-moment) for date manipulation
 - [vue-datetime](https://github.com/mariomka/vue-datetime) for the date picker when planning games
 - [vuelodash](https://github.com/Ewocker/vue-lodash) because
+- [vue2-filters](https://github.com/freearhey/vue2-filters) for easy to use filters
 
 ## Before building
 

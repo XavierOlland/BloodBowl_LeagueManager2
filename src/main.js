@@ -7,6 +7,7 @@ import lodash from 'lodash'
 import { Datetime } from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.css'
 import { Settings } from 'luxon'
+import Vue2Filters from 'vue2-filters'
 
 Settings.defaultLocale = 'fr'
 Vue.use(Datetime)
@@ -20,6 +21,9 @@ Vue.use(require('vue-moment'), {
 Vue.use(VueLodash, {
   lodash: lodash
 })
+
+
+Vue.use(Vue2Filters);
 
 Vue.config.productionTip = false
 
