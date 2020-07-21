@@ -3,8 +3,8 @@
     <Loader v-if="isFetching" :text="chargingText"/>
     <div class="row adapt">
       <div class="col-md-3"></div>
-      <div class="col-md-6" @click="$router.push({ name: 'Competition', params: { id: metadata.competition_id }})">
-        <div class="plain header seconde text-center stadium zelda" :style="{ background: `url(${stadiumImage}) center center,rgba(68,68,68,0.9)`, backgroundSize: 'cover'}">
+      <div class="col-md-6" @click="$router.push({ name: 'Competition', params: { id: metadata.competition_id }})" style="{background:rgba(68,68,68,0.9)}">
+        <div class="plain header seconde text-center stadium zelda" :style="{ background: `url(${stadiumImage}) center center`, backgroundSize: 'cover'}">
           <h4>{{match.leaguename}}</h4>
           <h3 v-if="metadata.competition_name==metadata.season">{{metadata.competition_name}} </h3>
           <h3 v-else>{{metadata.season}} - {{metadata.competition_name}}</h3>
@@ -62,15 +62,17 @@
       <div class="col-md-4">
         <MatchTeamStats :colours="[metadata.team_1_color_1]" :team="match.teams[0]"/>
       </div>
-      <div class="col-md-4 d-none d-md-block">
-        <div class="plain seconde text-center stadium" :style="{ background: `url(${stadiumImage}) center center,rgba(68,68,68,0.9)`, backgroundSize: 'cover'}">
+      <div class="col-md-4 d-none d-md-block" style="{background:rgba(68,68,68,0.9)}">
+        <div class="plain seconde text-center stadium" :style="{ background: `url(${stadiumImage})` , backgroundSize: 'cover'}">
           <h3>{{match.started| moment("D MMM HH")}}H</h3><br />
           <h4>Stade</h4>
           <h3>{{metadata.stadium}}</h3><br />
-          <h4>Arbitre</h4>
-          <h3>M. Squig</h3><br />
           <h4>Supporters</h4>
           <h3>{{match.teams[0].nbsupporters+match.teams[1].nbsupporters}}</h3><br />
+        </div>
+        <div class="plain conf seconde">
+          <p>Assistez à la conférence de presse des coachs et venez commenter sur le forum.</p>
+          <Button :id="'Seconde'" :text="'Forum'" @clicked="viewForum()" />
         </div>
       </div>
       <div class="col-md-4">
@@ -123,7 +125,10 @@
     },
     methods: {
       postToForum() {
-        window.open("https://bbbl.fr/Forum/posting.php?mode=post&f=" + this.metadata.forum + "&match=" + this.$route.params.id, "_blank" )
+        window.open(process.env.VUE_APP_FORUM_URL + "/posting.php?mode=post&f=" + this.metadata.forum + "&match=" + this.$route.params.id, "_blank" )
+      },
+      viewForum() {
+        window.open( this.metadata.forum_url, "_blank" )
       }
     },
     watch: {
@@ -135,6 +140,16 @@
 </script>
 
 <style lang="scss" scoped>
+  .conf {
+    padding-bottom: 30px;
+    p {
+      color: $prime-text;
+      padding: 0 5rem;
+      text-align: center;;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+  }
   .scoreBoard {
     display: inline-flex;
     .score {
@@ -146,6 +161,7 @@
     }
   }
   .teamBoard {
+    font-weight: 600;
     text-shadow: 0 2px 5px $shadow;
     h3 {
       color: $prime-text;
@@ -157,9 +173,8 @@
   }
   .stadium {
     padding-bottom: 10px;
-    h3,h4 {
-      text-shadow: 0 2px 5px $shadow;
-    }
+    text-shadow: 0 2px 5px $shadow;
+
   }
   .helmet {
     position: absolute;

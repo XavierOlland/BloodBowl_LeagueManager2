@@ -28,11 +28,12 @@ Please feel free to contact us for any help concerning that matter.
 ## To do after building
 
 Change index extension to **php** file and add the following script at the end of the **head** section to ensure phpBB interaction.
+Remember to adapt your backend url if necessary.
 
 `<script>  
     <?php  
       define('PHPBB_ROOT_PATH','./Forum/');  
-      include('backend/vue-config.php');  
+      include('backend/config.php');  
       echo "window.user = ".json_encode($user->data).";";  
       echo "window.admin = ".$admin  
     ?>  
