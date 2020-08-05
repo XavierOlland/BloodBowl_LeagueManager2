@@ -23,7 +23,7 @@
           <Button v-if="(user.coach.active==1 || admin==1) && competition.active==1" :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
         </div>
         <div class="card-columns">
-          <Statistics class="d-none d-sm-flex" v-for="stat in competition.playersStats" :key="stat.type" :statistics="stat" :limit="3" :dictionnary="dictionnary"/>
+          <Statistics class="d-none d-sm-inline-block card" v-for="stat in competition.playersStats" :key="stat.type" :statistics="stat" :limit="3" :dictionnary="dictionnary"/>
         </div>
       </div>
       <div class="col-lg-5">
@@ -99,12 +99,13 @@
       }
     },
     methods: {
-      competitionUpdate() {
+      async competitionUpdate() {
         this.saving = true;
         var params = [this.competition.game_name, this.competition.id, this.competition.format, this.currentRound.currentDay, this.currentRound.matchsToSave ];
-        this.$store.dispatch('competition/updateCompetition',params).then(() => {
+        await this.$store.dispatch('competition/updateCompetition',params).then(() => {
           this.saving = false;
         });
+        this.$store.dispatch('competition/fetchCalendar',this.$route.params.id);
       },
       fullCalendar() {
         this.displayDay = 0;
@@ -158,7 +159,6 @@
     async mounted() {
       await this.$store.dispatch('competition/fetchCompetition',this.$route.params.id);
       await this.$store.dispatch('competition/fetchCalendar',this.$route.params.id);
-
     },
     watch: {
       calendar: function() {
@@ -198,8 +198,8 @@
   .card-columns {
     column-count: 2;
     .card {
-      margin: 20px;
-      width: calc(100% - 20px);
+      background: transparent;
+      width: calc(100% - 40px);
     }
   }
   @media (max-width: 700px), (min-width: 992px) and (max-width: 1200px) {

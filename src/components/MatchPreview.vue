@@ -47,7 +47,7 @@
         }
       },
       matchDetails() {
-        if (this.match.cyanide_id && this.match.cyanide_id.indexOf('BB1')==-1) {
+        if (this.match.cyanide_id && this.match.cyanide_id.toString().indexOf('BB1')==-1) {
           //Match is played : show match
           this.$router.push({ name: 'Match', params: { id:this.match.id } })
         }
