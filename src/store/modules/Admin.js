@@ -32,7 +32,8 @@ const actions = {
   getIngameCompetitions(context) {
     instance.post(route + 'getIngameCompetitions')
       .then(response => {
-        var ingameCompetitions = response.data;
+        
+        var ingameCompetitions = Object.keys(response.data).map(i => response.data[i]);
         context.commit('setIngameCompetitions', ingameCompetitions);
       }, error => {
         console.error(error); // eslint-disable-line no-console
@@ -50,7 +51,7 @@ const actions = {
   async addCompetition(context, params) {
     const response = await instance.post(route + 'competitionAdd', params)
     instance.post(route + 'getIngameCompetitions')
-    context.commit('setCompetitions', response.data.competitions);
+    context.commit('setIngameCompetitions', response.data.competitions);
     return response.data
   },
   async updateForumProfiles() {

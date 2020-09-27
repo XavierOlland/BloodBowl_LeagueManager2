@@ -1,9 +1,9 @@
 :root {
-  --prime-color: #FFC000;
-  --prime-bg: rgba(11, 9, 0, 0.95);
-  --seconde-color: #FFA00B;
-  --seconde-bg: rgba(48, 45, 37, 0.9);
-  --focus-bg: rgba(255, 192, 0, 0.8);
+  --prime-color: #FF8217;
+  --prime-bg: rgba(11, 6, 0, 0.95);
+  --seconde-color: #AC483B;
+  --seconde-bg: rgba(48, 39, 37, 0.9));
+  --focus-bg: rgba(255, 130, 23, 0.8);
   --focus-color: #EEE;
 
   --prime-text: #EEE;
@@ -36,12 +36,18 @@
   text-align: center;
   margin-bottom: 0.5em;
 }
+.current .vdatetime-input {
+  border:1px solid var(--link-contrast);
+}
 .vs:hover .vdatetime-input, .vdatetime-input:hover {
   background: var(--prime-color);
 }
 ::placeholder{
   color: var(--prime-color);
   opacity:1;
+}
+.current ::placeholder{
+  color: var(--link-contrast);
 }
 .vs:hover .vdatetime-input::placeholder, .vdatetime-input:hover::placeholder {
   color: var(--prime-text);

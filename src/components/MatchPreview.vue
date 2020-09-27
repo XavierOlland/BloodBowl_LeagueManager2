@@ -27,6 +27,8 @@
 </template>
 
 <script>
+  const moment = require('moment'); // eslint-disable-line
+
   export default {
     name: 'MatchPreview',
     props: {
@@ -41,9 +43,11 @@
       }
     },
     methods: {
-      setMatchDate() {
+      async setMatchDate() {
         if(this.match.started){
-          this.$store.dispatch('match/updateMatch', this.match);
+          await this.$store.dispatch('match/updateMatch', this.match);
+          this.match.started = moment(this.match.started).subtract(2, 'hours');
+          console.log(this.match.started);
         }
       },
       matchDetails() {
