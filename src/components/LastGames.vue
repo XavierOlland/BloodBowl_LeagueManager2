@@ -1,8 +1,8 @@
 <template>
-  <div id="LastGames" class="plain prime" v-if="games.length>0">
+  <div id="LastGames" class="plain" :class="level" v-if="games.length>0">
     <h2>{{ games.length | pluralize(['Dernière rencontre', 'Dernières rencontres']) }} </h2>
     <div class="row d-flex justify-content-center">
-      <div :class="['col-12', {'col-lg-6': games.length>1}]" class="match zelda" v-for="match in limitBy(orderBy(games,'played',-1), limit)" :key="match.id" @click="matchDetails(match.id)">
+      <div :class="['col-12', {'col-xxl-6': games.length>1}]" class="match zelda" v-for="match in limitBy(orderBy(games,'played',-1), limit)" :key="match.id" @click="matchDetails(match.id)">
         <div class="hover-box">
           <div class="row">
             <div class="col-12 time">
@@ -43,7 +43,8 @@
     name: 'UpcomingGames',
     props: {
       games: Array,
-      limit: Number
+      limit: Number,
+      level: String
     },
     mixins: [Vue2Filters.mixin],
     methods: {
@@ -91,9 +92,13 @@
       border-radius: 3px;
     }
   }
-  .hover-box:hover {
+  .prime .hover-box:hover {
     background: $prime-bg;
     border: 1px solid $prime-color;
+  }
+  .seconde .hover-box:hover {
+    background: $seconde-bg;
+    border: 1px solid $seconde-color;
   }
   .score {
     font-family: 'Akashi';
@@ -104,8 +109,12 @@
     margin: 0 0.5rem;
     color: $prime-text;
   }
-  .winner {
+  .prime .winner {
     color: $prime-color;
+    font-size: 2.3rem;
+  }
+  .seconde .winner {
+    color: $seconde-color;
     font-size: 2.3rem;
   }
 </style>

@@ -22,7 +22,12 @@ th { color:#000; }
     font-family: "Akashi";
     src: url('~@/assets/styles/Akashi.ttf');
 }
-
+@media screen and (min-width: 1440px) {
+  .col-xxl-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
 body {
   background: transparent !important;
 }
@@ -44,7 +49,7 @@ a { font-weight: 500; cursor: pointer; }
 a:hover.button { text-decoration: none; color: $link-contrast; }
 h1 { font-family: 'Akashi';  font-size: 40px; line-height: 50px; color: $prime-text; }
 h2, h2 a { font-family: 'Akashi' !important; font-size: 30px; line-height: 1; margin:0 0 10px; color: $prime-text; }
-h3 { font-family: 'Akashi';  font-size: 24px; line-height: 1; margin:8px 0; color: $prime-text; }
+h3 { font-family: 'Akashi';  font-size: 1.4rem; line-height: 1; margin:8px 0; color: $prime-text; }
 .prime {
   h3,h5 {
     color: $prime-color;
@@ -55,7 +60,7 @@ h3 { font-family: 'Akashi';  font-size: 24px; line-height: 1; margin:8px 0; colo
     color: $seconde-color;
   }
 }
-h4 { font-family: 'Akashi';  font-size: 18px; line-height: 1; margin:2px 0; color: $prime-text; }
+h4 { font-family: 'Akashi';  font-size: 1rem; line-height: 1; margin:2px 0; color: $prime-text; }
 h5 { font-weight:300; font-family: 'Akashi'; text-align: center; }
 h6 { font-weight:700; }
 p, .vdatetime-input { font-size: 14px; line-height: 18px; text-align: justify; color:$seconde-text; display:inline-block; }
