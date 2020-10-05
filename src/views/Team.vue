@@ -37,6 +37,15 @@
         </div>
       </div>
       <div class="col-lg-12 col-xl-5">
+        <div class="d-flex flex-row justify-content-end tabs">
+          <div v-if="admin==1" class="tab dark align-self-start">
+            <div class="label" @click="toggleStats()" >Reset</div>
+          </div>
+          <div v-if="(user.coach.id==team.coach_id || admin==1)" class="align-self-start dark"
+          :class="{tab : user.coach.id==team.coach_id || user.coach.id==team.coach_id || admin==1}">
+            <div class="label" @click="coloursUpdate()">Modifier</div>
+          </div>
+        </div>
         <div class="plain photo" :style="{'border-color': team.color_1}">
           <img class="cover" src="../assets/elements/Cover_Glass.png">
           <img :src="teamPhoto" @error="altPhoto"/>
@@ -68,6 +77,7 @@
     data() {
       return {
         isFetching: true,
+        admin: window.admin,
         modal: false,
         stats: false,
         formerPlayers: false,
@@ -77,6 +87,9 @@
       }
     },
     computed: {
+      user() {
+        return this.$store.state.user;
+      },
       team(){
         return this.$store.state.team.team;
       }
@@ -96,6 +109,9 @@
       },
       altPhoto() {
         this.teamPhoto = 'img/teams/missing.jpg'
+      },
+      coloursUpdate() {
+        this.$store.dispatch('team/updateTeamColours',[this.team.id,[this.team.color_1,this.team.color_2]])
       }
     },
     mounted() {

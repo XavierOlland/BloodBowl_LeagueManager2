@@ -13,6 +13,10 @@ const state = {
 const mutations = {
   setTeam(state, payload) {
     state.team = payload;
+  },
+  teamColours(state, payload) {
+    state.team.color_1 = payload[0];
+    state.team.color_2 = payload[1];
   }
 }
 
@@ -25,6 +29,10 @@ const actions = {
       }, error => {
         console.error(error); // eslint-disable-line no-console
       });
+  },
+  updateTeamColours(context, params) {
+    instance.post(route + 'teamColoursUpdate', params);
+    context.commit('teamColours', params[1]);
   }
 }
 
