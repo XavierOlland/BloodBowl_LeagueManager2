@@ -43,12 +43,22 @@
           </div>
           <div v-if="(user.coach.id==team.coach_id || admin==1)" class="align-self-start dark"
           :class="{tab : user.coach.id==team.coach_id || user.coach.id==team.coach_id || admin==1}">
-            <div class="label" @click="coloursUpdate()">Modifier</div>
+            <div class="label" @click="toggleEditor()">Editer</div>
           </div>
         </div>
-        <div id="TeamEditor" class="plain editor">
-          <color-picker v-model="teamColours[0]" />
-          <color-picker v-model="teamColours[1]" />
+        <div id="TeamEditor" class="plain editor" v-if="displayEditor">
+          <h2>Modifier l'apparence</h2>
+          <div class="row">
+            <div class="col-sm-4">
+              <h4>Couleur principale</h4>
+              <color-picker v-model="teamColours[0]" />
+            </div>
+            <div class="col-sm-4">
+              <h4>Couleur secondaire</h4>
+              <color-picker v-model="teamColours[1]" />
+            </div>
+          </div>
+          <Button class="d-none d-md-block" :id="'Colours'" :text="'Enregistrer'" :color="'#000'" @clicked="coloursUpdate"/>
         </div>
         <div class="plain photo" :style="{'border-color': teamColours[0].hex}">
           <img class="cover" src="../assets/elements/Cover_Glass.png">
@@ -84,6 +94,7 @@
       return {
         isFetching: true,
         admin: window.admin,
+        displayEditor: false,
         modal: false,
         stats: false,
         formerPlayers: false,
@@ -102,6 +113,9 @@
       }
     },
     methods: {
+      toggleEditor() {
+        this.displayEditor = !this.displayEditor;
+      },
       toggleStats() {
         this.stats = !this.stats;
       },
@@ -118,7 +132,8 @@
         this.teamPhoto = 'img/teams/missing.jpg'
       },
       coloursUpdate() {
-        this.$store.dispatch('team/updateTeamColours',[this.team.id,[this.teamColours[0].hex,this.teamColours[1].hex]])
+        this.$store.dispatch('team/updateTeamColours',[this.team.id,[this.teamColours[0].hex,this.teamColours[1].hex]]);
+        this.toggleEditor;
       }
     },
     mounted() {
@@ -133,7 +148,6 @@
       },
       teamColours: function() {
         this.titleText = Color(this.teamColours[1].hex).luminosity() < 0.05 ? '#AAA' : this.teamColours[1].hex;
-
       }
     }
   }
