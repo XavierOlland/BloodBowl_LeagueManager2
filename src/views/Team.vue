@@ -4,8 +4,8 @@
     <Modal v-if="modal == true"/>
     <div class="row">
       <div class="col-lg-12 col-xl-7">
-        <Helmet class="helmet" :race="team.param_id_race" :logo="team.logo" :colours="[team.color_1,team.color_2]" />
-        <div class="plain seconde teamboard" :style="{'border-color': team.color_2}">
+        <Helmet class="helmet" :race="team.param_id_race" :logo="team.logo" :colours="[teamColours[0].hex,teamColours[1].hex]" />
+        <div class="plain seconde teamboard" :style="{'border-color': teamColours[1].hex}">
           <h1 :style="{'color':titleText}">{{team.name}}</h1>
           <h2 :style="{'color':titleText}">{{team.param_id_race | talkingToTheGods()}}</h2><br/>
           <h2 v-for="n in team.popularity" :key="n" :style="{'color':titleText}">&#9733;</h2>
@@ -29,11 +29,11 @@
             <h6 class="text-right" :style="{'color':titleText}" v-if="team.leitmotiv"> "{{team.leitmotiv}}"</h6>
           </div>
         </div>
-        <div class="plain prime" :style="{'border-color': team.color_1}">
+        <div class="plain prime" :style="{'border-color': teamColours[0].hex}">
           <h2>Effectif</h2>
-          <Roster :roster="team.players" :colours="[team.color_1, team.color_2, titleText]" :formerPlayers="formerPlayers" :showStats="stats" />
-          <Button class="d-none d-md-block" :id="'Stats'" :text="'Statistiques'" :color="team.color_1" @clicked="toggleStats"/>
-          <Button class="d-none d-md-block" :id="'FormerPlayers'" :type="'secondary'" :text="formerPlayersText" :color="team.color_1" @clicked="toggleFormerPlayers"/>
+          <Roster :roster="team.players" :colours="[teamColours[0].hex, teamColours[1].hex, titleText]" :formerPlayers="formerPlayers" :showStats="stats" />
+          <Button class="d-none d-md-block" :id="'Stats'" :text="'Statistiques'" :color="teamColours[0].hex" @clicked="toggleStats"/>
+          <Button class="d-none d-md-block" :id="'FormerPlayers'" :type="'secondary'" :text="formerPlayersText" :color="teamColours[0].hex" @clicked="toggleFormerPlayers"/>
         </div>
       </div>
       <div class="col-lg-12 col-xl-5">
@@ -46,7 +46,11 @@
             <div class="label" @click="coloursUpdate()">Modifier</div>
           </div>
         </div>
-        <div class="plain photo" :style="{'border-color': team.color_1}">
+        <div id="TeamEditor" class="plain editor">
+          <color-picker v-model="teamColours[0]" />
+          <color-picker v-model="teamColours[1]" />
+        </div>
+        <div class="plain photo" :style="{'border-color': teamColours[0].hex}">
           <img class="cover" src="../assets/elements/Cover_Glass.png">
           <img :src="teamPhoto" @error="altPhoto"/>
         </div>
@@ -64,6 +68,7 @@
   import Button from '../components/ui/Button.vue';
   import Helmet from '../components/ui/Helmet.vue';
   import Loader from '../components/ui/Loader.vue';
+  import { Chrome } from 'vue-color'
 
   export default {
     name: 'Team',
@@ -72,7 +77,8 @@
       Modal,
       Button,
       Helmet,
-      Loader
+      Loader,
+      'color-picker': Chrome,
     },
     data() {
       return {
@@ -82,6 +88,7 @@
         stats: false,
         formerPlayers: false,
         formerPlayersText: '+ Anciens',
+        teamColours: [],
         teamPhoto: 'img/teams/missing.jpg',
         chargingText: 'Chargement de l\'équipe...'
       }
@@ -111,7 +118,7 @@
         this.teamPhoto = 'img/teams/missing.jpg'
       },
       coloursUpdate() {
-        this.$store.dispatch('team/updateTeamColours',[this.team.id,[this.team.color_1,this.team.color_2]])
+        this.$store.dispatch('team/updateTeamColours',[this.team.id,[this.teamColours[0].hex,this.teamColours[1].hex]])
       }
     },
     mounted() {
@@ -122,7 +129,11 @@
         this.teamPhoto = 'img/teams/photo'+this.team.id+'.jpg';
         this.teamPhoto = 'img/teams/photo'+this.team.id+'.jpg';
         this.isFetching = this.team.length > 0 ? true : false;
-        this.titleText = Color(this.team.color_2).luminosity() < 0.05 ? '#AAA' : this.team.color_2;
+        this.teamColours = [ { hex: this.team.color_1,a: 1},{ hex: this.team.color_2,a: 1}];
+      },
+      teamColours: function() {
+        this.titleText = Color(this.teamColours[1].hex).luminosity() < 0.05 ? '#AAA' : this.teamColours[1].hex;
+
       }
     }
   }
