@@ -49,13 +49,16 @@
         <div id="TeamEditor" class="plain editor" v-if="displayEditor">
           <h2>Modifier l'apparence</h2>
           <div class="row">
-            <div class="col-sm-4">
-              <h4>Couleur principale</h4>
+            <div class="col-xl-6 col-xxl-4">
+              <h3>Couleur principale</h3>
               <color-picker v-model="teamColours[0]" />
             </div>
-            <div class="col-sm-4">
-              <h4>Couleur secondaire</h4>
+            <div class="col-xl-6 col-xxl-4">
+              <h3>Couleur secondaire</h3>
               <color-picker v-model="teamColours[1]" />
+            </div>
+            <div class="col-xl-6 col-xxl-4">
+              <FileUploader :uploadFileName="'photo'+team.id"/>
             </div>
           </div>
           <Button class="d-none d-md-block" :id="'Colours'" :text="'Enregistrer'" :color="'#000'" @clicked="coloursUpdate"/>
@@ -78,6 +81,7 @@
   import Button from '../components/ui/Button.vue';
   import Helmet from '../components/ui/Helmet.vue';
   import Loader from '../components/ui/Loader.vue';
+  import FileUploader from '../components/ui/FileUploader.vue';
   import { Chrome } from 'vue-color'
 
   export default {
@@ -88,13 +92,14 @@
       Button,
       Helmet,
       Loader,
+      FileUploader,
       'color-picker': Chrome,
     },
     data() {
       return {
         isFetching: true,
         admin: window.admin,
-        displayEditor: false,
+        displayEditor: true,
         modal: false,
         stats: false,
         formerPlayers: false,
@@ -147,7 +152,7 @@
         this.teamColours = [ { hex: this.team.color_1,a: 1},{ hex: this.team.color_2,a: 1}];
       },
       teamColours: function() {
-        this.titleText = Color(this.teamColours[1].hex).luminosity() < 0.05 ? '#AAA' : this.teamColours[1].hex;
+        this.titleText = Color(this.teamColours[1].hex).luminosity() < 0.08 ? '#AAA' : this.teamColours[1].hex;
       }
     }
   }
@@ -186,6 +191,11 @@
   @media (max-width: 576px) {
     .helmet {
       position: relative;
+    }
+  }
+  @media screen and (max-width: 1440px) {
+    .vc-chrome {
+      width: 200px;
     }
   }
 </style>

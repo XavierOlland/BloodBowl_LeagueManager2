@@ -33,6 +33,15 @@ const actions = {
   updateTeamColours(context, params) {
     instance.post(route + 'teamColoursUpdate', params);
     context.commit('teamColours', params[1]);
+  },
+  uploadTeamPhoto(context, data) {
+    return instance.post(route + 'teamPhotoUpdate', data)
+      .then(response => {
+        return response.data;
+      }, error => {
+        console.error(error); // eslint-disable-line no-console
+        return error;
+      });
   }
 }
 
