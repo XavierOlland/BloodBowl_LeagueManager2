@@ -58,10 +58,10 @@
               <color-picker v-model="teamColours[1]" />
             </div>
             <div class="col-xl-6 col-xxl-4">
-              <FileUploader :uploadFileName="'photo'+team.id"/>
+              <FileUploader ref="photo" :uploadFileName="'photo'+team.id"/>
             </div>
           </div>
-          <Button class="d-none d-md-block" :id="'Colours'" :text="'Enregistrer'" :color="'#000'" @clicked="coloursUpdate"/>
+          <Button class="d-none d-md-block" :id="'Colours'" :text="'Enregistrer'" :color="'#000'" @clicked="saveEdition"/>
         </div>
         <div class="plain photo" :style="{'border-color': teamColours[0].hex}">
           <img class="cover" src="../assets/elements/Cover_Glass.png">
@@ -139,6 +139,13 @@
       coloursUpdate() {
         this.$store.dispatch('team/updateTeamColours',[this.team.id,[this.teamColours[0].hex,this.teamColours[1].hex]]);
         this.toggleEditor;
+      },
+      photoUpdate() {
+         this.$refs.photo.save();
+      },
+      saveEdition() {
+        this.coloursUpdate();
+        this.photoUpdate();
       }
     },
     mounted() {
@@ -149,7 +156,7 @@
         this.teamPhoto = 'img/teams/photo'+this.team.id+'.jpg';
         this.teamPhoto = 'img/teams/photo'+this.team.id+'.jpg';
         this.isFetching = this.team.length > 0 ? true : false;
-        this.teamColours = [ { hex: this.team.color_1,a: 1},{ hex: this.team.color_2,a: 1}];
+        this.teamColours = [ { hex: this.team.color_1,a: 1}, { hex: this.team.color_2,a: 1} ];
       },
       teamColours: function() {
         this.titleText = Color(this.teamColours[1].hex).luminosity() < 0.08 ? '#AAA' : this.teamColours[1].hex;
