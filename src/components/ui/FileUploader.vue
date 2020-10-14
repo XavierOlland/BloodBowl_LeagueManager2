@@ -6,7 +6,7 @@
         <input type="file"
           ref="file"
           @change="filesChange($event.target.name, $event.target.files)"
-          accept="image/*">
+          accept="image/jpg">
           <p>
             {{currentStatus[1]}}
           </p>
@@ -20,16 +20,16 @@
         {{currentStatus[1]}}
       </h4>
       <p class="zelda" @click="reset()">{{currentStatus[2]}}</p>
-      <!--pre>{{ uploadError }}</pre-->
+      <p>{{ uploadError }}</p>
     </div>
   </div>
 </template>
 
 <script>
-  const STATUS_INITIAL = [0,"Glissez votre image ici ou cliquez pour en sélectionner une."],
+  const STATUS_INITIAL = [0,"Glissez votre image (JPG) ici ou cliquez pour en sélectionner une."],
         STATUS_SAVING = [1,"Fichier chargé."],
-        STATUS_SUCCESS = [2,"Photo mise à jour","Recommencez"],
-        STATUS_FAILED = [3,"Une erreur s'est produite","Réessayez"];
+        STATUS_SUCCESS = [2,"Photo mise à jour.","Recommencez"],
+        STATUS_FAILED = [3,"Une erreur s'est produite.","Réessayez"];
   export default {
     name: 'FileUploader',
     props: {
@@ -52,28 +52,20 @@
          this.uploadError = null;
       },
       save() {
-        this.currentStatus = STATUS_SAVING;
-        const formData = new FormData();
-        this.upload(formData)
-          .then(result => {
-            if(result == 1){
-              this.currentStatus = STATUS_SUCCESS;
-            }
-            else {
-              this.currentStatus = STATUS_FAILED;
-            }
-          })
-          // .catch(err => {
-          //   this.uploadError = err.response;
-          //   this.currentStatus = STATUS_FAILED;
-          // });
+        if(this.$refs.file.files[0]){
+          this.currentStatus = STATUS_SAVING;
+          const formData = new FormData();
+          this.upload(formData)
+            .then(
+              this.currentStatus = STATUS_SUCCESS
+            )
+            .catch(
+               this.currentStatus = STATUS_FAILED
+            );
+        }
       },
       filesChange() {
         this.currentStatus = STATUS_SAVING;
-
-       // const formData = new FormData();
-       // if (!fileList.length) return;
-       // this.save();
       }
     },
     mounted() {
