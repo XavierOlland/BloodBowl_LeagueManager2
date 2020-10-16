@@ -41,7 +41,9 @@ export default new Vuex.Store({
   },
   getters: {
     getTranslation: (state) => (name) => {
-      return state.dictionnary.find(param => param.name == name).translation
+      var item = state.dictionnary.find(param => param.name == name);
+      var translation = !item ? "Nie novem popolsku" : item.translation;
+      return translation
     }
   },
   mutations: {
