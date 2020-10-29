@@ -4,8 +4,8 @@
     <Modal v-if="modal == true"/>
     <div class="row">
       <div class="col-lg-12 col-xl-7">
-        <Helmet class="helmet" :race="team.param_id_race" :logo="team.logo" :colours="[team.color_1,team.color_2]" />
-        <div class="plain seconde teamboard" :style="{'border-color': team.color_2}">
+        <Helmet class="helmet" :race="team.param_id_race" :logo="team.logo" :colours="[teamColours[0].hex,teamColours[1].hex]" />
+        <div class="plain seconde teamboard" :style="{'border-color': teamColours[1].hex}">
           <h1 :style="{'color':titleText}">{{team.name}}</h1>
           <h2 :style="{'color':titleText}">{{team.param_id_race | talkingToTheGods()}}</h2><br/>
           <h2 v-for="n in team.popularity" :key="n" :style="{'color':titleText}">&#9733;</h2>
@@ -29,15 +29,41 @@
             <h6 class="text-right" :style="{'color':titleText}" v-if="team.leitmotiv"> "{{team.leitmotiv}}"</h6>
           </div>
         </div>
-        <div class="plain prime" :style="{'border-color': team.color_1}">
+        <div class="plain prime" :style="{'border-color': teamColours[0].hex}">
           <h2>Effectif</h2>
-          <Roster :roster="team.players" :colours="[team.color_1, team.color_2, titleText]" :formerPlayers="formerPlayers" :showStats="stats" />
-          <Button class="d-none d-md-block" :id="'Stats'" :text="'Statistiques'" :color="team.color_1" @clicked="toggleStats"/>
-          <Button class="d-none d-md-block" :id="'FormerPlayers'" :type="'secondary'" :text="formerPlayersText" :color="team.color_1" @clicked="toggleFormerPlayers"/>
+          <Roster :roster="team.players" :colours="[teamColours[0].hex, teamColours[1].hex, titleText]" :formerPlayers="formerPlayers" :showStats="stats" />
+          <Button class="d-none d-md-block" :id="'Stats'" :text="'Statistiques'" :color="teamColours[0].hex" @clicked="toggleStats"/>
+          <Button class="d-none d-md-block" :id="'FormerPlayers'" :type="'secondary'" :text="formerPlayersText" :color="teamColours[0].hex" @clicked="toggleFormerPlayers"/>
         </div>
       </div>
       <div class="col-lg-12 col-xl-5">
-        <div class="plain photo" :style="{'border-color': team.color_1}">
+        <div class="d-flex flex-row justify-content-end tabs">
+          <div v-if="admin==1" class="tab dark align-self-start">
+            <div class="label" @click="toggleStats()" >Reset</div>
+          </div>
+          <div v-if="(user.coach.id==team.coach_id || admin==1)" class="align-self-start dark"
+          :class="{tab : user.coach.id==team.coach_id || user.coach.id==team.coach_id || admin==1}">
+            <div class="label" @click="toggleEditor()">Editer</div>
+          </div>
+        </div>
+        <div id="TeamEditor" class="plain editor" v-if="displayEditor">
+          <h2>Modifier l'apparence</h2>
+          <div class="row">
+            <div class="col-xl-6 col-xxl-4">
+              <h3>Couleur principale</h3>
+              <color-picker v-model="teamColours[0]" />
+            </div>
+            <div class="col-xl-6 col-xxl-4">
+              <h3>Couleur secondaire</h3>
+              <color-picker v-model="teamColours[1]" />
+            </div>
+            <div class="col-xl-6 col-xxl-4">
+              <FileUploader ref="photo" :uploadFileName="'photo'+team.id"/>
+            </div>
+          </div>
+          <Button class="d-none d-md-block" :id="'Colours'" :text="'Enregistrer'" :color="'#000'" @clicked="saveEdition"/>
+        </div>
+        <div class="plain photo" :style="{'border-color': teamColours[0].hex}">
           <img class="cover" src="../assets/elements/Cover_Glass.png">
           <img :src="teamPhoto" @error="altPhoto"/>
         </div>
@@ -55,6 +81,8 @@
   import Button from '../components/ui/Button.vue';
   import Helmet from '../components/ui/Helmet.vue';
   import Loader from '../components/ui/Loader.vue';
+  import FileUploader from '../components/ui/FileUploader.vue';
+  import { Chrome } from 'vue-color'
 
   export default {
     name: 'Team',
@@ -63,25 +91,36 @@
       Modal,
       Button,
       Helmet,
-      Loader
+      Loader,
+      FileUploader,
+      'color-picker': Chrome,
     },
     data() {
       return {
         isFetching: true,
+        admin: window.admin,
+        displayEditor: true,
         modal: false,
         stats: false,
         formerPlayers: false,
         formerPlayersText: '+ Anciens',
+        teamColours: [],
         teamPhoto: 'img/teams/missing.jpg',
         chargingText: 'Chargement de l\'équipe...'
       }
     },
     computed: {
+      user() {
+        return this.$store.state.user;
+      },
       team(){
         return this.$store.state.team.team;
       }
     },
     methods: {
+      toggleEditor() {
+        this.displayEditor = !this.displayEditor;
+      },
       toggleStats() {
         this.stats = !this.stats;
       },
@@ -96,6 +135,17 @@
       },
       altPhoto() {
         this.teamPhoto = 'img/teams/missing.jpg'
+      },
+      coloursUpdate() {
+        this.$store.dispatch('team/updateTeamColours',[this.team.id,[this.teamColours[0].hex,this.teamColours[1].hex]]);
+        this.toggleEditor;
+      },
+      photoUpdate() {
+         this.$refs.photo.save();
+      },
+      saveEdition() {
+        this.coloursUpdate();
+        this.photoUpdate();
       }
     },
     mounted() {
@@ -106,7 +156,10 @@
         this.teamPhoto = 'img/teams/photo'+this.team.id+'.jpg';
         this.teamPhoto = 'img/teams/photo'+this.team.id+'.jpg';
         this.isFetching = this.team.length > 0 ? true : false;
-        this.titleText = Color(this.team.color_2).luminosity() < 0.05 ? '#AAA' : this.team.color_2;
+        this.teamColours = [ { hex: this.team.color_1,a: 1}, { hex: this.team.color_2,a: 1} ];
+      },
+      teamColours: function() {
+        this.titleText = Color(this.teamColours[1].hex).luminosity() < 0.08 ? '#AAA' : this.teamColours[1].hex;
       }
     }
   }
@@ -145,6 +198,11 @@
   @media (max-width: 576px) {
     .helmet {
       position: relative;
+    }
+  }
+  @media screen and (max-width: 1440px) {
+    .vc-chrome {
+      width: 200px;
     }
   }
 </style>

@@ -9,7 +9,9 @@ $prime-text:#EEE;
 $seconde-text:#CCC;
 $shadow: rgba(0, 0, 0, 0.90);
 $link-contrast: #000;
+$error: #C00;
 $error-85: rgba(212, 0, 0, 0.85);
+$success: #00A300;
 $main-bg: url('~@/assets/elements/autumn/Background.jpg');
 th { color:#000; }
 
@@ -23,6 +25,10 @@ th { color:#000; }
     src: url('~@/assets/styles/Akashi.ttf');
 }
 @media screen and (min-width: 1440px) {
+  .col-xxl-4 {
+    flex: 0 0 33.3%;
+    max-width: 33.3%;
+  }
   .col-xxl-6 {
     flex: 0 0 50%;
     max-width: 50%;
@@ -109,10 +115,10 @@ li > h3 { display:inline; }
   height: 30px;
   padding: 0 5px 0 25px;
   line-height: 30px;
-  color: $link-contrast;
+  color: $seconde-text;
   text-align: center;
   vertical-align: middle;
-  background: url('~@/assets/elements/Tab.png');
+  background:  url('~@/assets/elements/Tab.png');
 }
 .tab + .tab {
   background: url('~@/assets/elements/TabN.png');
@@ -255,3 +261,22 @@ li > h3 { display:inline; }
 .plain table { width: 100%; color:$prime-text;  text-align: center; }
 .td-left { text-align: left; padding-left: 10px; text-align: center; }
 tbody.table-hover tr:hover { background-color:transparent; background: $link-contrast; }
+
+/*Admin and edition*/
+.editor {
+  background: #FFFFFF;
+  h2, h3, h4, p{
+    color: $link-contrast;
+    font-family: Muli;
+    font-weight: 600
+  }
+  .vc-chrome {
+    box-shadow: none;
+  }
+  .success {
+    color: $success;
+  }
+  .error {
+    color: $error;
+  }
+}
