@@ -4,30 +4,36 @@
     <Modal v-if="modal == true"/>
     <div class="row">
       <div class="col-lg-12 col-xl-7">
-        <Helmet class="helmet" :race="team.param_id_race" :logo="team.logo" :colours="[teamColours[0].hex,teamColours[1].hex]" />
         <div class="plain seconde teamboard" :style="{'border-color': teamColours[1].hex}">
-          <h1 :style="{'color':titleText}">{{team.name}}</h1>
-          <h2 :style="{'color':titleText}">{{team.param_id_race | talkingToTheGods()}}</h2><br/>
-          <h2 v-for="n in team.popularity" :key="n" :style="{'color':titleText}">&#9733;</h2>
-          <div id="fame">
-            <h4 class="noselect" :style="{'color':titleText}">TV {{Intl.NumberFormat().format(team.value)}}</h4>
-            <h4 :style="{'color':titleText}">{{Intl.NumberFormat().format(team.cash)}} PO</h4>
+          <Helmet class="helmet" :race="team.param_id_race" :logo="team.logo" :colours="[teamColours[0].hex,teamColours[1].hex]" />
+
+          <div class="d-flex justify-content-between">
+            <div>
+              <h1 :style="{'color':titleText}">{{team.name}}</h1>
+              <h2 v-for="n in team.popularity" :key="n" :style="{'color':titleText}">&#9733;</h2>
+            </div>
+            <div class="text-right">
+              <h2 :style="{'color':titleText}">{{team.param_id_race | talkingToTheGods()}}</h2><br/>
+              <p>coaché par <span class="" :style="{'color':titleText}"><b>{{team.coach}}</b></span></p>
+            </div>
           </div>
-          <div>
-            <h4 :style="{'color':titleText}">{{team.roster}}</h4>
-            <ul class="teamDetails list-unstyled">
-              <li>coaché par <span class="" :style="{'color':titleText}"><b>{{team.coach}}</b></span></li>
-              <li v-if="team.sponsor">sponsorisé par <span class="" :style="{'color':titleText}"><b>{{team.sponsor.name}}</b></span></li>
-              <li class="zelda" @click="goToPage('competition/'+team.competition.id)" v-if="team.competition.id"> {{team.competition.name}}</li>
-            </ul><br />
-            <ul class="teamDetails col2 list-unstyled">
-              <li v-if="team.rerolls>0">{{team.rerolls}} relance<span v-if="team.rerolls>1">s</span></li>
-              <li v-if="team.apothecary>0">{{team.apothecary}} apothicaire</li>
-              <li v-if="team.cheerleaders>0">{{team.cheerleader}} pom-pom girl<span v-if="team.cheerleaders>1">s</span></li>
-              <li v-if="team.assistantcoaches>0">{{team.assistantcoaches}} assistant<span v-if="team.assistantcoaches>1">s</span></li>
-            </ul><br/>
-            <h6 class="text-right" :style="{'color':titleText}" v-if="team.leitmotiv"> "{{team.leitmotiv}}"</h6>
+          <div class="row">
+            <div class="col-md-4 col-lg-3">
+              <ul class="list-unstyled">
+                <li><img src="../assets/icons/treasury.png"> {{Intl.NumberFormat().format(team.cash)}} PO</li>
+                <li v-if="team.rerolls>0"><img src="../assets/icons/reroll.png"> {{team.rerolls}} relance<span v-if="team.rerolls>1">s</span></li>
+                <li v-if="team.apothecary>0"><img src="../assets/icons/apothecary.png"> {{team.apothecary}} apothicaire</li>
+              </ul>
+            </div>
+            <div class="col-md-4 col-lg-3">
+              <ul class="list-unstyled">
+                <li v-if="team.cheerleaders>0"><img src="../assets/icons/pompom.png"> {{team.cheerleaders}} pom-pom girl<span v-if="team.cheerleaders>1">s</span></li>
+                <li v-if="team.assistantcoaches>0"><img src="../assets/icons/assistant.png"> {{team.assistantcoaches}} assistant<span v-if="team.assistantcoaches>1">s</span></li>
+              </ul>
+            </div>
+            <br/>
           </div>
+          <h2 class="noselect" :style="{'color':titleText}">TV {{Intl.NumberFormat().format(team.value)}}</h2>
         </div>
         <div class="plain prime" :style="{'border-color': teamColours[0].hex}">
           <h2>Effectif</h2>
@@ -66,6 +72,7 @@
         <div class="plain photo" :style="{'border-color': teamColours[0].hex}">
           <img class="cover" src="../assets/elements/Cover_Glass.png">
           <img :src="teamPhoto" @error="altPhoto"/>
+          <h6 :style="{'color':titleText}" v-if="team.leitmotiv"> "{{team.leitmotiv}}"</h6>
         </div>
       </div>
     </div>
@@ -169,10 +176,10 @@
   .helmet {
     position: absolute;
     right:-1vw;
-    top:0;
+    bottom:-50px;
     z-index:2;
-    width:300px;
-    height:300px;
+    width:250px;
+    height:250px;
   }
   .teamboard {
     padding-bottom: 10px;
@@ -182,6 +189,16 @@
     }
     h2 {
       display: inline-block;
+    }
+    p,ul {
+      color: $prime-text;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 40px;
+
+    }
+    .card-columns {
+      column-count: 2;
     }
   }
   .photo {
