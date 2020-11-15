@@ -3,6 +3,19 @@
     <Loader v-if="isFetching" :text="chargingText"/>
     <Modal v-if="modal == true"/>
     <div class="row">
+      <div class="col-sm-12">
+        <div class="d-flex flex-row justify-content-end tabs">
+          <div v-if="admin==1" class="tab dark align-self-start">
+            <div class="label" @click="toggleStats()" >Reset</div>
+          </div>
+          <div v-if="(user.coach.id==team.coach_id || admin==1)" class="align-self-start dark"
+          :class="{tab : user.coach.id==team.coach_id || user.coach.id==team.coach_id || admin==1}">
+            <div class="label" @click="toggleEditor()">Editer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-lg-12 col-xl-7">
         <div class="plain seconde teamboard" :style="{'border-color': teamColours[1].hex}">
           <Helmet class="helmet" :race="team.param_id_race" :logo="team.logo" :colours="[teamColours[0].hex,teamColours[1].hex]" />
@@ -13,7 +26,7 @@
             </div>
             <div class="text-right">
               <h2 :style="{'color':titleText}">{{team.param_id_race | talkingToTheGods()}}</h2><br/>
-              <p>coaché par <span class="" :style="{'color':titleText}"><b>{{team.coach}}</b></span></p>
+              <p class="text-right" >coaché par <span class="" :style="{'color':titleText}"><b>{{team.coach}}</b></span></p>
             </div>
           </div>
           <div class="row staff">
@@ -42,15 +55,6 @@
         </div>
       </div>
       <div class="col-lg-12 col-xl-5">
-        <div class="d-flex flex-row justify-content-end tabs">
-          <div v-if="admin==1" class="tab dark align-self-start">
-            <div class="label" @click="toggleStats()" >Reset</div>
-          </div>
-          <div v-if="(user.coach.id==team.coach_id || admin==1)" class="align-self-start dark"
-          :class="{tab : user.coach.id==team.coach_id || user.coach.id==team.coach_id || admin==1}">
-            <div class="label" @click="toggleEditor()">Editer</div>
-          </div>
-        </div>
         <div id="TeamEditor" class="plain editor" v-if="displayEditor">
           <h2>Modifier l'apparence</h2>
           <div class="row">
@@ -193,8 +197,9 @@
       color: $prime-text;
       font-size: 16px;
       font-weight: 500;
+    }
+    ul {
       line-height: 40px;
-
     }
     .staff {
       min-height: 125px;
@@ -210,6 +215,24 @@
       position: absolute;
       z-index: 2;
     }
+    h6 {
+        position: absolute;
+        z-index: 1;
+        bottom: 0;
+        right: 0;
+        margin: 0.25em;
+        font-size: 3em;
+        line-height: 1em;
+        text-align: right;
+        font-family: 'Niconne', cursive;
+        color: $seconde-text;
+        text-shadow: 0 0.04em 0.07em $shadow;
+    }
+    @media (max-width: 1700px) {
+      h6 {
+        font-size: 2em;
+      }
+    }
   }
   @media (max-width: 576px) {
     .helmet {
@@ -220,18 +243,5 @@
     .vc-chrome {
       width: 200px;
     }
-  }
-  .leitmotiv {
-      position: absolute;
-      z-index: 1;
-      bottom: 0;
-      right: 0;
-      margin: 0.25em;
-      font-size: 3em;
-      line-height: 1em;
-      text-align: right;
-      font-family: 'Niconne', cursive;
-      color: $seconde-text;
-      text-shadow: 0 0.04em 0.07em $shadow;
   }
 </style>
