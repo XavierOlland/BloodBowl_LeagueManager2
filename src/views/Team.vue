@@ -2,29 +2,29 @@
   <div id="Team" class="view container">
     <Loader v-if="isFetching" :text="chargingText"/>
     <Modal v-if="modal == true"/>
-    <div class="row">
+    <div v-if="(user.coach.id==team.coach_id || admin==1)" class="row">
       <div class="col-sm-12">
         <div class="d-flex flex-row justify-content-end tabs">
           <div v-if="admin==1" class="tab dark align-self-start">
             <div class="label" @click="toggleStats()" >Reset</div>
           </div>
-          <div v-if="(user.coach.id==team.coach_id || admin==1)" class="align-self-start dark"
+          <div class="align-self-start dark"
           :class="{tab : user.coach.id==team.coach_id || user.coach.id==team.coach_id || admin==1}">
             <div class="label" @click="toggleEditor()">Editer</div>
           </div>
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row scroll-padding">
       <div class="col-lg-12 col-xl-7">
         <div class="plain seconde teamboard" :style="{'border-color': teamColours[1].hex}">
           <Helmet class="helmet" :race="team.param_id_race" :logo="team.logo" :colours="[teamColours[0].hex,teamColours[1].hex]" />
-          <div class="d-flex justify-content-between">
-            <div>
+          <div class="row justify-content-between">
+            <div class="col-sm-12 col-md-8">
               <h1 :style="{'color':titleText}">{{team.name}}</h1>
               <h2 v-for="n in team.popularity" :key="n" :style="{'color':titleText}">&#9733;</h2>
             </div>
-            <div class="text-right">
+            <div class="text-right col-sm-12 col-md-4">
               <h2 :style="{'color':titleText}">{{team.param_id_race | talkingToTheGods()}}</h2><br/>
               <p class="text-right" >coaché par <span class="" :style="{'color':titleText}"><b>{{team.coach}}</b></span></p>
             </div>
@@ -236,7 +236,7 @@
   }
   @media (max-width: 576px) {
     .helmet {
-      position: relative;
+      display: none;
     }
   }
   @media screen and (max-width: 1440px) {

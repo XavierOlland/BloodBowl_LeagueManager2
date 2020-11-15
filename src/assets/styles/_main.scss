@@ -256,6 +256,9 @@ li > h3 { display:inline; }
 .hidden {
   opacity: 0;
 }
+.scroll-padding {
+  padding-bottom: 45px;
+}
 
 /*Tables*/
 .plain table { width: 100%; color:$prime-text;  text-align: center; }
