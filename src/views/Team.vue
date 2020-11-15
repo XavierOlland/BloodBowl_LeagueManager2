@@ -6,7 +6,6 @@
       <div class="col-lg-12 col-xl-7">
         <div class="plain seconde teamboard" :style="{'border-color': teamColours[1].hex}">
           <Helmet class="helmet" :race="team.param_id_race" :logo="team.logo" :colours="[teamColours[0].hex,teamColours[1].hex]" />
-
           <div class="d-flex justify-content-between">
             <div>
               <h1 :style="{'color':titleText}">{{team.name}}</h1>
@@ -17,7 +16,7 @@
               <p>coaché par <span class="" :style="{'color':titleText}"><b>{{team.coach}}</b></span></p>
             </div>
           </div>
-          <div class="row">
+          <div class="row staff">
             <div class="col-md-4 col-lg-3">
               <ul class="list-unstyled">
                 <li><img src="../assets/icons/treasury.png"> {{Intl.NumberFormat().format(team.cash)}} PO</li>
@@ -70,9 +69,9 @@
           <Button class="d-none d-md-block" :id="'Colours'" :text="'Enregistrer'" :color="'#000'" @clicked="saveEdition"/>
         </div>
         <div class="plain photo" :style="{'border-color': teamColours[0].hex}">
-          <img class="cover" src="../assets/elements/Cover_Glass.png">
-          <img :src="teamPhoto" @error="altPhoto"/>
-          <h6 :style="{'color':titleText}" v-if="team.leitmotiv"> "{{team.leitmotiv}}"</h6>
+          <img class="cover" src="https://bbbl.fr/img/Cover_Glass.161c7da7.png">
+          <img src="http://www.bbbl.fr/img/teams/photo673.jpg" @error="altPhoto"/>
+          <h6 class="leitmotiv" :style="{'color':teamColours[0].hex}" v-if="team.leitmotiv"> "{{team.leitmotiv}}"</h6>
         </div>
       </div>
     </div>
@@ -106,7 +105,7 @@
       return {
         isFetching: true,
         admin: window.admin,
-        displayEditor: true,
+        displayEditor: false,
         modal: false,
         stats: false,
         formerPlayers: false,
@@ -197,8 +196,8 @@
       line-height: 40px;
 
     }
-    .card-columns {
-      column-count: 2;
+    .staff {
+      min-height: 125px;
     }
   }
   .photo {
@@ -221,5 +220,18 @@
     .vc-chrome {
       width: 200px;
     }
+  }
+  .leitmotiv {
+      position: absolute;
+      z-index: 1;
+      bottom: 0;
+      right: 0;
+      margin: 0.25em;
+      font-size: 3em;
+      line-height: 1em;
+      text-align: right;
+      font-family: 'Niconne', cursive;
+      color: $seconde-text;
+      text-shadow: 0 0.04em 0.07em $shadow;
   }
 </style>
