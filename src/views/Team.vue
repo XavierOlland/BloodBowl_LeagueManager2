@@ -77,6 +77,50 @@
           <img src="http://www.bbbl.fr/img/teams/photo673.jpg" @error="altPhoto"/>
           <h6 class="leitmotiv" :style="{'color':teamColours[0].hex}" v-if="team.leitmotiv"> "{{team.leitmotiv}}"</h6>
         </div>
+        <div class="plain seconde" :style="{'border-color': teamColours[1].hex}">
+          <h2>Dernières rencontres</h2>
+          <div class="row justify-content-md-center"
+            v-for="match in lastGames" :key="match.id" @click="matchDetails(match.id)">
+            <div class="match col-12 col-xl-8 align-self-center text-center" :class="{'winner': match.diff>0,'loser': match.diff<0}">
+              <div class="row align-self-center header">
+                <div class="col-12 d-flex justify-content-between">
+                  <h3 v-if="match.competition_name==match.season" class="align-self-baseline">{{match.competition_name}} </h3>
+                  <h3 v-else class="align-self-baseline">{{match.season}} - {{match.competition_name}}</h3>
+                  <h4 class="time align-self-baseline">{{match.started | moment("D MMM YYYY")}}</h4>
+                </div>
+                <hr/>
+              </div>
+              <div class="row">
+                <div class="col-4 text-center">
+                  <img class="teamLogo" :src="'https://bbbl.fr/img/logos/Logo_' + match.team_1_logo + '.png'">
+                  <h4>{{match.team_1_name}}</h4>
+                </div>
+                <div class="col-4 align-self-center text-center">
+                  <span class="score">
+                    <span
+                      :class="{'winner': match.team_id_1==team.id && match.diff>0,'loser': match.team_id_2==team.id && match.diff<0}">{{match.team_1_score}}</span> -
+                    <span :class="{'winner': match.team_id_2==team.id && match.diff>0,'loser': match.team_id_1==team.id && match.diff<0}">{{match.team_2_score}}</span>
+                  </span>
+                </div>
+                <div class="col-4 text-center">
+                  <img class="teamLogo" :src="'https://bbbl.fr/img/logos/Logo_' + match.team_2_logo + '.png'">
+                  <h4>{{match.team_2_name}}</h4>
+                </div>
+              </div>
+              <div class="row align-self-center footer">
+                <hr/>
+                <div class="col-12 d-flex justify-content-center">
+                <p><span v-if="match.diff==0">Match nuls</span>
+                  <span v-if="match.diff<0">Défaite</span>
+                  <span v-if="match.diff>0">Victoire</span> face aux
+                  <span v-if="match.team_id_1!=team.id"><b>{{match.team_1_race | talkingToTheGods()}}</b> coachés par {{match.team_1_coach}}</span>
+                  <span v-if="match.team_id_2!=team.id"><b>{{match.team_2_race | talkingToTheGods()}}</b> coachés par {{match.team_2_coach}}</span>
+                </p>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <Button :id="'Back'" :type="'back'" @clicked="$router.go(-1)"/>
@@ -125,7 +169,10 @@
       },
       team(){
         return this.$store.state.team.team;
-      }
+      },
+      lastGames(){
+        return this.$store.state.team.lastGames;
+      },
     },
     methods: {
       toggleEditor() {
@@ -156,6 +203,9 @@
       saveEdition() {
         this.coloursUpdate();
         this.photoUpdate();
+      },
+      matchDetails(id) {
+        this.$router.push({ name: 'Match', params: { id:id } })
       }
     },
     mounted() {
@@ -243,5 +293,67 @@
     .vc-chrome {
       width: 200px;
     }
+  }
+  .teamLogo {
+    width: 25%;
+    height: auto;
+    text-align: center;
+  }
+  .score {
+    font-family: 'Akashi';
+    font-size: 2rem;
+    line-height: 2.3rem !important;
+    font-weight: 400;
+    letter-spacing: -0.15rem;
+    margin: 0 0.5rem;
+    color: $prime-text;
+  }
+  .winner {
+    color: #070;
+    font-size: 2.3rem;
+  }
+  .loser {
+    color: #900;
+    font-size: 2.3rem;
+  }
+  h3 {
+    float:left;
+  }
+  .time {float:right;
+  }
+  .match {
+    border: 1px solid #555;
+    border-radius: 5px;
+    margin:10px;
+    padding:10px;
+    background:  linear-gradient(160deg,transparent,transparent,#5555);
+    cursor: pointer;
+    h3,h4 {
+      margin:0;
+    }
+    hr {
+      border-top: 1px solid #999;
+      width: 100%;
+      margin: 5px 15px;
+    }
+    .header {
+      margin: 0 0 10px;
+    }
+    .footer {
+      margin: 10px 0 0;
+      text-align: center;
+      p {
+        margin:0;
+      }
+    }
+
+  }
+  .match.winner {
+    border-color:#070;
+    background:  linear-gradient(160deg,transparent,transparent,#0705);
+  }
+  .match.loser {
+    border-color:#900;
+    background:  linear-gradient(160deg,transparent,transparent,#9005);
   }
 </style>
