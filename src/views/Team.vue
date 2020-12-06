@@ -78,7 +78,7 @@
           <h6 class="leitmotiv" :style="{'color':teamColours[0].hex}" v-if="team.leitmotiv"> "{{team.leitmotiv}}"</h6>
         </div>
         <div class="plain seconde" :style="{'border-color': teamColours[1].hex}">
-          <h2>Dernières rencontres</h2>
+          <h2 :style="{'color':titleText}">Dernières rencontres</h2>
           <div class="row justify-content-md-center"
             v-for="match in lastGames" :key="match.id" @click="matchDetails(match.id)">
             <div class="match col-12 col-xl-8 align-self-center text-center" :class="{'winner': match.diff>0,'loser': match.diff<0}">
@@ -294,33 +294,8 @@
       width: 200px;
     }
   }
-  .teamLogo {
-    width: 25%;
-    height: auto;
-    text-align: center;
-  }
-  .score {
-    font-family: 'Akashi';
-    font-size: 2rem;
-    line-height: 2.3rem !important;
-    font-weight: 400;
-    letter-spacing: -0.15rem;
-    margin: 0 0.5rem;
-    color: $prime-text;
-  }
-  .winner {
-    color: #070;
-    font-size: 2.3rem;
-  }
-  .loser {
-    color: #900;
-    font-size: 2.3rem;
-  }
-  h3 {
-    float:left;
-  }
-  .time {float:right;
-  }
+
+
   .match {
     border: 1px solid #555;
     border-radius: 5px;
@@ -329,12 +304,35 @@
     background:  linear-gradient(160deg,transparent,transparent,#5555);
     cursor: pointer;
     h3,h4 {
-      margin:0;
+      margin: 0;
+      color: $seconde-text;
     }
     hr {
-      border-top: 1px solid #999;
+      border-top: 1px solid #555;
       width: 100%;
       margin: 5px 15px;
+    }
+    .teamLogo {
+      width: 40%;
+      height: auto;
+      text-align: center;
+    }
+    .score {
+      font-family: 'Akashi';
+      font-size: 2rem;
+      line-height: 2.3rem !important;
+      font-weight: 400;
+      letter-spacing: -0.15rem;
+      margin: 0 0.5rem;
+      color: $prime-text;
+    }
+    .winner {
+      color: #070;
+      font-size: 2.3rem;
+    }
+    .loser {
+      color: #900;
+      font-size: 2.3rem;
     }
     .header {
       margin: 0 0 10px;
