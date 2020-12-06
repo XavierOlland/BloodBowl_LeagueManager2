@@ -5,12 +5,12 @@
       <tr :style="'background:' + colours[0]">
         <th class="text-left">Joueur</th>
         <th class="text-left">Position</th>
-        <th class="text-center" v-if="!showStats">MA</th>
-        <th class="text-center" v-if="!showStats">FO</th>
-        <th class="text-center" v-if="!showStats">AG</th>
-        <th class="text-center" v-if="!showStats">AV</th>
-        <th class="text-center d-none d-md-table-cell" v-if="!showStats">Niv</th>
-        <th class="text-center d-none d-md-table-cell" v-if="!showStats">XP</th>
+        <th class="text-center d-none d-md-table-cell" v-if="!showStats">MA</th>
+        <th class="text-center d-none d-md-table-cell" v-if="!showStats">FO</th>
+        <th class="text-center d-none d-md-table-cell" v-if="!showStats">AG</th>
+        <th class="text-center d-none d-md-table-cell" v-if="!showStats">AV</th>
+        <th class="text-center" v-if="!showStats">Niv</th>
+        <th class="text-center" v-if="!showStats">XP</th>
         <th class="text-center" v-if="showStats" title="Joueur du match">JDM</th>
         <th class="text-center" v-if="showStats" title="Passes">Pa</th>
         <th class="text-center" v-if="showStats" title="Réceptions">Réc</th>
@@ -35,12 +35,12 @@
             <span>{{player.name}}</span>
           </td>
           <td class="text-left text-cutter">{{player.position | talkingToTheGods()}}</td>
-          <td class="text-center text-cutter" v-if="!showStats">{{JSON.parse(player.attributes).ma}}</td>
-          <td class="text-center" v-if="!showStats">{{JSON.parse(player.attributes).st}}</td>
-          <td class="text-center" v-if="!showStats">{{JSON.parse(player.attributes).ag}}</td>
-          <td class="text-center" v-if="!showStats">{{JSON.parse(player.attributes).av}}</td>
-          <td class="text-center d-none d-md-table-cell" v-if="!showStats">{{player.level}}</td>
-          <td class="text-center d-none d-md-table-cell" v-if="!showStats">{{player.xp}}</td>
+          <td class="text-center d-none d-md-table-cell" v-if="!showStats">{{JSON.parse(player.attributes).ma}}</td>
+          <td class="text-center d-none d-md-table-cell" v-if="!showStats">{{JSON.parse(player.attributes).st}}</td>
+          <td class="text-center d-none d-md-table-cell" v-if="!showStats">{{JSON.parse(player.attributes).ag}}</td>
+          <td class="text-center d-none d-md-table-cell" v-if="!showStats">{{JSON.parse(player.attributes).av}}</td>
+          <td class="text-center" v-if="!showStats">{{player.level}}</td>
+          <td class="text-center" v-if="!showStats">{{player.xp}}</td>
           <td class="text-center" v-if="showStats">{{player.stats.mvp}}</td>
           <td class="text-center" v-if="showStats">{{player.stats.inflictedpasses}}</td>
           <td class="text-center" v-if="showStats">{{player.stats.inflictedcatches}}</td>
