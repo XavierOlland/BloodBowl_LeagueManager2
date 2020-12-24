@@ -19,6 +19,9 @@ const mutations = {
   setLastGames(state, payload) {
     state.lastGames = payload;
   },
+  setHistory(state, payload) {
+    state.history = payload;
+  },
   setTeamColours(state, payload) {
     state.team.color_1 = payload[0];
     state.team.color_2 = payload[1];
