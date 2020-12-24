@@ -53,6 +53,10 @@
           <Button class="d-none d-md-block" :id="'Stats'" :text="'Statistiques'" :color="teamColours[0].hex" @clicked="toggleStats"/>
           <Button class="d-none d-md-block" :id="'FormerPlayers'" :type="'secondary'" :text="formerPlayersText" :color="teamColours[0].hex" @clicked="toggleFormerPlayers"/>
         </div>
+        <div class="plain prime" :style="{'border-color': teamColours[0].hex}">
+          <h2>Historique</h2>
+          <Competitions :history="history" :details="true" :colours="[teamColours[0].hex, teamColours[1].hex, titleText]"/>
+        </div>
       </div>
       <div class="col-lg-12 col-xl-5">
         <div id="TeamEditor" class="plain editor" v-if="displayEditor">
@@ -130,7 +134,8 @@
 <script>
   const Color = require('color');
 
-  import Roster from '../components/Roster.vue'
+  import Roster from '../components/team/Roster.vue'
+  import Competitions from '../components/team/Competitions.vue'
   import Modal from '../components/Modal.vue'
   import Button from '../components/ui/Button.vue';
   import Helmet from '../components/ui/Helmet.vue';
@@ -142,6 +147,7 @@
     name: 'Team',
     components: {
       Roster,
+      Competitions,
       Modal,
       Button,
       Helmet,
@@ -173,6 +179,9 @@
       lastGames(){
         return this.$store.state.team.lastGames;
       },
+      history(){
+        return this.$store.state.team.history;
+      }
     },
     methods: {
       toggleEditor() {
