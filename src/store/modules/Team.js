@@ -8,7 +8,8 @@ const instance = axios.create({
 const route = process.env.VUE_APP_BACKEND_ROUTES;
 const state = {
   team: {},
-  lastGames: {}
+  lastGames: [],
+  history: []
 }
 
 const mutations = {
@@ -31,6 +32,7 @@ const actions = {
         var team = response.data;
         context.commit('setTeam', team);
         context.dispatch('fetchTeamLastGames',[team.id,5]);
+        context.dispatch('fetchTeamHistory',team.id);
       }, error => {
         console.error(error); // eslint-disable-line no-console
       });
@@ -39,6 +41,14 @@ const actions = {
     instance.post(route + 'teamLastGames', params).then(response => {
       var games = response.data;
       context.commit('setLastGames', games);
+    }, error => {
+      console.error(error); // eslint-disable-line no-console
+    });
+  },
+  fetchTeamHistory(context, team_id) {
+    instance.post(route + 'teamHistory', [team_id]).then(response => {
+      var history = response.data;
+      context.commit('setHistory', history);
     }, error => {
       console.error(error); // eslint-disable-line no-console
     });
