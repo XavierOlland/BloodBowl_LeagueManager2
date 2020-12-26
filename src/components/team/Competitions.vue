@@ -14,18 +14,19 @@
         <th class="text-center d-resp-table-cell" v-if="details==true" title="Nuls">N</th>
         <th class="text-center d-none d-sm-table-cell d-resp-none" v-if="details==true">Défaites</th>
         <th class="text-center d-resp-table-cell" v-if="details==true" title="Défaites">D</th>
-        <th class="text-center d-none d-sm-table-cell" v-if="details==true" title="Touchdowns">TD</th>
+        <th class="text-center d-none d-sm-table-cell" v-if="details==true" title="Différence de TD">TD</th>
         <th class="text-center d-none d-md-table-cell d-resp-none" v-if="details==true">Sorties</th>
-        <th class="text-center d-resp-table-cell" v-if="details==true" title="Sorties">S</th>
+        <th class="text-center d-resp-table-cell" v-if="details==true" title="Différence de sorties">S</th>
         <th class="text-center d-none d-md-table-cell d-resp-none" v-if="details==true">Matchs</th>
         <th class="text-center d-resp-table-cell" v-if="details==true" title="Matchs">M</th>
         <th class="text-center d-none d-md-table-cell d-resp-none" v-if="details==true" >Pts/Matchs</th>
-        <th class="text-center d-resp-table-cell" v-if="details==true" >P/M</th>
+        <th class="text-center d-resp-table-cell" v-if="details==true" title="Points par matchs">P/M</th>
       </tr>
       </thead>
       <tbody  class="table-hover noselect">
         <tr v-for="competition in history" :key="competition.id"
-        :class="['standing-' + competition.rank]" class="zelda teamHover" :style="{'border-color': colours[0]}">
+        :class="['standing-' + competition.rank]" class="zelda teamHover" :style="{'border-color': colours[0]}"
+        @click="$router.push({ name: 'Competition', params: { id: competition.competition_id }})">
           <td class="text-left text-cutter d-resp-none">{{competition.competition_name}}</td>
           <td class="text-left text-cutter d-resp-table-cell" style="max-width:120px">{{competition.competition_name}}</td>
           <td class="text-center text-cutter">{{competition.rank}}</td>
@@ -33,10 +34,10 @@
           <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{competition.win}}</td>
           <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{competition.draw}}</td>
           <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{competition.loss}}</td>
-          <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{competition.touchdowns}}</td>
-          <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{competition.casualties}}</td>
+          <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{competition.touchdowns_diff}}</td>
+          <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{competition.casualties_diff}}</td>
           <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{competition.matches}}</td>
-          <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{competition.points / (competition.win+competition.draw+competition.loss) | round(1)}}</td>
+          <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{competition.points / competition.matches | round(1)}}</td>
         </tr>
       </tbody>
     </table>

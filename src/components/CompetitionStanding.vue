@@ -9,29 +9,29 @@
           <th class="text-left d-none d-md-table-cell">Race</th>
           <th class="text-left d-none d-sm-table-cell">Coach</th>
           <th class="text-center">Pts</th>
-          <th class="text-center d-none d-md-table-cell" v-if="details==true">V</th>
-          <th class="text-center d-none d-md-table-cell" v-if="details==true">N</th>
-          <th class="text-center d-none d-md-table-cell" v-if="details==true">D</th>
-          <th class="text-center d-none d-sm-table-cell" v-if="details==true">TD</th>
-          <th class="text-center d-none d-sm-table-cell" v-if="details==true">S</th>
-          <th class="text-center d-none d-md-table-cell" v-if="details==true">M</th>
-          <th class="text-center d-none" v-if="details==true" >Pts/M</th>
+          <th class="text-center d-none d-md-table-cell" v-if="details==true" title="Victoires">V</th>
+          <th class="text-center d-none d-md-table-cell" v-if="details==true" title="Nuls">N</th>
+          <th class="text-center d-none d-md-table-cell" v-if="details==true" title="Défaites">D</th>
+          <th class="text-center d-none d-sm-table-cell" v-if="details==true" title="Différence de TD">TD</th>
+          <th class="text-center d-none d-sm-table-cell" v-if="details==true" title="Différence de sorties">S</th>
+          <th class="text-center d-none d-md-table-cell" v-if="details==true && competition.active==1" title="Matchs">M</th>
+          <th class="text-center d-none d-md-table-cell" v-if="details==true" title="Points par matchs">Pts/M</th>
         </tr>
       </thead>
       <tbody :class="{'table-hover': details==true}">
-        <tr v-for="(team, index) in competition.standing.slice(0,limit)" :key="team.id" :class="['standing-' + index, {zelda: teamAccess!=0 }]" @click="goToTeam(team.cyanide_id)">
-          <td>{{index+1}}</td>
-          <td class="text-left"><img :src="'https://bbbl.fr/img/logos/Logo_'+team.logo+'.png'"> {{team.name}}</td>
-          <td class="text-left d-none d-md-table-cell" >{{team.race | talkingToTheGods()}}</td>
-          <td class="text-left d-none d-sm-table-cell" >{{team.coach}}</td>
-          <td class="text-center">{{team.Pts}}</td>
-          <td class="text-center d-none d-md-table-cell" v-if="details==true">{{team.V}}</td>
-          <td class="text-center d-none d-md-table-cell" v-if="details==true">{{team.N}}</td>
-          <td class="text-center d-none d-md-table-cell" v-if="details==true">{{team.D}}</td>
-          <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{team.TD}}</td>
-          <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{team.S}}</td>
-          <td class="text-center d-none d-md-table-cell" v-if="details==true">{{team.V+team.N+team.D}}</td>
-          <td class="text-center d-none" v-if="details==true">{{team.Pts / (team.V+team.N+team.D) | round(1)}}</td>
+        <tr v-for="team in competition.standing.slice(0,limit)" :key="team.id" :class="['standing-' + rank, {zelda: teamAccess!=0 }]" @click="goToTeam(team.team_cyanide_id)">
+          <td>{{rank}}</td>
+          <td class="text-left"><img :src="'https://bbbl.fr/img/logos/Logo_'+team.team_logo+'.png'"> {{team.team_name}}</td>
+          <td class="text-left d-none d-md-table-cell" >{{team.team_race | talkingToTheGods()}}</td>
+          <td class="text-left d-none d-sm-table-cell" >{{team.coach_name}}</td>
+          <td class="text-center">{{team.points}}</td>
+          <td class="text-center d-none d-md-table-cell" v-if="details==true">{{team.win}}</td>
+          <td class="text-center d-none d-md-table-cell" v-if="details==true">{{team.draw}}</td>
+          <td class="text-center d-none d-md-table-cell" v-if="details==true">{{team.loss}}</td>
+          <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{team.touchdowns_diff}}</td>
+          <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{team.casualties_diff}}</td>
+          <td class="text-center d-none d-md-table-cell" v-if="details==true && competition.active==1">{{team.win+team.draw+team.loss}}</td>
+          <td class="text-center d-none d-md-table-cell" v-if="details==true">{{team.points / (team.win+team.draw+team.loss) | round(1)}}</td>
         </tr>
       </tbody>
     </table>
@@ -67,13 +67,13 @@
   td img{
     max-width: 20px; max-height: 20px; display: inline; padding-right: 2px;
   }
-  .standing-0 {
+  .standing-1 {
     background: linear-gradient(to left, rgba(255,215,0,0.1),rgba(255,215,0,0.65), rgba(255,215,0,0.1));
   }
-  .standing-1 {
+  .standing-2 {
     background: linear-gradient(to left, rgba(192,192,192,0.1),rgba(192,192,192,0.65), rgba(192,192,192,0.1));
   }
-  .standing-2 {
+  .standing-3 {
     background: linear-gradient(to left, rgba(205,127,50,0.1),rgba(205,127,50,0.65), rgba(205,127,50,0.1));
   }
 </style>
