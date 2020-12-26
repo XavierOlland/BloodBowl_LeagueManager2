@@ -55,6 +55,31 @@
         </div>
         <div class="plain prime" :style="{'border-color': teamColours[0].hex}">
           <h2>Historique</h2>
+          <div class="d-flex justify-content-around text-center">
+            <div class="d-sm-none d-md-block">
+              <h3 :style="{'color': teamColours[0].hex}">Matchs</h3>
+              <h1>{{team.matches | round(2)}}</h1>
+            </div>
+            <div>
+              <h3 :style="{'color': teamColours[0].hex}">Victoires</h3>
+              <h1>{{team.win}}</h1>
+              <p>{{team.win/(team.matches)*100 | round(1)}}%</p>
+            </div>
+            <div>
+              <h3 :style="{'color': teamColours[0].hex}">Nuls</h3>
+              <h1>{{team.draw}}</h1>
+              <p>{{team.draw/(team.matches)*100 | round(1)}}%</p>
+            </div>
+            <div>
+              <h3 :style="{'color': teamColours[0].hex}">Défaites</h3>
+              <h1>{{team.loss}}</h1>
+              <p>{{team.loss/(team.matches)*100 | round(1)}}%</p>
+            </div>
+            <div class="d-sm-none d-md-block">
+              <h3 :style="{'color': teamColours[0].hex}">Pts/Match</h3>
+              <h1>{{team.ptspermatch | round(2)}}</h1>
+            </div>
+          </div>
           <Competitions :history="history" :details="true" :colours="[teamColours[0].hex, teamColours[1].hex, titleText]"/>
         </div>
       </div>
@@ -229,6 +254,13 @@
       },
       teamColours: function() {
         this.titleText = Color(this.teamColours[1].hex).luminosity() < 0.08 ? '#AAA' : this.teamColours[1].hex;
+      },
+      history: function() {
+        this.team.win = this.history.reduce((sum, competition) => { return sum += competition.win }, 0);
+        this.team.draw = this.history.reduce((sum, competition) => { return sum += competition.draw }, 0);
+        this.team.loss = this.history.reduce((sum, competition) => { return sum += competition.loss }, 0);
+        this.team.matches = this.history.reduce((sum, competition) => { return sum += competition.matches }, 0);
+        this.team.ptspermatch = this.history.reduce((sum, competition) => { return sum += competition.points }, 0)/this.team.matches;
       }
     }
   }
