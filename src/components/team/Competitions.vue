@@ -4,30 +4,39 @@
       <thead>
       <tr :style="'background:' + colours[0]">
         <th class="text-left">Competition</th>
-        <th class="text-center">Classement</th>
-        <th class="text-center">Points</th>
-        <th class="text-center d-none d-md-table-cell" v-if="details==true">Victoires</th>
-        <th class="text-center d-none d-md-table-cell" v-if="details==true">Nuls</th>
-        <th class="text-center d-none d-md-table-cell" v-if="details==true">Défaites</th>
-        <th class="text-center d-none d-sm-table-cell" v-if="details==true">TD</th>
-        <th class="text-center d-none d-sm-table-cell" v-if="details==true">Sorties</th>
-        <th class="text-center d-none d-md-table-cell" v-if="details==true">Matchs</th>
-        <th class="text-center d-noned-md-table-cell" v-if="details==true" >Pts/Matchs</th>
+        <th class="text-center d-resp-none">Classement</th>
+        <th class="text-center d-resp-table-cell" title="Classement">Cl</th>
+        <th class="text-center d-resp-none">Points</th>
+        <th class="text-center d-resp-table-cell" title="Points">Pts</th>
+        <th class="text-center d-none d-sm-table-cell d-resp-none" v-if="details==true">Victoires</th>
+        <th class="text-center d-resp-table-cell" v-if="details==true" title="Victoires">V</th>
+        <th class="text-center d-none d-sm-table-cell d-resp-none" v-if="details==true">Nuls</th>
+        <th class="text-center d-resp-table-cell" v-if="details==true" title="Nuls">N</th>
+        <th class="text-center d-none d-sm-table-cell d-resp-none" v-if="details==true">Défaites</th>
+        <th class="text-center d-resp-table-cell" v-if="details==true" title="Défaites">D</th>
+        <th class="text-center d-none d-sm-table-cell" v-if="details==true" title="Touchdowns">TD</th>
+        <th class="text-center d-none d-md-table-cell d-resp-none" v-if="details==true">Sorties</th>
+        <th class="text-center d-resp-table-cell" v-if="details==true" title="Sorties">S</th>
+        <th class="text-center d-none d-md-table-cell d-resp-none" v-if="details==true">Matchs</th>
+        <th class="text-center d-resp-table-cell" v-if="details==true" title="Matchs">M</th>
+        <th class="text-center d-none d-md-table-cell d-resp-none" v-if="details==true" >Pts/Matchs</th>
+        <th class="text-center d-resp-table-cell" v-if="details==true" >P/M</th>
       </tr>
       </thead>
       <tbody  class="table-hover noselect">
         <tr v-for="competition in history" :key="competition.id"
-        class="zelda teamHover" :style="{'border-color': colours[0]}">
-          <td class="text-left text-cutter">{{competition.competition_name}}</td>
+        :class="['standing-' + competition.rank]" class="zelda teamHover" :style="{'border-color': colours[0]}">
+          <td class="text-left text-cutter d-resp-none">{{competition.competition_name}}</td>
+          <td class="text-left text-cutter d-resp-table-cell" style="max-width:120px">{{competition.competition_name}}</td>
           <td class="text-center text-cutter">{{competition.rank}}</td>
           <td class="text-center">{{competition.points}}</td>
-          <td class="text-center d-none d-md-table-cell" v-if="details==true">{{competition.win}}</td>
-          <td class="text-center d-none d-md-table-cell" v-if="details==true">{{competition.draw}}</td>
-          <td class="text-center d-none d-md-table-cell" v-if="details==true">{{competition.loss}}</td>
+          <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{competition.win}}</td>
+          <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{competition.draw}}</td>
+          <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{competition.loss}}</td>
           <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{competition.touchdowns}}</td>
           <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{competition.casualties}}</td>
-          <td class="text-center d-none d-md-table-cell" v-if="details==true">{{competition.win+competition.draw+competition.loss}}</td>
-          <td class="text-center d-none d-md-table-cell" v-if="details==true">{{competition.points / (competition.win+competition.draw+competition.loss) | round(1)}}</td>
+          <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{competition.matches}}</td>
+          <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{competition.points / (competition.win+competition.draw+competition.loss) | round(1)}}</td>
         </tr>
       </tbody>
     </table>
@@ -87,5 +96,25 @@
   }
   .teamHover:hover {
     background: linear-gradient(to right, rgba(0,0,0,0.1), var(--team-1), rgba(0,0,0,0.1)) !important;
+  }
+  .d-resp-table-cell, .d-resp-block {
+    display: none;
+  }
+  @media (max-width: 992px), (min-width: 1200px) and (max-width: 1750px) {
+    .d-resp-none {
+      display: none !important;
+    }
+    .d-resp-table-cell {
+      display: table-cell;
+    }
+  }
+  .standing-1 {
+    background: linear-gradient(to left, rgba(255,215,0,0.1),rgba(255,215,0,0.65), rgba(255,215,0,0.1));
+  }
+  .standing-2 {
+    background: linear-gradient(to left, rgba(192,192,192,0.1),rgba(192,192,192,0.65), rgba(192,192,192,0.1));
+  }
+  .standing-3 {
+    background: linear-gradient(to left, rgba(205,127,50,0.1),rgba(205,127,50,0.65), rgba(205,127,50,0.1));
   }
 </style>

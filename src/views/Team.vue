@@ -55,7 +55,7 @@
         </div>
         <div class="plain prime" :style="{'border-color': teamColours[0].hex}">
           <h2>Historique</h2>
-          <div class="d-flex justify-content-around text-center">
+          <div class="d-none d-sm-flex justify-content-around text-center">
             <div class="d-sm-none d-md-block">
               <h3 :style="{'color': teamColours[0].hex}">Matchs</h3>
               <h1>{{team.matches | round(2)}}</h1>
@@ -395,4 +395,5 @@
     border-color:#900;
     background:  linear-gradient(160deg,transparent,transparent,#9005);
   }
+
 </style>
