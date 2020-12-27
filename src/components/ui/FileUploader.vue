@@ -42,10 +42,16 @@
           }
         },
     methods: {
-      upload(formData) {
+      async upload(formData) {
         formData.append('file', this.$refs.file.files[0]);
         formData.append('photoName', [this.uploadFileName])
-        return this.$store.dispatch('team/uploadTeamPhoto',formData);
+        try {
+          await this.$store.dispatch('team/uploadTeamPhoto',formData);
+          this.currentStatus = STATUS_SUCCESS
+        } catch (e) {
+            this.currentStatus = STATUS_FAILED
+        }
+
       },
       reset() {
          this.currentStatus = STATUS_INITIAL;
@@ -56,12 +62,6 @@
           this.currentStatus = STATUS_SAVING;
           const formData = new FormData();
           this.upload(formData)
-            .then(
-              this.currentStatus = STATUS_SUCCESS
-            )
-            .catch(
-               this.currentStatus = STATUS_FAILED
-            );
         }
       },
       filesChange() {

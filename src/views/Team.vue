@@ -47,7 +47,7 @@
           </div>
           <h2 class="noselect" :style="{'color':titleText}">TV {{Intl.NumberFormat().format(team.value)}}</h2>
         </div>
-        <div class="plain prime" :style="{'border-color': teamColours[0].hex}">
+        <div v-if="titles.length>0" class="plain prime" :style="{'border-color': teamColours[0].hex}">
           <h2>Titres de champions</h2>
           <br/>
           <div class="d-none d-sm-flex justify-content-around text-center">
