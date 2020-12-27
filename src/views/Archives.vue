@@ -18,7 +18,7 @@
               :mode="'list'"
               :competition="{id:archive.standing[0].competition_id,name:archive.standing[0].competition_name}"
               :coach="archive.standing[0].coach_name"
-              :team="archive.standing[0].team_name"
+              :team="{id:archive.standing[0].team_cyanide_id, name:archive.standing[0].team_name}"
               :race="Number(archive.standing[0].team_race)"
               :logo="archive.standing[0].team_logo"
               :colours="JSON.parse(archive.standing[0].team_colors)"
