@@ -27,8 +27,8 @@
         <tr v-for="competition in history" :key="competition.id"
         :class="['standing-' + competition.rank]" class="zelda teamHover" :style="{'border-color': colours[0]}"
         @click="$router.push({ name: 'Competition', params: { id: competition.competition_id }})">
-          <td class="text-left text-cutter d-resp-none">{{competition.competition_name}}</td>
-          <td class="text-left text-cutter d-resp-table-cell" style="max-width:120px">{{competition.competition_name}}</td>
+          <td class="text-left text-cutter d-resp-none">{{competition.season===competition.competition_name?competition.season:competition.season+' - '+competition.competition_name}}</td>
+          <td class="text-left text-cutter d-resp-table-cell" style="max-width:120px">{{competition.season===competition.competition_name?competition.season:competition.season+' - '+competition.competition_name}}</td>
           <td class="text-center text-cutter">{{competition.rank}}</td>
           <td class="text-center">{{competition.points}}</td>
           <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{competition.win}}</td>

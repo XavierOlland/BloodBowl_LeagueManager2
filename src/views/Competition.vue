@@ -20,7 +20,7 @@
         <div class="plain prime">
           <CompetitionStanding v-if="competition.format!='single_elimination'" :competition="competition" :details="true" :limit="100" :teamAccess="true"/>
           <StandingSingleElimination v-else :competition="competition" :details="true" :limit="100" :teamAccess="true" :roundsName="roundsName" :roundsCount="competition.rounds_count"/>
-          <Button :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
+          <Button v-if="competition.active==1" :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
         </div>
         <div class="card-columns">
           <Statistics class="d-none d-sm-inline-block card" v-for="stat in competition.playersStats" :key="stat.type" :statistics="stat" :limit="3" :dictionnary="dictionnary"/>
@@ -137,7 +137,7 @@
           if(this.competition.active==1){
             switch(this.competition.format){
               case 'single_elimination':
-                this.hasChampion = this.competition.standing.filter(team => team.D==0).length==1? true : false;
+                this.hasChampion = this.competition.standing.filter(team => team.loss==0).length==1? true : false;
                 break
               case 'ladder':
                 this.hasChampion = false;

@@ -48,12 +48,24 @@
           <h2 class="noselect" :style="{'color':titleText}">TV {{Intl.NumberFormat().format(team.value)}}</h2>
         </div>
         <div class="plain prime" :style="{'border-color': teamColours[0].hex}">
+          <h2>Titres de champions</h2>
+          <br/>
+          <div class="d-none d-sm-flex justify-content-around text-center">
+            <div v-for="title in titles" :key="title.competition_id" class="title zelda" @click="$router.push({ name: 'Competition', params: { id: title.competition_id }})">
+              <img src="../assets/elements/single_elimination.png"/>
+              <h2 :style="{'color': teamColours[0].hex}">{{title.season}}</h2>
+              <hr/>
+              <h3 :style="{'color': teamColours[0].hex}">{{title.competition_name}}</h3>
+            </div>
+          </div>
+        </div>
+        <div class="plain prime" :style="{'border-color': teamColours[0].hex}">
           <h2>Effectif</h2>
           <Roster :roster="team.players" :colours="[teamColours[0].hex, teamColours[1].hex, titleText]" :formerPlayers="formerPlayers" :showStats="stats" />
           <Button class="d-none d-md-block" :id="'Stats'" :text="'Statistiques'" :color="teamColours[0].hex" @clicked="toggleStats"/>
           <Button class="d-none d-md-block" :id="'FormerPlayers'" :type="'secondary'" :text="formerPlayersText" :color="teamColours[0].hex" @clicked="toggleFormerPlayers"/>
         </div>
-        <div class="plain prime" :style="{'border-color': teamColours[0].hex}">
+        <div v-if="history.length>0" class="plain prime" :style="{'border-color': teamColours[0].hex}">
           <h2>Historique</h2>
           <div class="d-none d-sm-flex justify-content-around text-center">
             <div class="d-sm-none d-md-block">
@@ -206,6 +218,10 @@
       },
       history(){
         return this.$store.state.team.history;
+      },
+      titles() {
+        var titles = this.$store.state.team.history.filter(standings => standings.champion == 1 && standings.rank==1 );
+        return titles
       }
     },
     methods: {
@@ -294,6 +310,13 @@
     }
     .staff {
       min-height: 125px;
+    }
+  }
+  .title {
+    hr {
+      border-top: 1px solid $prime-text;
+      margin: 0;
+      padding: 0;
     }
   }
   .photo {
