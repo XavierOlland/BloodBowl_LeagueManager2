@@ -8,7 +8,6 @@
         </div>
 
         <div v-if="user.group_id==1" class="plain seconde">
-          {{user}}
           <h3>La BBBL c'est</h3>
           <ul class="hallOfFame list-unstyled">
             <li><h3>{{leagueStats.coachs}}</h3> coachs actifs,</li>

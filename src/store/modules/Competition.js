@@ -14,7 +14,6 @@ const state = {
 
 const getters = {
   getRound: (state) => (round) => {
-    console.log(state.calendar); // eslint-disable-line no-console
     if(round==0){
       return state.calendar.find(day => day.round === day.currentRound)
     }

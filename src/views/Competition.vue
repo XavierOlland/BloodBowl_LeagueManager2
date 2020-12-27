@@ -19,16 +19,22 @@
         />
         <div class="plain prime">
           <CompetitionStanding v-if="competition.format!='single_elimination'" :competition="competition" :details="true" :limit="100" :teamAccess="true"/>
-          <StandingSingleElimination v-else :competition="competition" :details="true" :limit="100" :teamAccess="true" :roundsName="roundsName" :roundsCount="competition.rounds_count"/>
+          <StandingSingleElimination v-else :competition="competition" :details="true" :limit="100" :teamAccess="true" :roundsName="roundsName" :roundsCount="competition.matchday"/>
           <Button v-if="competition.active==1" :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
+
         </div>
         <div class="card-columns">
           <Statistics class="d-none d-sm-inline-block card" v-for="stat in competition.playersStats" :key="stat.type" :statistics="stat" :limit="3" :dictionnary="dictionnary"/>
         </div>
       </div>
       <div class="col-lg-5">
-        <div v-for="day in calendar" :key="day.round" v-show="day.round <= displayDay || displayDay==0" class="day plain prime" :class="{ 'current': day.round == currentRound.currentDay && competition.active==1 && competition.format != 'ladder'}">
-          <div v-if="day.round == currentRound.currentDay && displayDay != 0 && calendar.length!=currentRound.currentDay" class="tab zelda" @click="fullCalendar()">Calendrier complet</div>
+        <div v-for="day in calendar"
+        :key="day.round"
+        v-show="day.round <= displayLimit || displayLimit==0"
+        class="day plain prime"
+        :class="{ 'current': day.round == competition.matchday && competition.active==1 && competition.format != 'ladder'}">
+          <div
+          v-if="day.round == competition.matchday && displayLimit != 0 && calendar.length!=competition.matchday" class="tab zelda" @click="fullCalendar()">Calendrier complet</div>
           <h3 v-if="competition.format == 'single_elimination'">{{roundsName[day.round-1]}}</h3>
           <h3 v-else-if="competition.format == 'ladder'">Rencontres</h3>
           <h3 v-else>Journée {{day.round}}</h3>
@@ -77,8 +83,8 @@
         hasChampion: false,
         saving: false,
         modal: false,
-        displayDay: 0,
-        currentRound: 1,
+        displayLimit: 0,
+        currentRound: {},
         singleEliminationRounds: ['32emes de finales', '16emes de finales', '8emes de finales', 'Quart de finales', 'Demi-Finales', 'Finale'],
         roundsName: ['32emes de finales', '16emes de finales', '8emes de finales', 'Quart de finales', 'Demi-Finales', 'Finale'],
         savingText: 'Consignation dans les registres...',
@@ -101,18 +107,18 @@
     methods: {
       async competitionUpdate() {
         this.saving = true;
-        var params = [this.competition.game_name, this.competition.id, this.competition.format, this.currentRound.currentDay, this.currentRound.matchsToSave ];
+        var params = [this.competition.game_name, this.competition.id, this.competition.format, this.competition.matchday, this.currentRound.matchsToSave ];
         await this.$store.dispatch('competition/updateCompetition',params).then(() => {
           this.saving = false;
         });
         this.$store.dispatch('competition/fetchCalendar',this.$route.params.id);
       },
       fullCalendar() {
-        this.displayDay = 0;
+        this.displayLimit = 0;
       },
       setRounds(games) {
         //case for hand made competitions
-        var sliceLimit = this.competition.rounds_count ? 6 - this.competition.rounds_count : 6 - this.currentRound.currentRound;
+        var sliceLimit = 6 - this.competition.matchday;
         switch(games){
           case 2:
             sliceLimit = 4;
@@ -143,7 +149,7 @@
                 this.hasChampion = false;
                 break;
               default:
-                this.hasChampion = (this.competition.lastRound == this.competition.rounds_count && this.competition.matchsLeft == 0) ? true : false;
+                this.hasChampion = this.competition.matchsLeft == 0 ? true : false;
                 break;
             }
           }
@@ -162,9 +168,9 @@
     },
     watch: {
       calendar: function() {
-        this.displayDay = (this.calendar.length < 5 || !this.currentRound.currentDay || this.competition.format=='single_elimination') ? 0 : this.currentRound.currentDay;
+        this.displayLimit = (this.calendar.length < 5 || this.competition.format=='ladder' || this.competition.format=='single_elimination') ? 0 : this.competition.matchday;
         if(this.calendar.length>0){
-          this.currentRound = this.calendar.find(day => day.round == day.currentRound);
+          this.currentRound = this.$store.getters['competition/getRound'](this.competition.matchday);
           this.setRounds(this.calendar.find(day => day.round == 1).matchs.length);
           this.setChampion();
         }
