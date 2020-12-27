@@ -18,21 +18,21 @@
             <th class="text-left d-none d-md-table-cell">Race</th>
             <th class="text-left d-none d-sm-table-cell">Coach</th>
             <th class="text-left" v-if="details==true">Tour</th>
-            <th class="text-center d-none d-sm-table-cell" v-if="details==true">TD</th>
-            <th class="text-center d-none d-sm-table-cell" v-if="details==true">S</th>
+            <th class="text-center d-none d-sm-table-cell" v-if="details==true" title="Différence de TD">TD</th>
+            <th class="text-center d-none d-sm-table-cell" v-if="details==true" title="Différence de sorties">S</th>
             <th class="text-center d-none d-sm-table-cell" v-if="details!=true">Statut</th>
           </tr>
         </thead>
         <tbody :class="{'table-hover': details==true}">
-          <tr v-for="team in qualified"  :key="team.id" :class="[{zelda: teamAccess!=0 }]" @click="goToTeam(team.cyanide_id)">
-            <td class="text-left"><img :src="'https://bbbl.fr/img/logos/Logo_'+team.logo+'.png'"> {{team.name}}</td>
-            <td class="text-left d-none d-md-table-cell" >{{team.race | talkingToTheGods()}}</td>
-            <td class="text-left d-none d-sm-table-cell" >{{team.coach}}</td>
-            <td class="text-left d-none d-sm-table-cell" v-if="details==true">{{roundsName.slice(team.V)[0]}}</td>
-            <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{team.TD}}</td>
-            <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{team.S}}</td>
-            <td class="text-center d-none d-sm-table-cell" v-if="details!=true && maxVictory==team.V">Qualifié</td>
-            <td class="text-center d-none d-sm-table-cell" v-if="details!=true && maxVictory>team.V">En lice</td>
+          <tr v-for="team in qualified"  :key="team.id" :class="[{zelda: teamAccess!=0 }]" @click="goToTeam(team.team_cyanide_id)">
+            <td class="text-left"><img :src="'https://bbbl.fr/img/logos/Logo_'+team.team_logo+'.png'"> {{team.team_name}}</td>
+            <td class="text-left d-none d-md-table-cell" >{{team.team_race | talkingToTheGods()}}</td>
+            <td class="text-left d-none d-sm-table-cell" >{{team.coach_name}}</td>
+            <td class="text-left d-none d-sm-table-cell" v-if="details==true">{{roundsName.slice(team.win)[0]}}</td>
+            <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{team.touchdowns_diff}}</td>
+            <td class="text-center d-none d-sm-table-cell" v-if="details==true">{{team.casualties_diff}}</td>
+            <td class="text-center d-none d-sm-table-cell" v-if="details!=true && maxVictory==team.win">Qualifié</td>
+            <td class="text-center d-none d-sm-table-cell" v-if="details!=true && maxVictory>team.win">En lice</td>
           </tr>
         </tbody>
       </table>
@@ -48,18 +48,18 @@
             <th class="text-left d-none d-md-table-cell">Race</th>
             <th class="text-left d-none d-sm-table-cell">Coach</th>
             <th class="text-left" v-if="!roundsCount">Tour</th>
-            <th class="text-center d-none d-sm-table-cell">TD</th>
-            <th class="text-center d-none d-sm-table-cell">S</th>
+            <th class="text-center d-none d-sm-table-cell" title="Différence de TD">TD</th>
+            <th class="text-center d-none d-sm-table-cell" title="Différence de sorties">S</th>
           </tr>
         </thead>
         <tbody class="table-hover">
-          <tr v-for="team in losers"  :key="team.id" class="zelda" @click="goToTeam(team.cyanide_id)">
-            <td class="text-left"><img :src="'https://bbbl.fr/img/logos/Logo_'+team.logo+'.png'"> {{team.name}}</td>
-            <td class="text-left d-none d-md-table-cell" >{{team.race | talkingToTheGods()}}</td>
-            <td class="text-left d-none d-sm-table-cell" >{{team.coach}}</td>
-            <td class="text-left d-none d-sm-table-cell" v-if="!roundsCount" >{{roundsName.slice(team.V)[0]}}</td>
-            <td class="text-center d-none d-sm-table-cell">{{team.TD}}</td>
-            <td class="text-center d-none d-sm-table-cell">{{team.S}}</td>
+          <tr v-for="team in losers"  :key="team.id" class="zelda" @click="goToTeam(team.team_cyanide_id)">
+            <td class="text-left"><img :src="'https://bbbl.fr/img/logos/Logo_'+team.team_logo+'.png'"> {{team.team_name}}</td>
+            <td class="text-left d-none d-md-table-cell" >{{team.team_race | talkingToTheGods()}}</td>
+            <td class="text-left d-none d-sm-table-cell" >{{team.coach_name}}</td>
+            <td class="text-left d-none d-sm-table-cell" v-if="!roundsCount" >{{roundsName.slice(team.win)[0]}}</td>
+            <td class="text-center d-none d-sm-table-cell">{{team.touchdowns_diff}}</td>
+            <td class="text-center d-none d-sm-table-cell">{{team.casualties_diff}}</td>
           </tr>
         </tbody>
       </table>
@@ -80,10 +80,10 @@
     },
     computed:{
       qualified() {
-        return this.competition.standing.filter(team => team.D==0);
+        return this.competition.standing.filter(team => team.loss==0);
       },
       losers() {
-        return this.competition.standing.filter(team => team.D==1);
+        return this.competition.standing.filter(team => team.loss==1);
       },
       maxVictory() {
         return this.competition.lastRound;

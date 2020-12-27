@@ -2,20 +2,11 @@
   <div id="Champion" class="plain prime">
     <Helmet class="helmet" :race="race" :logo="logo" :colours="colours" />
     <img class="logo" :src="'https://bbbl.fr/img/logos/Logo_'+logo+'.png'"/>
-    <div class="spacer">
+    <div class="info" :class="{zelda:mode!='list'}" @click="goToTeam()">
       <h3 v-if="mode!='list'">CHAMPION</h3>
       <h3>{{competition.name}}</h3>
       <hr>
-      <h1>{{team}}</h1>
-      <h5>{{race}}</h5>
-      <hr>
-      <h2>{{coach}}</h2>
-    </div>
-    <div class="info">
-      <h3 v-if="mode!='list'">CHAMPION</h3>
-      <h3>{{competition.name}}</h3>
-      <hr>
-      <h1>{{team}}</h1>
+      <h1>{{team.name}}</h1>
       <h5>{{race | talkingToTheGods()}}</h5>
       <hr>
       <h2>{{coach}}</h2>
@@ -38,10 +29,15 @@
       mode: String,
       competition: Object,
       coach: String,
-      team: String,
+      team: Object,
       race: Number,
       logo: String,
       colours: Array
+    },
+    methods: {
+      goToTeam() {
+        this.$router.push({ name: 'Team', params: { id: this.team.id }})
+      }
     }
   }
 </script>
@@ -70,7 +66,7 @@
       opacity:0;
     }
     .info {
-      position: absolute;
+      position: relative;
       top:20px;
       width:calc(100% - 30px);
       z-index: 3

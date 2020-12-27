@@ -11,16 +11,17 @@
         <Champion v-if="hasChampion==true"
           :mode="'card'"
           :competition="competition"
-          :coach="competition.standing[0].coach"
-          :team="competition.standing[0].name"
-          :race="Number(competition.standing[0].race)"
-          :logo="competition.standing[0].logo"
-          :colours="[competition.standing[0].color_1,competition.standing[0].color_2]"
+          :coach="competition.standing[0].coach_name"
+          :team="{id:competition.standing[0].team_cyanide_id, name:competition.standing[0].team_name}"
+          :race="Number(competition.standing[0].team_race)"
+          :logo="competition.standing[0].team_logo"
+          :colours="JSON.parse(competition.standing[0].team_colors)"
         />
         <div class="plain prime">
           <CompetitionStanding v-if="competition.format!='single_elimination'" :competition="competition" :details="true" :limit="100" :teamAccess="true"/>
           <StandingSingleElimination v-else :competition="competition" :details="true" :limit="100" :teamAccess="true" :roundsName="roundsName" :roundsCount="competition.matchday"/>
-          <Button v-if="(user.coach.active==1 || admin==1) && competition.active==1" :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
+          <Button v-if="competition.active==1" :id="'Maj'" :text="'Mettre à jour'" @clicked="competitionUpdate" />
+
         </div>
         <div class="card-columns">
           <Statistics class="d-none d-sm-inline-block card" v-for="stat in competition.playersStats" :key="stat.type" :statistics="stat" :limit="3" :dictionnary="dictionnary"/>
@@ -142,7 +143,7 @@
           if(this.competition.active==1){
             switch(this.competition.format){
               case 'single_elimination':
-                this.hasChampion = this.competition.standing.filter(team => team.D==0).length==1? true : false;
+                this.hasChampion = this.competition.standing.filter(team => team.loss==0).length==1? true : false;
                 break
               case 'ladder':
                 this.hasChampion = false;
