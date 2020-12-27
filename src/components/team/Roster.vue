@@ -30,8 +30,8 @@
         :class="[{former: (player.dead+player.fired)!=0 }, 'zelda', 'teamHover']" :style="{'border-color': colours[0]}"
         @click="displayPlayer(player,true)">
           <td class="text-left text-cutter">
-            <span class="playerStatus" v-if="player.casualties.length>2"><img src="../assets/icons/injured.png"> </span>
-            <span class="playerStatus" v-if="player.dead>0"><img src="../assets/icons/dead.png"> </span>
+            <span class="playerStatus" v-if="player.casualties.length>2"><img src="../../assets/icons/injured.png"> </span>
+            <span class="playerStatus" v-if="player.dead>0"><img src="../../assets/icons/dead.png"> </span>
             <span>{{player.name}}</span>
           </td>
           <td class="text-left text-cutter">{{player.position | talkingToTheGods()}}</td>
@@ -62,7 +62,7 @@
 <script>
   const Color = require('color');
 
-  import Player from '../components/Player.vue';
+  import Player from '../Player.vue';
 
   export default {
     name: 'Roster',
@@ -85,7 +85,6 @@
         this.modalPlayer = player;
       },
       updateColours() {
-        console.log(this.colours)
         var tableText = Color(this.colours[0]).isLight() ? '#000' : '#EEE';
         var tableHover = Color(this.colours[0]).isLight() ? Color(this.colours[0]).darken(0.2) : this.colours[0];
         document.querySelector(':root').style.setProperty('--team-1', tableHover);

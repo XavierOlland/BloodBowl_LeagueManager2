@@ -48,10 +48,51 @@
           <h2 class="noselect" :style="{'color':titleText}">TV {{Intl.NumberFormat().format(team.value)}}</h2>
         </div>
         <div class="plain prime" :style="{'border-color': teamColours[0].hex}">
+          <h2>Titres de champions</h2>
+          <br/>
+          <div class="d-none d-sm-flex justify-content-around text-center">
+            <div v-for="title in titles" :key="title.competition_id" class="title zelda" @click="$router.push({ name: 'Competition', params: { id: title.competition_id }})">
+              <img src="../assets/elements/single_elimination.png"/>
+              <h2 :style="{'color': teamColours[0].hex}">{{title.season}}</h2>
+              <hr/>
+              <h3 :style="{'color': teamColours[0].hex}">{{title.competition_name}}</h3>
+            </div>
+          </div>
+        </div>
+        <div class="plain prime" :style="{'border-color': teamColours[0].hex}">
           <h2>Effectif</h2>
           <Roster :roster="team.players" :colours="[teamColours[0].hex, teamColours[1].hex, titleText]" :formerPlayers="formerPlayers" :showStats="stats" />
           <Button class="d-none d-md-block" :id="'Stats'" :text="'Statistiques'" :color="teamColours[0].hex" @clicked="toggleStats"/>
           <Button class="d-none d-md-block" :id="'FormerPlayers'" :type="'secondary'" :text="formerPlayersText" :color="teamColours[0].hex" @clicked="toggleFormerPlayers"/>
+        </div>
+        <div v-if="history.length>0" class="plain prime" :style="{'border-color': teamColours[0].hex}">
+          <h2>Historique</h2>
+          <div class="d-none d-sm-flex justify-content-around text-center">
+            <div class="d-sm-none d-md-block">
+              <h3 :style="{'color': teamColours[0].hex}">Matchs</h3>
+              <h1>{{team.matches | round(2)}}</h1>
+            </div>
+            <div>
+              <h3 :style="{'color': teamColours[0].hex}">Victoires</h3>
+              <h1>{{team.win}}</h1>
+              <p>{{team.win/(team.matches)*100 | round(1)}}%</p>
+            </div>
+            <div>
+              <h3 :style="{'color': teamColours[0].hex}">Nuls</h3>
+              <h1>{{team.draw}}</h1>
+              <p>{{team.draw/(team.matches)*100 | round(1)}}%</p>
+            </div>
+            <div>
+              <h3 :style="{'color': teamColours[0].hex}">Défaites</h3>
+              <h1>{{team.loss}}</h1>
+              <p>{{team.loss/(team.matches)*100 | round(1)}}%</p>
+            </div>
+            <div class="d-sm-none d-md-block">
+              <h3 :style="{'color': teamColours[0].hex}">Pts/Match</h3>
+              <h1>{{team.ptspermatch | round(2)}}</h1>
+            </div>
+          </div>
+          <Competitions :history="history" :details="true" :colours="[teamColours[0].hex, teamColours[1].hex, titleText]"/>
         </div>
       </div>
       <div class="col-lg-12 col-xl-5">
@@ -130,7 +171,8 @@
 <script>
   const Color = require('color');
 
-  import Roster from '../components/Roster.vue'
+  import Roster from '../components/team/Roster.vue'
+  import Competitions from '../components/team/Competitions.vue'
   import Modal from '../components/Modal.vue'
   import Button from '../components/ui/Button.vue';
   import Helmet from '../components/ui/Helmet.vue';
@@ -142,6 +184,7 @@
     name: 'Team',
     components: {
       Roster,
+      Competitions,
       Modal,
       Button,
       Helmet,
@@ -173,6 +216,13 @@
       lastGames(){
         return this.$store.state.team.lastGames;
       },
+      history(){
+        return this.$store.state.team.history;
+      },
+      titles() {
+        var titles = this.$store.state.team.history.filter(standings => standings.champion == 1 && standings.rank==1 );
+        return titles
+      }
     },
     methods: {
       toggleEditor() {
@@ -220,6 +270,13 @@
       },
       teamColours: function() {
         this.titleText = Color(this.teamColours[1].hex).luminosity() < 0.08 ? '#AAA' : this.teamColours[1].hex;
+      },
+      history: function() {
+        this.team.win = this.history.reduce((sum, competition) => { return sum += competition.win }, 0);
+        this.team.draw = this.history.reduce((sum, competition) => { return sum += competition.draw }, 0);
+        this.team.loss = this.history.reduce((sum, competition) => { return sum += competition.loss }, 0);
+        this.team.matches = this.history.reduce((sum, competition) => { return sum += competition.matches }, 0);
+        this.team.ptspermatch = this.history.reduce((sum, competition) => { return sum += competition.points }, 0)/this.team.matches;
       }
     }
   }
@@ -253,6 +310,13 @@
     }
     .staff {
       min-height: 125px;
+    }
+  }
+  .title {
+    hr {
+      border-top: 1px solid $prime-text;
+      margin: 0;
+      padding: 0;
     }
   }
   .photo {
@@ -354,4 +418,5 @@
     border-color:#900;
     background:  linear-gradient(160deg,transparent,transparent,#9005);
   }
+
 </style>

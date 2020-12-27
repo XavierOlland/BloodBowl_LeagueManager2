@@ -16,12 +16,12 @@
           <div class="col-4" v-for="archive in champions" :key="archive.id">
             <Champion
               :mode="'list'"
-              :competition="{id:archive.id,name:archive.season}"
-              :coach="archive.standing[0].coach"
-              :team="archive.standing[0].name"
-              :race="Number(archive.standing[0].race)"
-              :logo="archive.standing[0].logo"
-              :colours="[archive.standing[0].color_1,archive.standing[0].color_2]"
+              :competition="{id:archive.standing[0].competition_id,name:archive.standing[0].competition_name}"
+              :coach="archive.standing[0].coach_name"
+              :team="{id:archive.standing[0].team_cyanide_id, name:archive.standing[0].team_name}"
+              :race="Number(archive.standing[0].team_race)"
+              :logo="archive.standing[0].team_logo"
+              :colours="JSON.parse(archive.standing[0].team_colors)"
             />
           </div>
       </div>
