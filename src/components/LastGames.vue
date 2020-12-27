@@ -2,7 +2,7 @@
   <div id="LastGames" class="plain" :class="level" v-if="games.length>0">
     <h2>{{ games.length | pluralize(['Dernière rencontre', 'Dernières rencontres']) }} </h2>
     <div class="row d-flex justify-content-center">
-      <div :class="['col-12', {'col-xxl-6': games.length>1}]" class="match zelda" v-for="match in limitBy(orderBy(games,'played',-1), limit)" :key="match.id" @click="matchDetails(match.id)">
+      <div :class="['col-12', {'col-xxl-6': games.length>1 && columns>1}]" class="match zelda" v-for="match in limitBy(orderBy(games,'played',-1), limit)" :key="match.id" @click="matchDetails(match.id)">
         <div class="hover-box">
           <div class="row">
             <div class="col-12 time">
@@ -44,7 +44,8 @@
     props: {
       games: Array,
       limit: Number,
-      level: String
+      level: String,
+      columns: Number
     },
     mixins: [Vue2Filters.mixin],
     methods: {

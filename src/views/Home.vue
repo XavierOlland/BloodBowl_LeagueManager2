@@ -23,7 +23,8 @@
           <Button v-else :id="'Seconde'" :text="'Découvrir'" @click="goToForum()"/>
         </div>
 
-        <UpcomingGames v-if="upcomingGames.length>0" :games="upcomingGames" :level="'seconde'"/>
+        <UpcomingGames v-if="upcomingGames.length>2" :games="upcomingGames" :level="'seconde'"/>
+        <LastGames v-if="lastGames.length>0 && upcomingGames.length<3" :games="lastGames" :limit="4" :columns="1" :level="'seconde'"/>
 
         <div class="plain seconde">
           <h3>Légendaires</h3>
@@ -35,11 +36,11 @@
       </div>
 
       <div id="MidColumn" class="col-xl-6 col-lg-9">
-        <!--div class="col-sm quote">
+        <div v-if="upcomingGames.length<3" class="col-sm quote">
             <h1>"J'ai aimé cette ligue comme je n'ai jamais aimé aucune femme..."</h1>
             <p>Coach Jahstrad, peu avant sa disparition</p>
-        </div-->
-        <LastGames v-if="lastGames.length>0" :games="lastGames" :limit="4" :level="'prime'"/>
+        </div>
+        <LastGames v-if="lastGames.length>0 && upcomingGames.length>2" :games="lastGames" :limit="4" :columns="2"  :level="'prime'"/>
         <!-- Competitions -->
         <div class="plain prime zelda" title="Voir la compétition" v-for="competition in competitions" :key="competition.id" @click="$router.push({ name: 'Competition', params: { id: competition.id }})">
           <h2 v-if="competition.site_name==competition.season">{{competition.site_name}} </h2>

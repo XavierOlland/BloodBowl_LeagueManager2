@@ -90,7 +90,10 @@ export default new Vuex.Store({
       instance.get(route + 'upcomingGames')
         .then(response => {
           const calendar = response.data ? response.data : [];
-          calendar.length == 0 ? context.dispatch('lastGames') : context.commit('setUpcomingGames', calendar);
+          context.commit('setUpcomingGames', calendar);
+          if(calendar.length == 0){
+            context.dispatch('lastGames')
+          }
         }, error => {
           console.error(error); // eslint-disable-line no-console
         });
