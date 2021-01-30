@@ -2,20 +2,19 @@
   <div id="Team" class="view container">
     <Loader v-if="isFetching" :text="chargingText"/>
     <Modal v-if="modal == true"/>
-    <div v-if="(user.coach.id==team.coach_id || admin==1)" class="row">
+    <div v-if="(user.coach.id==team.coach_id || admin==1)" class="row tabs">
       <div class="col-sm-12">
         <div class="d-flex flex-row justify-content-end tabs">
           <div v-if="admin==1" class="tab dark align-self-start">
             <div class="label" @click="toggleStats()" >Reset</div>
           </div>
-          <div class="align-self-start dark"
-          :class="{tab : user.coach.id==team.coach_id || user.coach.id==team.coach_id || admin==1}">
+          <div class="align-self-start dark" :class="{tab : user.coach.id==team.coach_id || user.coach.id==team.coach_id || admin==1}">
             <div class="label" @click="toggleEditor()">Editer</div>
           </div>
         </div>
       </div>
     </div>
-    <div class="row scroll-padding">
+    <div class="row no-gutters scroll-padding">
       <div class="col-lg-12 col-xl-7">
         <div class="plain seconde teamboard" :style="{'border-color': teamColours[1].hex}">
           <Helmet class="helmet" :race="team.param_id_race" :logo="team.logo" :colours="[teamColours[0].hex,teamColours[1].hex]" />
@@ -115,7 +114,7 @@
         </div>
         <div class="plain photo" :style="{'border-color': teamColours[0].hex}">
           <img class="cover" src="https://bbbl.fr/img/Cover_Glass.161c7da7.png">
-          <img src="http://www.bbbl.fr/img/teams/photo673.jpg" @error="altPhoto"/>
+          <img :src="teamPhoto" @error="altPhoto"/>
           <h6 class="leitmotiv" :style="{'color':teamColours[0].hex}" v-if="team.leitmotiv"> "{{team.leitmotiv}}"</h6>
         </div>
         <div class="plain seconde" :style="{'border-color': teamColours[1].hex}">

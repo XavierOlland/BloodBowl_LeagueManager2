@@ -13,6 +13,7 @@ $error: #C00;
 $error-85: rgba(212, 0, 0, 0.85);
 $success: #00A300;
 $main-bg: url('~@/assets/elements/winter/Background.jpg');
+
 th { color:#000; }
 
 @import url("https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css");
@@ -43,7 +44,6 @@ body {
   overflow-x: hidden;
   height: calc(100vh - 65px);
   max-width: 100vw !important;
-  padding: 0;
   position: relative;
 }
 
@@ -128,8 +128,8 @@ li > h3 { display:inline; }
 
 .plain {
   position:relative;
-  margin:20px 20px 40px;
-  padding:10px 15px 45px;
+  margin: 2.4rem 1.2rem 1.2rem;
+  padding: 0.6rem 1.4rem 2.5rem;
   border-radius: 0 0 5px 5px;
   border-bottom: 2px solid;
   border-color:inherit;
@@ -213,7 +213,7 @@ li > h3 { display:inline; }
   left: 0;
   z-index: 30;
   .scroll {
-    height:calc(80vh - 170px);
+    height:calc(60vh - 80px);
     overflow-x: auto;
   }
   h3 {
@@ -291,15 +291,25 @@ tbody.table-hover tr:hover { background-color:transparent; background: $link-con
 }
 .card-columns {
   column-count: 2;
+  column-gap: 0;
   .card-holder {
     background: transparent;
     .card {
       background: $seconde-bg;
-      width: calc(100% - 40px);
+      margin: 1.2rem;
+      width: calc(100% - 2.4rem);
     }
   }
-
 }
+
+.card.modal {
+  margin: 15vh 20vw !important;
+  display: inline;
+  position: fixed;
+  width: 60vw !important;
+  height: 60vh !important;
+}
+
 @media (max-width: 700px), (min-width: 992px) and (max-width: 1200px) {
   .card-columns {
     column-count: 1;

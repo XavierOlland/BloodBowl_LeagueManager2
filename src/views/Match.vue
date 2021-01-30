@@ -1,7 +1,7 @@
 <template>
   <div id="Match" class="view container">
     <Loader v-if="isFetching" :text="chargingText"/>
-    <div class="row adapt">
+    <div class="row">
       <div class="col-md-3"></div>
       <div class="col-md-6" @click="$router.push({ name: 'Competition', params: { id: metadata.competition_id }})" style="{background:rgba(68,68,68,0.9)}">
         <div class="plain header seconde text-center stadium zelda" :style="{ background: `url(${stadiumImage}) center center`, backgroundSize: 'cover'}">
@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-    <div class="row adapt">
+    <div class="row no-gutters">
       <div class="col-md-6">
         <Helmet class="helmet left" :race="match.teams[0].idraces" :logo="match.teams[0].teamlogo" :colours="[metadata.team_1_color_1,metadata.team_1_color_2]" />
         <div class="plain prime content noselect text-right" :style="{'border-color': metadata.team_1_color_1}">
@@ -58,7 +58,7 @@
         </div>
       </div>
     </div>
-    <div class="row adapt">
+    <div class="row no-gutters">
       <div class="col-md-4">
         <MatchTeamStats :colours="[metadata.team_1_color_1]" :team="match.teams[0]"/>
       </div>

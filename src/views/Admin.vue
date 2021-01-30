@@ -1,7 +1,7 @@
 <template>
   <div id="Admin" class="view container">
     <Loader v-if="loaderText" :text="loaderText"/>
-    <div class="row">
+    <div class="row no-gutters">
       <Archiver class="col-4" v-on:loader="loading"/>
       <NewCompetition class= "col-4" v-on:loader="loading"/>
       <Forum class= "col-4" v-on:loader="loading"/>

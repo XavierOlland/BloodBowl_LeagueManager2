@@ -2,7 +2,7 @@
   <div id="Competition" class="view container">
     <Loader v-if="saving==true || isFetching" :text="isFetching? chargingText : savingText"/>
     <Modal v-if="modal == true"/>
-    <div class="row">
+    <div class="row no-gutters">
       <div class="col-lg-7">
         <div class="plain seconde banner">
           <h1 v-if="competition.site_name==competition.season">{{competition.site_name}} </h1>
@@ -24,7 +24,7 @@
 
         </div>
         <div class="card-columns">
-          <Statistics class="d-none d-sm-inline-block card" v-for="stat in competition.playersStats" :key="stat.type" :statistics="stat" :limit="3" :dictionnary="dictionnary"/>
+          <Statistics class="card-holder" v-for="stat in competition.playersStats" :key="stat.type" :statistics="stat" :limit="3" :dictionnary="dictionnary"/>
         </div>
       </div>
       <div class="col-lg-5">
@@ -200,29 +200,5 @@
   }
   .vs {
     padding: 0.2em;
-  }
-  .card-columns {
-    column-count: 2;
-    .card {
-      background: transparent;
-      width: calc(100% - 40px);
-    }
-  }
-  @media (max-width: 700px), (min-width: 992px) and (max-width: 1200px) {
-    .card-columns {
-      column-count: 1;
-    }
-  }
-  @media (min-width: 1800px) {
-    .card-columns {
-      column-count: 3;
-    }
-  }
-  .current {
-    background: $focus-bg;
-    border-color: $prime-bg;
-    h3 {
-      color: $focus-color;
-    }
   }
 </style>
