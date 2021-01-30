@@ -169,7 +169,7 @@ export default {
     }
   }
   ul.hallOfFame {
-    font-family:'Muli';
+    font-family:'Mulish';
     font-weight: 700;
     font-size: 1em;
     line-height: 1.2;

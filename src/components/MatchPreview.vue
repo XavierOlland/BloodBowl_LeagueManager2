@@ -86,7 +86,7 @@
       vertical-align: middle;
     }
     p {
-      font-family: 'Muli';
+      font-family: 'Mulish';
       color: $prime-text;
       margin: 0;
     }

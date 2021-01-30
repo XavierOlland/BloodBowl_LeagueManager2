@@ -165,7 +165,7 @@
     text-shadow: 0 2px 5px $shadow;
     h3 {
       color: $prime-text;
-      font-family: "Muli";
+      font-family: "Mulish";
       span {
         font-family: 'Akashi';
       }

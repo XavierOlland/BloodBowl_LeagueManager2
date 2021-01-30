@@ -19,7 +19,7 @@ th { color:#000; }
 @import url("https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css");
 
 /* Text styles */
-@import url('https://fonts.googleapis.com/css?family=Muli:400,400i,600,700,700i');
+@import url('https://fonts.googleapis.com/css?family=Mulish:wght@400,400i,600,700,700i');
 @import url('https://fonts.googleapis.com/css?family=Niconne');
 @font-face {
     font-family: "Akashi";
@@ -70,12 +70,12 @@ h4 { font-family: 'Akashi';  font-size: 1rem; line-height: 1; margin:2px 0; colo
 h5 { font-weight:300; font-family: 'Akashi'; text-align: center; }
 h6 { font-weight:700; }
 p, .vdatetime-input { font-size: 14px; line-height: 18px; text-align: justify; color:$seconde-text; display:inline-block; }
-.plain form { font-family:'Muli'; font-size: 14px; line-height: 18px; text-align: justify; color:$seconde-text; display:inline-block; }
+.plain form { font-family:'Mulish'; font-size: 14px; line-height: 18px; text-align: justify; color:$seconde-text; display:inline-block; }
 input, select { color: $link-contrast;}
 
-table { font-family:'Muli'; font-size: 14px; line-height: 18px; }
+table { font-family:'Mulish'; font-size: 14px; line-height: 18px; }
 th {text-transform: uppercase;}
-ul { font-family:'Muli'; font-family:'Muli'; font-size: 14px; line-height: 18px; text-align: justify; color:$seconde-text;}
+ul { font-family:'Mulish'; font-family:'Mulish'; font-size: 14px; line-height: 18px; text-align: justify; color:$seconde-text;}
 li > h3 { display:inline; }
 
 .vdatetime-input {
@@ -276,7 +276,7 @@ tbody.table-hover tr:hover { background-color:transparent; background: $link-con
   background: #FFFFFF;
   h2, h3, h4, p {
     color: $link-contrast;
-    font-family: Muli;
+    font-family: Mulish;
     font-weight: 600
   }
   .vc-chrome {

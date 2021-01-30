@@ -52,7 +52,7 @@
 
 <style lang="scss" scoped>
   .stats {
-    font-family: "Muli"
+    font-family: "Mulish"
   }
   .info {
     position:relative;
