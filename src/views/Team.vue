@@ -98,15 +98,15 @@
         <div id="TeamEditor" class="plain editor" v-if="displayEditor">
           <h2>Modifier l'apparence</h2>
           <div class="row">
-            <div class="col-xl-6 col-xxl-4">
+            <div class="col-6 col-xxl-4">
               <h3>Couleur principale</h3>
               <color-picker v-model="teamColours[0]" />
             </div>
-            <div class="col-xl-6 col-xxl-4">
+            <div class="col-6 col-xxl-4">
               <h3>Couleur secondaire</h3>
               <color-picker v-model="teamColours[1]" />
             </div>
-            <div class="col-xl-6 col-xxl-4">
+            <div class="col-6 col-xxl-4">
               <FileUploader ref="photo" :uploadFileName="'photo'+team.id"/>
             </div>
           </div>
@@ -121,7 +121,7 @@
           <h2 :style="{'color':titleText}">Dernières rencontres</h2>
           <div class="row justify-content-md-center"
             v-for="match in lastGames" :key="match.id" @click="matchDetails(match.id)">
-            <div class="match col-12 col-xl-8 align-self-center text-center" :class="{'winner': match.diff>0,'loser': match.diff<0}">
+            <div class="match col-12 col-xl-10 align-self-center text-center" :class="{'winner': match.diff>0,'loser': match.diff<0}">
               <div class="row align-self-center header">
                 <div class="col-12 d-flex justify-content-between">
                   <h3 v-if="match.competition_name==match.season" class="align-self-baseline">{{match.competition_name}} </h3>
