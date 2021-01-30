@@ -25,7 +25,7 @@ th { color:#000; }
     font-family: "Akashi";
     src: url('~@/assets/styles/Akashi.ttf');
 }
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 1820px) {
   .col-xxl-4 {
     flex: 0 0 33.3%;
     max-width: 33.3%;
@@ -274,7 +274,7 @@ tbody.table-hover tr:hover { background-color:transparent; background: $link-con
 /*Admin and edition*/
 .editor {
   background: #FFFFFF;
-  h2, h3, h4, p{
+  h2, h3, h4, p {
     color: $link-contrast;
     font-family: Muli;
     font-weight: 600
