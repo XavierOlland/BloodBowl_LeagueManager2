@@ -1,8 +1,8 @@
 <template>
-  <div id="Archives" class="view container">
+  <div id="Archives" class="view container-fluid">
     <Loader v-if="isFetching==true" :text="loaderText"/>
-    <div class="row">
-      <div class="col-3 scroll">
+    <div class="row no-gutters">
+      <div class="d-none d-md-block col-md-4 col-xl-3 scroll">
         <div class="plain seconde searchBox scroll">
           <h2>Archives publiques</h2>
           <div class="searchFilter">
@@ -12,11 +12,11 @@
           <CompetitionsList :data="searchList" class="searchResults"/>
         </div>
       </div>
-      <div class="col-9 scroll d-flex flex-wrap align-content-start">
-          <div class="col-4" v-for="archive in champions" :key="archive.id">
+      <div class="col-12 col-md-8 col-xl-9 no-gutters scroll d-flex flex-wrap align-content-start">
+          <div class="col-sm-6 col-xl-4" v-for="archive in champions" :key="archive.id">
             <Champion
               :mode="'list'"
-              :competition="{id:archive.standing[0].competition_id,name:archive.standing[0].competition_name}"
+              :competition="{id:archive.id,name:archive.season}"
               :coach="archive.standing[0].coach_name"
               :team="{id:archive.standing[0].team_cyanide_id, name:archive.standing[0].team_name}"
               :race="Number(archive.standing[0].team_race)"
@@ -94,6 +94,7 @@
     color: $seconde-color;
   }
   .searchBox {
+    margin-top: 3rem;
     padding-bottom: 30px;
   }
   .searchFilter {

@@ -45,7 +45,10 @@
 <style lang="scss" scoped>
     #Champion {
       text-align: center;
-      margin-top: 50px
+      margin-top: 3rem;
+    }
+    h1, h3 {
+      text-shadow: 0 0 0.5rem $prime-bg;
     }
     hr {
       width: 80%;
@@ -55,11 +58,11 @@
     }
     .helmet {
       position: absolute;
-      right:-60px;
-      top:-50px;
+      right:-2rem;
+      top:-2.5rem;
       z-index:0;
-      width:200px;
-      height:200px;
+      width:10rem;
+      height:10rem;
       text-align: left !important;
     }
     .spacer {
@@ -68,7 +71,6 @@
     .info {
       position: relative;
       top:20px;
-      width:calc(100% - 30px);
       z-index: 3
     }
     .button {
