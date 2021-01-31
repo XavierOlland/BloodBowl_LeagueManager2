@@ -168,7 +168,7 @@
     },
     watch: {
       calendar: function() {
-        this.displayLimit = (this.calendar.length < 5 || this.competition.format=='ladder' || this.competition.format=='single_elimination') ? 0 : this.competition.matchday;
+        this.displayLimit = (this.calendar.length <= 5 || this.competition.format=='ladder' || this.competition.active==0 || this.competition.format=='single_elimination') ? 0 : this.competition.matchday;
         if(this.calendar.length>0){
           this.currentRound = this.$store.getters['competition/getRound'](this.competition.matchday);
           this.setRounds(this.calendar.find(day => day.round == 1).matchs.length);
