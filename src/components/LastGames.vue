@@ -11,16 +11,16 @@
               <hr/>
             </div>
           </div>
-          <div class="row">
-            <div class="col-4 text-right">
+          <div class="d-flex no-gutters">
+            <div class="flex-fill text-right">
               <img class="teamLogo" :src="'https://bbbl.fr/img/logos/Logo_' + match.logo_1 + '.png'">
             </div>
-            <div class="col-4 align-self-center text-center">
-              <span class="score">
-                <span :class="{'winner': match.score_1 > match.score_2 }">{{match.score_1}}</span> - <span :class="{'winner': match.score_1 < match.score_2 }">{{match.score_2}}</span>
-              </span>
+            <div class="flex-fill w-100 align-self-center text-center">
+              <h3 class="score">
+                <span :class="{'winner': match.score_1 > match.score_2 }">{{match.score_1}}</span>&nbsp;-&nbsp;<span :class="{'winner': match.score_1 < match.score_2 }">{{match.score_2}}</span>
+              </h3>
             </div>
-            <div class="col-4 text-left">
+            <div class="flex-fill text-left">
               <img class="teamLogo" :src="'https://bbbl.fr/img/logos/Logo_' + match.logo_2 + '.png'">
             </div>
           </div>
@@ -63,10 +63,6 @@
   .match {
     padding: 0 0.25rem;
     vertical-align: middle;
-    span {
-      vertical-align: middle;
-      display: inline-block;
-    }
     .time {
       width: 100%;
       display: flex;
@@ -101,7 +97,7 @@
     background: $seconde-bg;
     border: 1px solid $seconde-color;
   }
-  .score {
+  h3.score {
     font-family: 'Akashi';
     font-size: 2rem;
     line-height: 2.3rem !important;
@@ -109,6 +105,7 @@
     letter-spacing: -0.15rem;
     margin: 0 0.5rem;
     color: $prime-text;
+    display: inline;
   }
   .prime .winner {
     color: $prime-color;
