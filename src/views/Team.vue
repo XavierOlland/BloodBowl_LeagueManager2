@@ -2,15 +2,14 @@
   <div id="Team" class="view container">
     <Loader v-if="isFetching" :text="chargingText"/>
     <Modal v-if="modal == true"/>
-    <div v-if="(user.coach.id==team.coach_id || admin==1)" class="row tabs">
-      <div class="col-sm-12">
-        <div class="d-flex flex-row justify-content-end tabs">
-          <div v-if="admin==1" class="tab dark align-self-start">
-            <div class="label" @click="toggleStats()" >Reset</div>
-          </div>
-          <div class="align-self-start dark" :class="{tab : user.coach.id==team.coach_id || user.coach.id==team.coach_id || admin==1}">
-            <div class="label" @click="toggleEditor()">Editer</div>
-          </div>
+    <div v-if="(user.coach.id==team.coach_id || admin==1)" class="row">
+      <div class="col-6"></div>
+      <div class="col-6 d-flex flex-row justify-content-end tabs">
+        <div v-if="admin==1" class="tab dark align-self-start">
+          <div class="label" @click="toggleStats()" >Reset</div>
+        </div>
+        <div class="align-self-start dark" :class="{tab : user.coach.id==team.coach_id || user.coach.id==team.coach_id || admin==1}">
+          <div class="label" @click="toggleEditor()">Editer</div>
         </div>
       </div>
     </div>
@@ -18,7 +17,7 @@
       <div class="col-lg-12 col-xl-7">
         <div class="plain seconde teamboard" :style="{'border-color': teamColours[1].hex}">
           <Helmet class="helmet" :race="team.param_id_race" :logo="team.logo" :colours="[teamColours[0].hex,teamColours[1].hex]" />
-          <div class="row justify-content-between">
+          <div class="row no-gutters justify-content-between">
             <div class="col-sm-12 col-md-8">
               <h1 :style="{'color':titleText}">{{team.name}}</h1>
               <h2 v-for="n in team.popularity" :key="n" :style="{'color':titleText}">&#9733;</h2>
@@ -28,7 +27,7 @@
               <p class="text-right" >coaché par <span class="" :style="{'color':titleText}"><b>{{team.coach}}</b></span></p>
             </div>
           </div>
-          <div class="row staff">
+          <div class="row no-gutters staff">
             <div class="col-md-4 col-lg-3">
               <ul class="list-unstyled">
                 <li><img src="../assets/icons/treasury.png"> {{Intl.NumberFormat().format(team.cash)}} PO</li>
@@ -150,7 +149,7 @@
               <div class="row align-self-center footer">
                 <hr/>
                 <div class="col-12 d-flex justify-content-center">
-                <p><span v-if="match.diff==0">Match nuls</span>
+                <p><span v-if="match.diff==0">Match nul</span>
                   <span v-if="match.diff<0">Défaite</span>
                   <span v-if="match.diff>0">Victoire</span> face aux
                   <span v-if="match.team_id_1!=team.id"><b>{{match.team_1_race | talkingToTheGods()}}</b> coachés par {{match.team_1_coach}}</span>
