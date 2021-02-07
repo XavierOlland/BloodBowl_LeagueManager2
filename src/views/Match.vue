@@ -34,6 +34,7 @@
                 <div v-for="index in match.teams[0].popularitybeforematch" :key="index" class="star" :style="{color: metadata.team_1_color_1}">&#9733;</div>
                 <span v-if="match.teams[0].popularitygain"> + <div class="star">&#9733;</div></span>
               </h3>
+              <h3 v-if="match.teams[0].popularitybeforematch==0 && match.teams[0].popularitygain==0"><br/></h3>
             </div>
             <div class="score align-self-baseline" :style="{color: metadata.team_1_color_1}">{{match.teams[0].score}}</div>
           </div>
@@ -70,7 +71,7 @@
           <h4>Supporters</h4>
           <h3>{{match.teams[0].nbsupporters+match.teams[1].nbsupporters}}</h3><br />
         </div>
-        <div class="plain conf seconde">
+        <div class="d-xxl-none plain conf seconde">
           <p>Assistez à la conférence de presse des coachs et venez commenter sur le forum.</p>
           <Button :id="'Seconde'" :text="'Forum'" @clicked="viewForum()" />
         </div>
@@ -79,6 +80,24 @@
         <MatchTeamStats :colours="[metadata.team_2_color_1]" :team="match.teams[1]"/>
       </div>
     </div>
+    <div class="row no-gutters">
+      <div class=" d-none d-xxl-block col-xl-6">
+        <PlayersStats :id="match.teams[0].idteamlisting.toString()" :colours="[metadata.team_1_color_1]" :roster="match.teams[0].roster" :modal="false" :display="true"/>
+      </div>
+      <div class=" d-none d-xxl-block col-xl-6">
+        <PlayersStats :id="match.teams[1].idteamlisting.toString()" :colours="[metadata.team_2_color_1]" :roster="match.teams[1].roster" :modal="false" :display="true"/>
+      </div>
+    </div>
+    <div class="row no-gutters ">
+      <div class="col-md-4"></div>
+      <div class="col-md-4 d-none d-xxl-block" style="{background:rgba(68,68,68,0.9)}">
+        <div class="plain conf seconde">
+          <p>Assistez à la conférence de presse des coachs et venez commenter sur le forum.</p>
+          <Button :id="'Seconde'" :text="'Forum'" @clicked="viewForum()" />
+        </div>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
     <Button :id="'Back'" :type="'back'" @clicked="$router.go(-1)"/>
   </div>
 </template>
@@ -86,6 +105,7 @@
 <script>
   const moment = require('moment'); // eslint-disable-line
   import MatchTeamStats from '../components/match/TeamStats.vue';
+  import PlayersStats from '../components/match/PlayersStats.vue';
   import Helmet from '../components/ui/Helmet.vue';
   import Button from '../components/ui/Button.vue';
   import Loader from '../components/ui/Loader.vue';
@@ -94,6 +114,7 @@
     name: 'Match',
     components: {
       MatchTeamStats,
+      PlayersStats,
       Helmet,
       Button,
       Loader
@@ -115,6 +136,9 @@
       },
       metadata() {
         return this.$store.state.match.metadata;
+      },
+      stats() {
+        return this.$store.state.match;
       },
       stadiumImage() {
         return require('../assets/stadiums/'+ this.match.stadium + '.png')

@@ -1,7 +1,7 @@
 <template>
   <div id="PlayersStats">
-    <div class="veil" :class="{'forum': $route.fullPath.indexOf('forum')>-1}" v-show="modal == true" @click="close">
-      <div class="card plain seconde modal"  :style="{'border-color': colours[0]}" v-show="modal == true">
+    <div :class="{'veil': modal == true}" v-if="display" @click="close">
+      <div class="card plain prime" :style="{'border-color': colours[0]}">
         <h3 :style="{color: colours[0]}">Effectif</h3>
         <table>
           <thead>
@@ -12,15 +12,15 @@
               <th class="attributes text-center hidden-down">XP</th>
               <th class="attributes text-center" title="Joueur du match">JDM</th>
               <th class="attributes text-center" title="Passes">Pa</th>
+              <th class="attributes text-center" title="Yards en passe">YP</th>
               <th class="attributes text-center" title="Réceptions">Réc</th>
               <th class="attributes text-center" title="Interceptions">Int</th>
-              <th class="attributes text-center" title="TouchDown">TD</th>
-              <th class="attributes text-center" title="Mort">Mort</th>
-              <th class="attributes text-center" title="Sorties">Sor</th>
-              <th class="attributes text-center" title="KO">KO</th>
-              <th class="attributes text-center" title="Blocage">Bl</th>
-              <th class="attributes text-center" title="Yards en passe">YP</th>
               <th class="attributes text-center" title="Yards en course">YC</th>
+              <th class="attributes text-center" title="TouchDown">TD</th>
+              <th class="attributes text-center" title="Blocage">Bl</th>
+              <th class="attributes text-center" title="KO">KO</th>
+              <th class="attributes text-center" title="Sorties">Sor</th>
+              <th class="attributes text-center" title="Mort">Mort</th>
             </tr>
           </thead>
           <tbody  class="table-hover noselect">
@@ -34,22 +34,22 @@
               <td class="text-left text-cutter hidden-sm-down" v-if="player.type.indexOf('StarPlayer')==-1">{{player.type | talkingToTheGods()}}</td>
               <td class="text-left text-cutter hidden-sm-down" v-if="player.type.indexOf('StarPlayer')>-1">Champion</td>
               <td class="text-center hidden-down">{{player.level}}</td>
-              <td class="text-center hidden-down">{{player.xp}}</td>
+              <td class="text-center hidden-down">{{player.xp_gain}}</td>
               <td class="text-center">{{player.mvp}}</td>
               <td class="text-center">{{player.stats.inflictedpasses}}</td>
+              <td class="text-center">{{player.stats.inflictedmeterspassing}}</td>
               <td class="text-center">{{player.stats.inflictedcatches}}</td>
               <td class="text-center">{{player.stats.inflictedinterceptions}}</td>
-              <td class="text-center">{{player.stats.inflictedtouchdowns}}</td>
-              <td class="text-center">{{player.stats.inflicteddead}}</td>
-              <td class="text-center">{{player.stats.inflictedcasualties}}</td>
-              <td class="text-center">{{player.stats.inflictedko}}</td>
-              <td class="text-center">{{player.stats.inflictedtackles}}</td>
-              <td class="text-center">{{player.stats.inflictedmeterspassing}}</td>
               <td class="text-center">{{player.stats.inflictedmetersrunning}}</td>
+              <td class="text-center">{{player.stats.inflictedtouchdowns}}</td>
+              <td class="text-center">{{player.stats.inflictedtackles}}</td>
+              <td class="text-center">{{player.stats.inflictedko}}</td>
+              <td class="text-center">{{player.stats.inflictedcasualties}}</td>
+              <td class="text-center">{{player.stats.inflicteddead}}</td>
             </tr>
           </tbody>
         </table>
-        <Button :id="id+'_Seconde'" :text="buttonText" :color="colours[0]" @click="close" />
+        <Button class="d-xxl-none" :id="id+'_Seconde'" :text="buttonText" :color="colours[0]" @click="close" />
       </div>
     </div>
   </div>
@@ -67,7 +67,8 @@
       id: String,
       colours: Array,
       roster: Array,
-      modal: Boolean
+      modal: Boolean,
+      display: Boolean,
     },
     data() {
       return {
@@ -76,7 +77,9 @@
     },
     methods: {
       close() {
-        this.$emit('clicked')
+        if(this.modal == true){
+          this.$emit('clicked');
+        }
       }
     }
   }
@@ -99,7 +102,7 @@
       vertical-align: text-bottom;
     }
   }
-  .forum {
-    top:0 !important;
+  .card {
+    min-width: 75%;
   }
 </style>

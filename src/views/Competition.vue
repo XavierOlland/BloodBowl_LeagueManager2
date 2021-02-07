@@ -201,4 +201,8 @@
   .vs {
     padding: 0.2em;
   }
+  .tab {
+    color: $seconde-text;
+    font-weight: normal;
+  }
 </style>
