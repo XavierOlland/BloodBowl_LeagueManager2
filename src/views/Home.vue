@@ -6,8 +6,7 @@
         <div class="image">
           <img src="../assets/league/Logo_M.png">
         </div>
-
-        <div v-if="user.group_id==1" class="plain seconde">
+        <div class="plain seconde">
           <h3>La BBBL c'est</h3>
           <ul class="hallOfFame list-unstyled">
             <li><h3>{{leagueStats.coachs}}</h3> coachs actifs,</li>
@@ -23,8 +22,6 @@
           <Button v-else :id="'Seconde'" :text="'Découvrir'" @click="goToForum()"/>
         </div>
 
-        <UpcomingGames v-if="upcomingGames.length>0" :games="upcomingGames" :level="'seconde'"/>
-
         <div class="plain seconde">
           <h3>Légendaires</h3>
           <p>Woody Roots Bush Bombers, Darkside Magic, Rats Fils Tauleurs... Ces équipes comme beaucoup d'autres ont marqué de leur empreinte la BBBL.<br/>
@@ -35,11 +32,12 @@
       </div>
 
       <div id="MidColumn" class="col-xl-6 col-lg-9">
-        <!--div class="col-sm quote">
+        <div v-if="upcomingGames.length<3" class="col-sm quote">
             <h1>"J'ai aimé cette ligue comme je n'ai jamais aimé aucune femme..."</h1>
             <p>Coach Jahstrad, peu avant sa disparition</p>
-        </div-->
-        <LastGames v-if="lastGames.length>0" :games="lastGames" :limit="4" :level="'prime'"/>
+        </div>
+        <UpcomingGames v-if="upcomingGames.length>2" :games="upcomingGames" :level="'seconde'"/>
+        <LastGames v-if="lastGames.length>0 && upcomingGames.length<=2" :games="lastGames" :limit="4" :columns="2"  :level="'prime'"/>
         <!-- Competitions -->
         <div class="plain prime zelda" title="Voir la compétition" v-for="competition in competitions" :key="competition.id" @click="$router.push({ name: 'Competition', params: { id: competition.id }})">
           <h2 v-if="competition.site_name==competition.season">{{competition.site_name}} </h2>
@@ -48,19 +46,24 @@
           <StandingSingleElimination v-else :competition="competition" :roundsName="[]" :teamAccess="false"/>
           <Button :id="'Prime'" :text="'La Compétition'" @clicked="$router.push({ name: 'Competition', params: { id: competition.id }})" />
         </div>
+        <div class="card-columns">
+          <Statistics class="card-holder" v-for="stats in leagueStats.playersStats" :key="stats.type" :statistics="stats" :limit="3" />
+        </div>
       </div>
 
       <div id="RightColumn" class="col-xl-3 stick-right d-none d-xl-block" >
         <Champion
         :mode="'card'"
         :competition="champion.competition"
-        :coach="champion.coach"
+        :coach="champion.coach_name"
         :team="champion.team"
-        :race="Number(champion.race)"
-        :logo="champion.logo"
-        :colours="champion.colours"
+        :race="Number(champion.team_race)"
+        :logo="champion.team_logo"
+        :colours="champion.team_colors"
         />
-        <Statistics v-for="stat in leagueStats.playersStats" :key="stat.type" :statistics="stat" :limit="3" />
+
+        <UpcomingGames v-if="upcomingGames.length<=2" :games="upcomingGames" :level="'seconde'"/>
+        <LastGames v-if="lastGames.length>0 && upcomingGames.length>2" :games="lastGames" :limit="4" :columns="1" :level="'seconde'"/>
       </div>
 
     </div>
@@ -133,15 +136,15 @@ export default {
 
 <style lang="scss" scoped>
   .row > div {
-    padding:0;
+    padding: 0;
   }
   .image {
-    position:relative;
-    margin:20px 0px;
+    position: relative;
+    margin: 20px auto;
     text-align: center;
     img {
-      width:100%;
-      height:auto;
+      width: 90%;
+      height: auto;
       margin: 0;
     }
   }
@@ -151,8 +154,8 @@ export default {
       font-size: 4em;
       line-height: 1em;
       font-family: 'Niconne', cursive;
-      color: $prime-text;
-      text-shadow: 0 0.04em 0.07em $shadow;
+      color: #555;
+      //text-shadow: 0 0.04em 0.07em $shadow;
     }
     p, p a {
       font-size: 2em;
@@ -160,15 +163,15 @@ export default {
       font-family: 'Niconne', cursive;
       text-align: right;
       display:inherit;
-      color:$seconde-text;
-      text-shadow: 0 0.04em 0.04em $shadow;
+      color:#333;
+      //text-shadow: 0 0.04em 0.04em $shadow;
     }
     p a {
     text-decoration: underline;
     }
   }
   ul.hallOfFame {
-    font-family:'Muli';
+    font-family:'Mulish';
     font-weight: 700;
     font-size: 1em;
     line-height: 1.2;

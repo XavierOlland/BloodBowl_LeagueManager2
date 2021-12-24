@@ -50,7 +50,7 @@
     </div>
     <div class="row adapt">
       <div class="col-md-4">
-        <MatchTeamStats :colours="[metadata.team_1_color_1]" :team="match.teams[0]"/>
+        <MatchTeamStats :colours="[metadata.team_1_color_1]" :team="match.teams[0]" :forum="false"/>
       </div>
       <div class="col-md-4 d-none d-md-block">
         <div class="plain seconde text-center stadium" :style="{ background: `url(${stadiumImage}) center center,rgba(68,68,68,0.9)`, backgroundSize: 'cover'}">
@@ -131,7 +131,7 @@
     text-shadow: 0 2px 5px $shadow;
     h3 {
       color: $prime-text;
-      font-family: "Muli";
+      font-family: "Mulish";
       span {
         font-family: 'Akashi';
       }
