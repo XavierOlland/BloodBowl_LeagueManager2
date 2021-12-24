@@ -25,7 +25,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   height:100%;
   padding-top:65px;
-  font-family: 'Muli';
+  font-family: 'Mulish';
   font-size: 1em;
   line-height: 1;
   background-image: $main-bg;

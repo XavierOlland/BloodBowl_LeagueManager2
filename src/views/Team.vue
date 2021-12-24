@@ -3,23 +3,21 @@
     <Loader v-if="isFetching" :text="chargingText"/>
     <Modal v-if="modal == true"/>
     <div v-if="(user.coach.id==team.coach_id || admin==1)" class="row">
-      <div class="col-sm-12">
-        <div class="d-flex flex-row justify-content-end tabs">
-          <div v-if="admin==1" class="tab dark align-self-start">
-            <div class="label" @click="toggleStats()" >Reset</div>
-          </div>
-          <div class="align-self-start dark"
-          :class="{tab : user.coach.id==team.coach_id || user.coach.id==team.coach_id || admin==1}">
-            <div class="label" @click="toggleEditor()">Editer</div>
-          </div>
+      <div class="col-6"></div>
+      <div class="col-6 d-flex flex-row justify-content-end tabs">
+        <div v-if="admin==1" class="tab dark align-self-start">
+          <div class="label" @click="toggleStats()" >Reset</div>
+        </div>
+        <div class="align-self-start dark" :class="{tab : user.coach.id==team.coach_id || user.coach.id==team.coach_id || admin==1}">
+          <div class="label" @click="toggleEditor()">Editer</div>
         </div>
       </div>
     </div>
-    <div class="row scroll-padding">
+    <div class="row no-gutters scroll-padding">
       <div class="col-lg-12 col-xl-7">
         <div class="plain seconde teamboard" :style="{'border-color': teamColours[1].hex}">
           <Helmet class="helmet" :race="team.param_id_race" :logo="team.logo" :colours="[teamColours[0].hex,teamColours[1].hex]" />
-          <div class="row justify-content-between">
+          <div class="row no-gutters justify-content-between">
             <div class="col-sm-12 col-md-8">
               <h1 :style="{'color':titleText}">{{team.name}}</h1>
               <h2 v-for="n in team.popularity" :key="n" :style="{'color':titleText}">&#9733;</h2>
@@ -29,7 +27,7 @@
               <p class="text-right" >coaché par <span class="" :style="{'color':titleText}"><b>{{team.coach}}</b></span></p>
             </div>
           </div>
-          <div class="row staff">
+          <div class="row no-gutters staff">
             <div class="col-md-4 col-lg-3">
               <ul class="list-unstyled">
                 <li><img src="../assets/icons/treasury.png"> {{Intl.NumberFormat().format(team.cash)}} PO</li>
@@ -99,15 +97,15 @@
         <div id="TeamEditor" class="plain editor" v-if="displayEditor">
           <h2>Modifier l'apparence</h2>
           <div class="row">
-            <div class="col-xl-6 col-xxl-4">
+            <div class="col-6 col-xxl-4">
               <h3>Couleur principale</h3>
               <color-picker v-model="teamColours[0]" />
             </div>
-            <div class="col-xl-6 col-xxl-4">
+            <div class="col-6 col-xxl-4">
               <h3>Couleur secondaire</h3>
               <color-picker v-model="teamColours[1]" />
             </div>
-            <div class="col-xl-6 col-xxl-4">
+            <div class="col-6 col-xxl-4">
               <FileUploader ref="photo" :uploadFileName="'photo'+team.id"/>
             </div>
           </div>
@@ -115,14 +113,14 @@
         </div>
         <div class="plain photo" :style="{'border-color': teamColours[0].hex}">
           <img class="cover" src="https://bbbl.fr/img/Cover_Glass.161c7da7.png">
-          <img src="http://www.bbbl.fr/img/teams/photo673.jpg" @error="altPhoto"/>
+          <img :src="teamPhoto" @error="altPhoto"/>
           <h6 class="leitmotiv" :style="{'color':teamColours[0].hex}" v-if="team.leitmotiv"> "{{team.leitmotiv}}"</h6>
         </div>
         <div class="plain seconde" :style="{'border-color': teamColours[1].hex}">
           <h2 :style="{'color':titleText}">Dernières rencontres</h2>
           <div class="row justify-content-md-center"
             v-for="match in lastGames" :key="match.id" @click="matchDetails(match.id)">
-            <div class="match col-12 col-xl-8 align-self-center text-center" :class="{'winner': match.diff>0,'loser': match.diff<0}">
+            <div class="match col-12 col-xl-10 align-self-center text-center" :class="{'winner': match.diff>0,'loser': match.diff<0}">
               <div class="row align-self-center header">
                 <div class="col-12 d-flex justify-content-between">
                   <h3 v-if="match.competition_name==match.season" class="align-self-baseline">{{match.competition_name}} </h3>
@@ -151,7 +149,7 @@
               <div class="row align-self-center footer">
                 <hr/>
                 <div class="col-12 d-flex justify-content-center">
-                <p><span v-if="match.diff==0">Match nuls</span>
+                <p><span v-if="match.diff==0">Match nul</span>
                   <span v-if="match.diff<0">Défaite</span>
                   <span v-if="match.diff>0">Victoire</span> face aux
                   <span v-if="match.team_id_1!=team.id"><b>{{match.team_1_race | talkingToTheGods()}}</b> coachés par {{match.team_1_coach}}</span>
