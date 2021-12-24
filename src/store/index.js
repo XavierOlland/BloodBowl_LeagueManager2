@@ -49,6 +49,14 @@ export default new Vuex.Store({
   mutations: {
     setUser(state, payload) {
       state.user = payload;
+      if(payload.coach == null){
+        state.user.coach = {
+          "id": "0",
+          "cyanide_id": "0",
+          "active": "0",
+          "gold": "0"
+        }
+      }
     },
     setDictionnary(state, payload) {
       state.dictionnary = payload;
@@ -75,6 +83,7 @@ export default new Vuex.Store({
           context.commit('setStatistics', response.data.stats);
           context.commit('setUser', window.user);
           context.dispatch('upcomingGames');
+          context.dispatch('lastGames');
         }, error => {
           console.error(error); // eslint-disable-line no-console
         });

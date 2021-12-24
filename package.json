@@ -12,6 +12,7 @@
     "core-js": "^3.6.5",
     "luxon": "^1.24.1",
     "vue": "^2.6.11",
+    "vue-color": "^2.7.1",
     "vue-ctk-date-time-picker": "^2.5.0",
     "vue-datetime": "^1.0.0-beta.13",
     "vue-lodash": "^2.1.2",

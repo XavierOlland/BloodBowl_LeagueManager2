@@ -1,12 +1,12 @@
 <template>
-  <div id="UpcomingGames" class="plain prime" v-if="games.length>0">
+  <div id="UpcomingGames" class="plain" :class="level" v-if="games.length>0">
     <h2>Programme CabalVision</h2>
     <p v-if="games.length==0">Aucun match de programmé pour le moment.</p>
     <div class="row">
-      <div :class="['day','col-12',{'col-lg-6': day.matchs.length==1}]" v-for="day in games" :key="day.day">
+      <div class="day col-12" v-for="day in games" :key="day.day">
         <h3 class="col-12">{{day.day | moment('dddd D MMMM')}}</h3>
         <div class="row">
-          <div :class="['col-12', {'col-lg-6': day.matchs.length>1}]" class="match" v-for="match in day.matchs" :key="match.id">
+          <div class="match" v-for="match in day.matchs" :key="match.id">
             <div class="hover-box">
               <div class="row">
                 <div class="col-12 time">
@@ -42,7 +42,8 @@
   export default {
     name: 'UpcomingGames',
     props: {
-      games: Array
+      games: Array,
+      level: String
     }
   }
 </script>
@@ -71,11 +72,13 @@
         border-bottom: solid 1px $prime-text;
       }
       h4 {
+        font-size: 1rem;
         display: inline-flex;
       }
     }
     .teamLogo {
-      width: 40%;
+      width: 60%;
+      max-width: 85px;
       height: auto;
     }
     .versus {
@@ -91,8 +94,12 @@
       border-radius: 3px;
     }
   }
-  .hover-box:hover {
+  .prime .hover-box:hover {
     background: $prime-bg;
     border: 1px solid $prime-color;
+  }
+  .seconde .hover-box:hover {
+    background: $seconde-bg;
+    border: 1px solid $seconde-color;
   }
 </style>

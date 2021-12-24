@@ -7,7 +7,7 @@
           <img src="../assets/league/Logo_M.png">
         </div>
 
-        <div class="plain seconde">
+        <div v-if="user.group_id==1" class="plain seconde">
           <h3>La BBBL c'est</h3>
           <ul class="hallOfFame list-unstyled">
             <li><h3>{{leagueStats.coachs}}</h3> coachs actifs,</li>
@@ -23,6 +23,8 @@
           <Button v-else :id="'Seconde'" :text="'Découvrir'" @click="goToForum()"/>
         </div>
 
+        <UpcomingGames v-if="upcomingGames.length>0" :games="upcomingGames" :level="'seconde'"/>
+
         <div class="plain seconde">
           <h3>Légendaires</h3>
           <p>Woody Roots Bush Bombers, Darkside Magic, Rats Fils Tauleurs... Ces équipes comme beaucoup d'autres ont marqué de leur empreinte la BBBL.<br/>
@@ -33,12 +35,11 @@
       </div>
 
       <div id="MidColumn" class="col-xl-6 col-lg-9">
-        <div class="col-sm quote">
+        <!--div class="col-sm quote">
             <h1>"J'ai aimé cette ligue comme je n'ai jamais aimé aucune femme..."</h1>
             <p>Coach Jahstrad, peu avant sa disparition</p>
-        </div>
-        <UpcomingGames v-if="upcomingGames.length>0" :games="upcomingGames"/>
-        <LastGames v-if="lastGames.length>0" :games="lastGames" :limit="4"/>
+        </div-->
+        <LastGames v-if="lastGames.length>0" :games="lastGames" :limit="4" :level="'prime'"/>
         <!-- Competitions -->
         <div class="plain prime zelda" title="Voir la compétition" v-for="competition in competitions" :key="competition.id" @click="$router.push({ name: 'Competition', params: { id: competition.id }})">
           <h2 v-if="competition.site_name==competition.season">{{competition.site_name}} </h2>

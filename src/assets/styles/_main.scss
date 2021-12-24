@@ -9,7 +9,9 @@ $prime-text:#EEE;
 $seconde-text:#CCC;
 $shadow: rgba(0, 0, 0, 0.90);
 $link-contrast: #000;
+$error: #C00;
 $error-85: rgba(212, 0, 0, 0.85);
+$success: #00A300;
 $main-bg: url('~@/assets/elements/autumn/Background.jpg');
 th { color:#000; }
 
@@ -22,7 +24,16 @@ th { color:#000; }
     font-family: "Akashi";
     src: url('~@/assets/styles/Akashi.ttf');
 }
-
+@media screen and (min-width: 1440px) {
+  .col-xxl-4 {
+    flex: 0 0 33.3%;
+    max-width: 33.3%;
+  }
+  .col-xxl-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
 body {
   background: transparent !important;
 }
@@ -44,7 +55,7 @@ a { font-weight: 500; cursor: pointer; }
 a:hover.button { text-decoration: none; color: $link-contrast; }
 h1 { font-family: 'Akashi';  font-size: 40px; line-height: 50px; color: $prime-text; }
 h2, h2 a { font-family: 'Akashi' !important; font-size: 30px; line-height: 1; margin:0 0 10px; color: $prime-text; }
-h3 { font-family: 'Akashi';  font-size: 24px; line-height: 1; margin:8px 0; color: $prime-text; }
+h3 { font-family: 'Akashi';  font-size: 1.4rem; line-height: 1; margin:8px 0; color: $prime-text; }
 .prime {
   h3,h5 {
     color: $prime-color;
@@ -55,7 +66,7 @@ h3 { font-family: 'Akashi';  font-size: 24px; line-height: 1; margin:8px 0; colo
     color: $seconde-color;
   }
 }
-h4 { font-family: 'Akashi';  font-size: 18px; line-height: 1; margin:2px 0; color: $prime-text; }
+h4 { font-family: 'Akashi';  font-size: 1rem; line-height: 1; margin:2px 0; color: $prime-text; }
 h5 { font-weight:300; font-family: 'Akashi'; text-align: center; }
 h6 { font-weight:700; }
 p, .vdatetime-input { font-size: 14px; line-height: 18px; text-align: justify; color:$seconde-text; display:inline-block; }
@@ -104,10 +115,10 @@ li > h3 { display:inline; }
   height: 30px;
   padding: 0 5px 0 25px;
   line-height: 30px;
-  color: $link-contrast;
+  color: $seconde-text;
   text-align: center;
   vertical-align: middle;
-  background: url('~@/assets/elements/Tab.png');
+  background:  url('~@/assets/elements/Tab.png');
 }
 .tab + .tab {
   background: url('~@/assets/elements/TabN.png');
@@ -245,8 +256,30 @@ li > h3 { display:inline; }
 .hidden {
   opacity: 0;
 }
+.scroll-padding {
+  padding-bottom: 45px;
+}
 
 /*Tables*/
 .plain table { width: 100%; color:$prime-text;  text-align: center; }
 .td-left { text-align: left; padding-left: 10px; text-align: center; }
 tbody.table-hover tr:hover { background-color:transparent; background: $link-contrast; }
+
+/*Admin and edition*/
+.editor {
+  background: #FFFFFF;
+  h2, h3, h4, p{
+    color: $link-contrast;
+    font-family: Muli;
+    font-weight: 600
+  }
+  .vc-chrome {
+    box-shadow: none;
+  }
+  .success {
+    color: $success;
+  }
+  .error {
+    color: $error;
+  }
+}
