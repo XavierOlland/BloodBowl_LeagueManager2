@@ -12,9 +12,8 @@
           :mode="'card'"
           :competition="competition"
           :coach="competition.standing[0].coach_name"
-          :team="{id:competition.standing[0].team_cyanide_id, name:competition.standing[0].team_name}"
-          :race="Number(competition.standing[0].team_race)"
-          :logo="competition.standing[0].team_logo"
+          :team="{id:competition.standing[0].team_cyanide_id, name:competition.standing[0].team_name, race:competition.standing[0].team_race, logo:competition.standing[0].team_logo}"
+
           :colours="JSON.parse(competition.standing[0].team_colors)"
         />
         <div class="plain prime">
@@ -78,7 +77,7 @@
     },
     data() {
       return {
-        isFetching: true,
+        isFetching: false,
         admin: 0,
         hasChampion: false,
         saving: false,
