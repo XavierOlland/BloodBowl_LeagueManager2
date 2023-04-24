@@ -28,7 +28,6 @@
           Tribunes vous offres aujourd'hui un accés illimité à l'Histoire de la ligue</p>
           <Button :id="'Seconde'" :text="'les Archives'" @clicked="$router.push('Archives')"/>
         </div>
-        <User/>
       </div>
 
       <div id="MidColumn" class="col-xl-6 col-lg-9">
@@ -46,7 +45,7 @@
           <StandingSingleElimination v-else :competition="competition" :roundsName="[]" :teamAccess="false"/>
           <Button :id="'Prime'" :text="'La Compétition'" @clicked="$router.push({ name: 'Competition', params: { id: competition.id }})" />
         </div>
-        <div class="card-columns">
+        <div class="card-columns" v-if="false">
           <Statistics class="card-holder" v-for="stats in leagueStats.playersStats" :key="stats.type" :statistics="stats" :limit="3" />
         </div>
       </div>
@@ -55,11 +54,9 @@
         <Champion
         :mode="'card'"
         :competition="champion.competition"
-        :coach="champion.coach_name"
+        :coach="champion.coach.id"
         :team="champion.team"
-        :race="Number(champion.team_race)"
-        :logo="champion.team_logo"
-        :colours="champion.team_colors"
+        :colours="champion.colours"
         />
 
         <UpcomingGames v-if="upcomingGames.length<=2" :games="upcomingGames" :level="'seconde'"/>
@@ -78,8 +75,7 @@ import CompetitionStanding from '../components/CompetitionStanding.vue'
 import Champion from '../components/Champion.vue'
 import Statistics from '../components/Statistics.vue'
 import Modal from '../components/Modal.vue'
-import Button from '../components/ui/Button.vue';
-import User from '../components/utilities/User.vue';
+import Button from '../components/ui/Button.vue'
 
 export default {
   name: 'Home',
@@ -91,8 +87,7 @@ export default {
     Champion,
     Statistics,
     Modal,
-    Button,
-    User
+    Button
   },
   props: {
     msg: String
@@ -125,6 +120,7 @@ export default {
   },
   methods: {
     goToPage(page) {
+      alert("Bonjour");
       this.$router.push(page);
     },
     goToForum() {

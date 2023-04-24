@@ -8,7 +8,9 @@ const instance = axios.create({
 const route = 'admin.php?action=';
 const state = {
   ingameCompetitions: [],
-  forums: []
+  forums: [],
+  activeTeams: [],
+  activeCoachs: []
 }
 
 const mutations = {
@@ -17,7 +19,13 @@ const mutations = {
   },
   setCompetitionsForums(state, payload) {
     state.forums = payload;
-  }
+  },
+  setActiveTeams(state, payload) {
+    state.activeTeams = payload;
+  },
+  setActiveCoachs(state, payload) {
+    state.activeCoachs = payload;
+  },
 }
 
 const actions = {
@@ -48,15 +56,38 @@ const actions = {
         console.error(error); // eslint-disable-line no-console
       });
   },
+  getActiveTeams(context) {
+    instance.post(route + 'getActiveTeams')
+      .then(response => {
+        context.commit('setActiveTeams', response.data);
+      }, error => {
+        console.error(error); // eslint-disable-line no-console
+      });
+  },
+  getActiveCoachs(context) {
+    instance.post(route + 'getActiveCoachs')
+      .then(response => {
+        context.commit('setActiveCoachs', response.data);
+      }, error => {
+        console.error(error); // eslint-disable-line no-console
+      });
+  },
   async addCompetition(context, params) {
     const response = await instance.post(route + 'competitionAdd', params)
-    instance.post(route + 'getIngameCompetitions')
     context.commit('setIngameCompetitions', response.data.competitions);
     return response.data
   },
   async updateForumProfiles() {
     const response = await instance.post(route + 'forumProfilesUpdate');
     return response.data;
+  },
+  async addMatchs(context, data) {
+    const response = await instance.post(route + 'matchsAdd', data)
+    return response.data
+  },
+  async addTeam(context, data) {
+    const response = await instance.post(route + 'teamAdd', data)
+    return response.data
   },
 }
 

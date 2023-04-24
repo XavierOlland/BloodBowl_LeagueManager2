@@ -25,7 +25,6 @@ const actions = {
     instance.post(route + 'match', [id])
       .then(response => {
         var match = JSON.parse(response.data.json).match;
-        console.error(match); // eslint-disable-line no-console
         context.commit('setMatch', match);
         delete response.data.json;
         context.commit('setMetadata', response.data)
@@ -35,6 +34,12 @@ const actions = {
   },
   updateMatch(context, match) {
     instance.post(route + 'matchDate', match)
+      .then(() => {
+        context.commit('setMatch', match);
+      })
+  },
+  updateMatchManual(context, match) {
+    instance.post(route + 'matchManualSave', match)
       .then(() => {
         context.commit('setMatch', match);
       })

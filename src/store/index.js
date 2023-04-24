@@ -85,7 +85,7 @@ export default new Vuex.Store({
           context.dispatch('upcomingGames');
           context.dispatch('lastGames');
         }, error => {
-          console.error(error); // eslint-disable-line no-console
+          console.error(error);
         });
     },
     async upcomingGames(context) {

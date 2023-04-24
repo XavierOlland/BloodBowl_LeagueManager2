@@ -1,13 +1,13 @@
 <template>
   <div id="Champion" class="plain prime">
-    <Helmet class="helmet" :race="race" :logo="logo" :colours="colours" />
-    <img class="logo" :src="'https://bbbl.fr/img/logos/Logo_'+logo+'.png'"/>
+    <Helmet class="helmet" :race="team.race" :logo="team.logo" :colours="team.colours" />
+    <img class="logo" :src="'https://bbbl.fr/img/logos/Logo_'+team.logo+'.png'"/>
     <div class="info" :class="{zelda:mode!='list'}" @click="goToTeam()">
       <h3 v-if="mode!='list'">CHAMPION</h3>
       <h3>{{competition.name}}</h3>
       <hr>
       <h1>{{team.name}}</h1>
-      <h5>{{race | talkingToTheGods()}}</h5>
+      <h5>{{team.race | talkingToTheGods()}}</h5>
       <hr>
       <h2>{{coach}}</h2>
     </div>
@@ -30,8 +30,6 @@
       competition: Object,
       coach: String,
       team: Object,
-      race: Number,
-      logo: String,
       colours: Array
     },
     methods: {

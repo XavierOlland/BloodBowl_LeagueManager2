@@ -2,7 +2,7 @@
   <div id="Archiver">
     <div class="plain prime">
       <h2>Passage de saison</h2>
-      <p>En passant la saison, les compétitions sont archivées. Les équipes et coachs sont rendues "inactifs". Leur participation à une nouvelle compétition les réactivera.<p/>
+      <p>En passant la saison, les compétitions sont archivées. Les équipes et coachs sont rendues "inactifs". Leur participation à une nouvelle compétition les réactivera.</p>
       <p v-if="season.length>0" class="data">Saison en cours: <br/>
         <span>{{season[0].season}}</span><br/><br/>
       Competitions:<br/>
