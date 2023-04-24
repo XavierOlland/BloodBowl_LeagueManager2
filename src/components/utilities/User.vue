@@ -2,7 +2,7 @@
   <div id="User" class="plain prime">
     <p>Utilisateur: {{user.username}}<br/>
     Groupe: {{user.group_id}}<br/>
-    ID Coach: {{user.coach.id}}</p>
+    ID Coach: {{user.coach}}</p>
   </div>
 </template>
 

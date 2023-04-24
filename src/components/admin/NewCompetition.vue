@@ -5,63 +5,55 @@
     <p>Les forums pour les journées doivent être créés avant l'ajout de la compétition.</p>
     <div>
       <form>
-      Compétition en jeu :<br/>
-        <select v-model="newCompetition.cyanide_id">
-          <option v-for="competition in ingameCompetitions" :key="competition.id" :value="competition.id">{{competition.name}}</option>
-          <option disabled>&#8212;&#8212;&#8212;&#8212;</option>
-          <option value="">Competition chapeau (sponsors)</option>
-        </select>
-        <br/>
-        Nom sur le site :<br/>
-         <input type="text" v-model="newCompetition.site_name"><br/>
+        Nom :<br/>
+         <input type="text" v-model="newCompetition.site_name">
+         <br/>
         Type de competition :<br/>
          <select v-model="newCompetition.site_order" >
           <option value="0">Competition principale</option>
           <option value="1">Tournoi annexe</option>
-        </select><br/>
-        Saison :<br/>
-         <select v-model="newCompetition.season" >
-          <option value="Hiver">Hiver</option>
-          <option value="Printemps">Printemps</option>
-          <option value="Été">Été</option>
-          <option value="Automne">Automne</option>
         </select>
         <br/>
+        Saison :<br/>
+          <select v-model="newCompetition.season" >
+            <option value="Hiver">Hiver</option>
+            <option value="Printemps">Printemps</option>
+            <option value="Été">Été</option>
+            <option value="Automne">Automne</option>
+          </select>
+          <br/>
         Partie de saison :<br/>
-         <select v-model="newCompetition.competition_mode">
-          <option value="Saison">Saison complète</option>
-          <option value="Qualification">Qualifications</option>
-          <option value="Coupe">Coupe</option>
-          <option value="Partie 1">Partie 1</option>
-          <option value="Partie 2">Partie 2</option>
-        </select><br/>
+          <select v-model="newCompetition.competition_mode">
+            <option value="Saison">Saison complète</option>
+            <option value="Qualification">Qualifications</option>
+            <option value="Coupe">Coupe</option>
+            <option value="Partie 1">Partie 1</option>
+            <option value="Partie 2">Partie 2</option>
+          </select>
+          <br/>
         Champion :<br/>
-         <select v-model="newCompetition.champion">
-          <option value="0">Non</option>
-          <option value="1">Oui</option>
-        </select><br/>
-        <span v-if="newCompetition.cyanide_id && 1==0">
-          Competition chapeau :<br/>
-           <select v-model="newCompetition.competition_id_parent">
-            <option v-for="competition in competitions" :key="competition.id" :value="competition.id">{{competition.site_name}}</option>
-          </select><br/>
-          <span v-if="newCompetition.competition_id_parent.length>0">
-            Sponsor 1 : <select v-model="newCompetition.sponsor_id_1">
-              <option v-for="sponsor in sponsors" :key="sponsor.id" :value="sponsor.id">{{sponsor.name}}</option>
-            </select><br/>
-            Sponsor 2 : <select v-model="newCompetition.sponsor_id_2">
-              <option v-for="sponsor in sponsors" :key="sponsor.id" :value="sponsor.id">{{sponsor.name}}</option>
-            </select><br/>
-            Round : <input type="number" min="1" v-model="newCompetition.round" />
-          </span>
-        </span>
+          <select v-model="newCompetition.champion">
+            <option value="0">Non</option>
+            <option value="1">Oui</option>
+          </select>
+          <br/>
+        Format :<br/>
+          <select v-model="newCompetition.format">
+            <option value="round_robin">Round robin</option>
+            <option value="single_elimination">Elimination directe</option>
+            <option value="Ladder">Ladder</option>
+            <option value="swiss">Ronde suisse</option>
+          </select>
+          <br/>
+        Nombre de journées :<br/>
+         <input type="number" v-model="newCompetition.rounds_count"><br/>
         Forum de première journée :<br/>
-        <select v-model="newCompetition.forum_id">
-          <option disabled value="">Sélectionner</option>
-          <optgroup v-for="parent in forums" :key="parent.forum_id" :label="parent.forum_name">
-            <option v-for="sub in parent.subs" :key="sub.forum_id" :value="sub.forum_id">{{sub.forum_name}}</option>
-          </optgroup>
-        </select>
+          <select v-model="newCompetition.forum_id">
+            <option disabled value="">Sélectionner</option>
+            <optgroup v-for="parent in forums" :key="parent.forum_id" :label="parent.forum_name">
+              <option v-for="sub in parent.subs" :key="sub.forum_id" :value="sub.forum_id">{{sub.forum_name}}</option>
+            </optgroup>
+          </select>
       </form>
     </div>
 
@@ -89,7 +81,7 @@
           text: ''
         },
         newCompetition: {
-          cyanide_id: 0,
+          cyanide_id: 'null',
           site_order: 0,
           league_name: 'Compétition principale',
           game_name: '',
@@ -101,7 +93,7 @@
           competition_id_parent: 'null',
           sponsor_id_1: 'null',
           sponsor_id_2: 'null',
-          round: 0,
+          rounds_count: 0,
           forum_id: ''
         }
       }
@@ -117,11 +109,7 @@
     methods: {
       addCompetition() {
         this.$emit('loader', 'Création de la compétition');
-        const metadata = this.ingameCompetitions.find(param => param.id == this.newCompetition.cyanide_id)
-        this.newCompetition.game_name = metadata.name;
-        this.newCompetition.format = metadata.format;
-        this.newCompetition.rounds_count = metadata.rounds_count;
-        this.newCompetition.rounds_count = 5;
+        this.newCompetition.game_name = this.newCompetition.site_name;
         this.$store.dispatch('admin/addCompetition', this.newCompetition ).then((response) => {
            this.message = response;
            this.$emit('loader', '');

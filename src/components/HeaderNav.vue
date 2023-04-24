@@ -10,10 +10,10 @@
           <a href="Forum">Forum</a>
         </li>
         <li  class="d-none d-sm-block">
-          <a href="steam://run/236690">Jouer</a>
+          <a href="steam://run/1016950">Jouer</a>
         </li>
         <li class="d-none d-sm-block">
-          <a  href="https://discordapp.com/channels/159656062125998080/159656062125998080" target="_blank">Discord</a>
+          <a  href="discord://" target="_blank">Discord</a>
         </li>
       </ul>
     </nav>

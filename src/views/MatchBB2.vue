@@ -8,7 +8,6 @@
           <h4>{{match.leaguename}}</h4>
           <h3 v-if="metadata.competition_name==metadata.season">{{metadata.competition_name}} </h3>
           <h3 v-else>{{metadata.season}} - {{metadata.competition_name}}</h3>
-          <h3>{{match.started| moment("D MMM HH")}}H</h3><br />
         </div>
       </div>
       <div class="col-md-3 d-flex flex-row justify-content-end tabs">
@@ -21,46 +20,75 @@
         </div>
       </div>
     </div>
-    <div v-if="metadata.team_1_score!=null" class="row no-gutters">
+    <div class="row no-gutters">
       <div class="col-md-6">
-        <Helmet class="helmet left" :race="metadata.teams[0].param_id_race" :logo="metadata.teams[0].logo" :colours="[metadata.team_1_color_1,metadata.team_1_color_2]" />
+        <Helmet class="helmet left" :race="match.teams[0].idraces" :logo="match.teams[0].teamlogo" :colours="[metadata.team_1_color_1,metadata.team_1_color_2]" />
         <div class="plain prime content noselect text-right" :style="{'border-color': metadata.team_1_color_1}">
-          <h2 class="zelda" :style="{color: metadata.team_1_color_1}" @click="$router.push({ name: 'Team', params: { id: metadata.teams[0].id }})">{{metadata.teams[0].name}}</h2>
+          <h2 class="zelda" :style="{color: metadata.team_1_color_1}" @click="$router.push({ name: 'Team', params: { id: match.teams[0].idteamlisting }})">{{match.teams[0].teamname}}</h2>
           <div class="scoreBoard">
             <div class="teamBoard">
               <h3 :style="{color: metadata.team_1_color_1}"><span>{{metadata.team_1_race | talkingToTheGods()}}</span></h3>
               <h3>coaché par <span :style="{color: metadata.team_1_color_1}">{{metadata.coach_1_name}}</span></h3>
+              <h3>TV <span :style="{color: metadata.team_1_color_1}">{{match.teams[0].value}}</span></h3>
               <h3>
-                <div v-for="index in metadata.teams[0].popularitybeforematch" :key="index" class="star" :style="{color: metadata.team_1_color_1}">&#9733;</div>
-                <span v-if="metadata.teams[0].popularitygain"> + <div class="star">&#9733;</div></span>
+                <div v-for="index in match.teams[0].popularitybeforematch" :key="index" class="star" :style="{color: metadata.team_1_color_1}">&#9733;</div>
+                <span v-if="match.teams[0].popularitygain"> + <div class="star">&#9733;</div></span>
               </h3>
-              <h3 v-if="metadata.teams[0].popularitybeforematch==0 && metadata.teams[0].popularitygain==0"><br/>
-              </h3>
-              
+              <h3 v-if="match.teams[0].popularitybeforematch==0 && match.teams[0].popularitygain==0"><br/></h3>
             </div>
-            <div v-if="metadata.team_1_score != null" class="score align-self-baseline" :style="{color: metadata.team_1_color_1}">{{metadata.team_1_score}}</div>
+            <div class="score align-self-baseline" :style="{color: metadata.team_1_color_1}">{{match.teams[0].score}}</div>
           </div>
         </div>
       </div>
-      <div v-if="metadata.team_1_score!=null" class="col-md-6">
-        <Helmet class="helmet right" :race="metadata.teams[1].param_id_race" :logo="metadata.teams[1].logo" :colours="[metadata.team_2_color_1,metadata.team_2_color_2]" />
+      <div class="col-md-6">
+        <Helmet class="helmet right" :race="match.teams[1].idraces" :logo="match.teams[1].teamlogo" :colours="[metadata.team_2_color_1,metadata.team_2_color_2]" />
         <div class="plain prime content noselect text-left" :style="{'border-color': metadata.team_2_color_1}">
-          <h2 class="zelda" :style="{color: metadata.team_2_color_1}" @click="$router.push({ name: 'Team', params: { id: metadata.teams[1].id }})">{{metadata.teams[1].name}}</h2>
+          <h2 class="zelda" :style="{color: metadata.team_2_color_1}" @click="$router.push({ name: 'Team', params: { id: match.teams[1].idteamlisting }})">{{match.teams[1].teamname}}</h2>
           <div class="scoreBoard">
-            <div v-if="metadata.team_1_score != null" class="score align-self-baseline" :style="{color: metadata.team_2_color_1}">{{metadata.team_2_score}}</div>
+            <div class="score align-self-baseline" :style="{color: metadata.team_2_color_1}">{{match.teams[1].score}}</div>
             <div class="teamBoard">
-              <h3 :style="{color: metadata.team_2_color_1}"><span>{{metadata.teams[1].param_id_race | talkingToTheGods()}}</span></h3>
-              <h3>coachés par <span :style="{color: metadata.team_2_color_1}">{{metadata.coaches[1].coachname}}</span></h3>
+              <h3 :style="{color: metadata.team_2_color_1}"><span>{{match.teams[1].idraces | talkingToTheGods()}}</span></h3>
+              <h3>coachés par <span :style="{color: metadata.team_2_color_1}">{{match.coaches[1].coachname}}</span></h3>
+              <h3>TV <span :style="{color: metadata.team_2_color_1}">{{match.teams[1].value}}</span></h3>
               <h3>
-                <div v-for="index in metadata.teams[1].popularitybeforematch" :key="index" class="star" :style="{color: metadata.team_2_color_1}">&#9733;</div>
-                <span v-if="metadata.teams[1].popularitygain"> + <div class="star">&#9733;</div></span>
+                <div v-for="index in match.teams[1].popularitybeforematch" :key="index" class="star" :style="{color: metadata.team_2_color_1}">&#9733;</div>
+                <span v-if="match.teams[1].popularitygain"> + <div class="star">&#9733;</div></span>
               </h3>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div v-if="metadata.team_1_score != null" class="row no-gutters ">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <MatchTeamStats :colours="[metadata.team_1_color_1]" :team="match.teams[0]"/>
+      </div>
+      <div class="col-md-4 d-none d-md-block" style="{background:rgba(68,68,68,0.9)}">
+        <div class="plain seconde text-center stadium" :style="{ background: `url(${stadiumImage})` , backgroundSize: 'cover'}">
+          <h3>{{match.started| moment("D MMM HH")}}H</h3><br />
+          <h4>Stade</h4>
+          <h3>{{metadata.stadium}}</h3><br />
+          <h4>Supporters</h4>
+          <h3>{{match.teams[0].nbsupporters+match.teams[1].nbsupporters}}</h3><br />
+        </div>
+        <div class="d-xxl-none plain conf seconde">
+          <p>Assistez à la conférence de presse des coachs et venez commenter sur le forum.</p>
+          <Button :id="'Seconde'" :text="'Forum'" @clicked="viewForum()" />
+        </div>
+      </div>
+      <div class="col-md-4">
+        <MatchTeamStats :colours="[metadata.team_2_color_1]" :team="match.teams[1]"/>
+      </div>
+    </div>
+    <div class="row no-gutters">
+      <div class=" d-none d-xxl-block col-xl-6">
+        <PlayersStats :id="match.teams[0].idteamlisting.toString()" :colours="[metadata.team_1_color_1]" :roster="match.teams[0].roster" :modal="false" :display="true"/>
+      </div>
+      <div class=" d-none d-xxl-block col-xl-6">
+        <PlayersStats :id="match.teams[1].idteamlisting.toString()" :colours="[metadata.team_2_color_1]" :roster="match.teams[1].roster" :modal="false" :display="true"/>
+      </div>
+    </div>
+    <div class="row no-gutters ">
       <div class="col-md-4"></div>
       <div class="col-md-4 d-none d-xxl-block" style="{background:rgba(68,68,68,0.9)}">
         <div class="plain conf seconde">
@@ -70,39 +98,14 @@
       </div>
       <div class="col-md-4"></div>
     </div>
-    <div v-if="metadata.team_1_score==null && (user.coach.id==metadata.coach_id_1 || user.coach.id==metadata.coach_id_2 || admin==1)" class="plain prime">
-    <h2>Saisie des résultats</h2>
-    <form class="row no-gutter">
-      <div class="col-5">
-        <h3>{{metadata.team_1_name}} {{ metadata.team_1_score }}</h3>
-        <p>
-          Touchdowns: <br/><input type="number" v-model="match.score_1"/><br/>
-          Blessures infligées: <br/><input type="number" v-model="match.sustainedcasualties_2"/><br/>
-          Blessures subies: <br/><input type="number" v-model="match.sustainedinjuries_1"/><br/>
-          Morts subies: <br/><input type="number" v-model="match.sustaineddead_1"/><br/>
-        </p>
-      </div>
-      <div class="col-5">
-        <h3>{{metadata.team_2_name}}</h3>
-        <p>
-          Touchdowns: <br/><input type="number" v-model="match.score_2"/><br/>
-          Blessures infligées: <br/><input type="number" v-model="match.sustainedcasualties_1"/><br/>
-          Blessures subies: <br/><input type="number" v-model="match.sustainedinjuries_2"/><br/>
-          Morts subies: <br/><input type="number" v-model="match.sustaineddead_2"/><br/>
-        </p>
-      </div>
-    </form>
-    <Button :id="'Prime'" :text="'Enregistrer'" @clicked="matchManualSave()" />
-
-    </div>
     <Button :id="'Back'" :type="'back'" @clicked="$router.go(-1)"/>
-
   </div>
 </template>
 
 <script>
   const moment = require('moment'); // eslint-disable-line
-
+  import MatchTeamStats from '../components/match/TeamStats.vue';
+  import PlayersStats from '../components/match/PlayersStats.vue';
   import Helmet from '../components/ui/Helmet.vue';
   import Button from '../components/ui/Button.vue';
   import Loader from '../components/ui/Loader.vue';
@@ -110,7 +113,8 @@
   export default {
     name: 'Match',
     components: {
-
+      MatchTeamStats,
+      PlayersStats,
       Helmet,
       Button,
       Loader
@@ -137,7 +141,7 @@
         return this.$store.state.match;
       },
       stadiumImage() {
-        return require('../assets/stadiums/Human.png')
+        return require('../assets/stadiums/'+ this.match.stadium + '.png')
       }
     },
     mounted() {
@@ -149,11 +153,6 @@
       },
       viewForum() {
         window.open( this.metadata.forum_url, "_blank" )
-      },
-      async matchManualSave(){
-       await this.$store.dispatch('match/updateMatchManual', this.match).then(() => {
-        this.$router.go();
-       });
       }
     },
     watch: {
@@ -225,30 +224,6 @@
     .helmet {
       width:175px;
       height:175px;
-    }
-  }
-  .stats {
-    column-count: 1;
-    span {
-      font-weight: 700;
-    }
-  }
-  @media screen and (min-width: 1820px) {
-    .stats {
-
-      column-count: 2;
-    }
-  }
-  .background {
-    position: absolute;
-    top: 10%;
-    left: 25%;
-    height: 80%;
-    width: 50%;
-    img {
-      width: auto;
-      height: 100%;
-      opacity: 0.15;
     }
   }
 </style>

@@ -45,7 +45,7 @@
           <StandingSingleElimination v-else :competition="competition" :roundsName="[]" :teamAccess="false"/>
           <Button :id="'Prime'" :text="'La Compétition'" @clicked="$router.push({ name: 'Competition', params: { id: competition.id }})" />
         </div>
-        <div class="card-columns">
+        <div class="card-columns" v-if="false">
           <Statistics class="card-holder" v-for="stats in leagueStats.playersStats" :key="stats.type" :statistics="stats" :limit="3" />
         </div>
       </div>
@@ -54,7 +54,7 @@
         <Champion
         :mode="'card'"
         :competition="champion.competition"
-        :coach="champion.coach[1]"
+        :coach="champion.coach.id"
         :team="champion.team"
         :colours="champion.colours"
         />
@@ -75,7 +75,7 @@ import CompetitionStanding from '../components/CompetitionStanding.vue'
 import Champion from '../components/Champion.vue'
 import Statistics from '../components/Statistics.vue'
 import Modal from '../components/Modal.vue'
-import Button from '../components/ui/Button.vue';
+import Button from '../components/ui/Button.vue'
 
 export default {
   name: 'Home',

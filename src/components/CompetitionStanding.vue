@@ -19,7 +19,7 @@
         </tr>
       </thead>
       <tbody :class="{'table-hover': details==true}">
-        <tr v-for="team in competition.standing.slice(0,limit)" :key="team.id" :class="['standing-' + team.rank, {zelda: teamAccess!=0 }]" @click="goToTeam(team.team_cyanide_id)">
+        <tr v-for="team in competition.standing.slice(0,limit)" :key="team.id" :class="['standing-' + team.rank, {zelda: teamAccess!=0 }]" @click="goToTeam(team.team_id)">
           <td>{{team.rank}}</td>
           <td class="text-left"><img :src="'https://bbbl.fr/img/logos/Logo_'+team.team_logo+'.png'"> {{team.team_name}}</td>
           <td class="text-left d-none d-md-table-cell" >{{team.team_race | talkingToTheGods()}}</td>

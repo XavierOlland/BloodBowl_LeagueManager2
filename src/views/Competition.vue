@@ -38,7 +38,7 @@
           <h3 v-else-if="competition.format == 'ladder'">Rencontres</h3>
           <h3 v-else>Journée {{day.round}}</h3>
           <div v-for="match in orderBy(day.matchs,'started',-1)" :key="match.id" :title="match.name_1 + ' VS ' + match.name_2" class="vs d-inline-flex col-md-6 col-xl-4">
-            <MatchPreview :match="match" :round="day.round" :coach_id="user.coach.cyanide_id" :archived="!competition.active"/>
+            <MatchPreview :match="match" :round="day.round" :coach_id="user.coach.id" :archived="!competition.active"/>
           </div>
         </div>
       </div>
@@ -106,7 +106,7 @@
     methods: {
       async competitionUpdate() {
         this.saving = true;
-        var params = [this.competition.game_name, this.competition.id, this.competition.format, this.competition.matchday, this.currentRound.matchsToSave ];
+        var params = [this.competition.id, this.competition.format, this.competition.matchday];
         await this.$store.dispatch('competition/updateCompetition',params).then(() => {
           this.saving = false;
         });

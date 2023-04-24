@@ -37,6 +37,12 @@ const actions = {
       .then(() => {
         context.commit('setMatch', match);
       })
+  },
+  updateMatchManual(context, match) {
+    instance.post(route + 'matchManualSave', match)
+      .then(() => {
+        context.commit('setMatch', match);
+      })
   }
 }
 

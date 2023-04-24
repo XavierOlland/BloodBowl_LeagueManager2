@@ -2,7 +2,7 @@
   <div id="Forum">
     <div class="plain prime">
     <h2>Mise à jour du forum</h2>
-    <p>Affectation des équipes, couleurs et casques.<br/><p/>
+    <p>Affectation des équipes, couleurs et casques.<br/></p>
     <p v-if="message.type" :class="message.type">{{message.text}}</p>
     <Button :id="'UpdateForum'" :text="'Mise à jour'" @clicked="updateForum" />
   </div>

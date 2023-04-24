@@ -7,6 +7,7 @@ import Competition from './views/Competition.vue'
 import Match from './views/Match.vue'
 import Team from './views/Team.vue'
 import ForumMatch from './views/forum/Match.vue'
+import ForumMatchBB3 from './views/forum/MatchBB3.vue'
 import ForumRound from './views/forum/Round.vue'
 
 Vue.use(Router)
@@ -49,6 +50,11 @@ export default new Router({
 			path: '/forum/match/:id',
 			name: 'ForumMatch',
 			component: ForumMatch,
+		},
+		{
+			path: '/forum/matchBB3/:id',
+			name: 'ForumMatchBB3',
+			component: ForumMatchBB3,
 		},
 		{
 			path: '/forum/round/:id',

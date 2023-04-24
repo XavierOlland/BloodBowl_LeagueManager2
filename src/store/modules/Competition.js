@@ -45,7 +45,8 @@ const actions = {
       });
   },
   async updateCompetition(context, params) {
-    return instance.post(route + 'competitionUpdate', params)
+    console.log(params);
+    return instance.post(route + 'competitionUpdateManual', params)
       .then(response => {
         context.commit('setCompetition', response.data);
       }, error => {
@@ -70,3 +71,12 @@ export default {
   mutations,
   actions
 }
+
+
+
+import races from "../assets/races"
+function getRace(id) {
+  races.filter(obj => {
+    return obj.id === id  
+  })
+};

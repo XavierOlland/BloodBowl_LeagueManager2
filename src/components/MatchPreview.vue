@@ -2,15 +2,15 @@
   <div id="MatchPreview" @click="matchDetails" class="match text-center" :class="{ zelda: match.cyanide_id }">
     <div>
       <img :src="'https://bbbl.fr/img/logos/Logo_' + match.logo_1 + '.png'">
-      <img class="versus" v-if="match.cyanide_id == null" src="../assets/elements/vs.png">
+      <img class="versus" v-if="match.score_1 == null" src="../assets/elements/vs.png">
       <span class="score" v-else > <span :class="{'winner': match.score_1 >match.score_2 }">{{match.score_1}}</span> - <span :class="{'winner': match.score_1 < match.score_2 }">{{match.score_2}}</span> </span>
       <img :src="'https://bbbl.fr/img/logos/Logo_' + match.logo_2 + '.png'">
     </div>
     <hr />
     <div>
       <p v-if="archived">{{match.started | moment("add", "500 years","D MMM YYYY")}}</p>
-      <p v-else-if="match.started">{{match.started | moment("add", "2 hours","D MMM HH:mm")}}</p>
-      <datetime v-else-if="(!match.cyanide_id && (coach_id==match.coach_id_1 || coach_id==match.coach_id_2 || admin==1))"
+      <p v-else-if="match.started" @click="matchDetails">{{match.started | moment("add", "2 hours","D MMM HH:mm")}}</p>
+      <datetime v-else-if="(!match.started && (coach_id==match.coach_id_1 || coach_id==match.coach_id_2))"
         v-on:close="setMatchDate()"
         v-model="match.started"
         placeholder="Planifier"
@@ -47,11 +47,10 @@
         if(this.match.started){
           await this.$store.dispatch('match/updateMatch', this.match);
           this.match.started = moment(this.match.started).subtract(2, 'hours');
-          console.log(this.match.started);
         }
       },
       matchDetails() {
-        if (this.match.cyanide_id && this.match.cyanide_id.toString().indexOf('BB1')==-1) {
+        if (this.match.started) {
           //Match is played : show match
           this.$router.push({ name: 'Match', params: { id:this.match.id } })
         }
